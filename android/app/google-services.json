@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "727064989381",
+    "project_id": "godroad-118fe",
+    "storage_bucket": "godroad-118fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727064989381:android:40c879687370f4b5fb2aac",
+        "android_client_info": {
+          "package_name": "com.example.godroad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727064989381-gihidnbpov3un98sltvui2oudlfdhcff.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxxglqYRw3mrd-2P9nvhPQiqyd3ve74zQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727064989381-gihidnbpov3un98sltvui2oudlfdhcff.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "727064989381-2t285p8ras4lq920ir849o5e0sg8kn73.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.godroad"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
