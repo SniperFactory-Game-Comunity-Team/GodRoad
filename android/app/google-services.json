@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "727064989381-ipgul8fk4ktl7u7e2ff4hcv4h5cqmta4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.godroad",
+            "certificate_hash": "02399534f632be1aabc1272daf2cc83ece4e1cab"
+          }
+        },
+        {
+          "client_id": "727064989381-tmtqbs47ue6hkcc28ekl40f8dmm42rio.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.godroad",
+            "certificate_hash": "20e873e09e4d9eac9a0b9930142ae3f5d6bdd679"
+          }
+        },
+        {
           "client_id": "727064989381-gihidnbpov3un98sltvui2oudlfdhcff.apps.googleusercontent.com",
           "client_type": 3
         }
