@@ -74,21 +74,6 @@ class AuthController extends GetxController {
     }
   }
 
-  setProfile(String nickname) async {
-    await FirebaseFirestore.instance
-        .collection('user')
-        .doc(user!.uid)
-        .set({
-      'id': user!.uid,
-      'nickname': nickname,
-      'myClass': '브론즈',
-      'email': _user.value!.email,
-      'experience': 0,
-      'createdAt': Timestamp.now()
-    });
-    Get.toNamed(AppRoute.main);
-  }
-
   @override
   void onInit() {
     super.onInit();
