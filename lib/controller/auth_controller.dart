@@ -3,24 +3,36 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/login_controller.dart';
-import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/controller/signup_controller.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/page/my_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
+  Rxn<Profile> _userProfile = Rxn<Profile>();
   var instance = FirebaseAuth.instance;
   final Rxn<User> _user = Rxn<User>();
-
+  Profile? get userProfile => _userProfile.value;
   User? get user => _user.value;
+
+  userDelete() async {
+    await user?.delete();
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(_user.value!.uid)
+        .withConverter(
+          fromFirestore: (snapshot, _) => Profile.fromMap(snapshot.data()!),
+          toFirestore: (data, _) => data.toMap(),
+        )
+        .delete();
+  }
 
   signOut() async {
     await instance.signOut();
     await GoogleSignIn().signOut();
     Get.find<LoginController>().formKey = GlobalKey<FormState>();
     Get.find<SignUpController>().formKey = GlobalKey<FormState>();
-    Get.find<ProfileController>().formKey = GlobalKey<FormState>();
   }
 
   signUp(String email, String pw) {
@@ -67,6 +79,7 @@ class AuthController extends GetxController {
           toFirestore: (data, _) => data.toMap(),
         )
         .get();
+    _userProfile(profile.data());
     if (profile.data() != null && profile.data()!.nickname != null) {
       Get.toNamed(AppRoute.main);
     } else {
