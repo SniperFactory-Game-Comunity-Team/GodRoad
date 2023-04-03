@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
@@ -16,6 +15,7 @@ class ProfilePage extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Form(
       key: controller.formKey,
+      onChanged: controller.uniqueNicknameCheck,
       child: Scaffold(
         body: Center(
           child: Column(
@@ -68,21 +68,36 @@ class ProfilePage extends GetView<ProfileController> {
                       ))
                 ]),
               ),
-              CustomTextField(
-                controller: controller.nameController,
-                textValidator: controller.nicknameCheck,
-                textHint: '닉네임을 입력해주세요',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomTextField(
+                    controller: controller.nameController,
+                    textValidator: controller.nicknameCheck,
+                    textHint: '닉네임을 입력해주세요',
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Obx(() => controller.isUniqueName.value
+                        ? const Text(
+                            '사용가능한 닉네임입니다',
+                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                          )
+                        : controller.nameController.text != ''
+                            ? const Text(
+                                '중복된 닉네임입니다.',
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 12),
+                              )
+                            : const SizedBox()),
+                  ),
+                ],
               ),
-              TextButton(
-                  onPressed: () {
-                    controller.uniqueNicknameCheck();
-                  },
-                  child: Text('닉네임 중복 검사')),
               Obx(
                 () => CustomButton(
                     text: '시작하기',
                     onPressedFunction: () {
-                      controller.start();
+                      controller.setProfile();
                     },
                     isEnabled: controller.isUniqueName.value),
               )
