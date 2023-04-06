@@ -6,7 +6,6 @@ import 'package:godroad/controller/login_controller.dart';
 import 'package:godroad/controller/signup_controller.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/page/my_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {

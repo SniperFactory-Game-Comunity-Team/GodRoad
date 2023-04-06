@@ -5,11 +5,13 @@ class Profile {
   String id;
   String? nickname;
   String email;
+  String? profileUrl;
   //createAt
   Profile({
     required this.id,
     this.nickname,
     required this.email,
+    this.profileUrl,
   });
 
   Map<String, dynamic> toMap() {
@@ -17,6 +19,7 @@ class Profile {
       'id': id,
       'nickname': nickname,
       'email': email,
+      'profileUrl': profileUrl,
     };
   }
 
@@ -25,6 +28,7 @@ class Profile {
       id: map['id'] as String,
       nickname: map['nickname'] != null ? map['nickname'] as String : null,
       email: map['email'] as String,
+      profileUrl: map['profileUrl'] != null ? map['profileUrl'] as String : null,
     );
   }
 

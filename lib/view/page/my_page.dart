@@ -28,8 +28,8 @@ class MyPage extends GetView<ProfileController> {
                 Obx(
                   () => CircleAvatar(
                       radius: 80,
-                      backgroundImage: controller.profileUrl.value != ''
-                          ? NetworkImage(controller.profileUrl.value)
+                      backgroundImage: controller.auth.userProfile!.profileUrl != ''
+                          ? NetworkImage(controller.auth.userProfile!.profileUrl.toString())
                           : null),
                 ),
                 const SizedBox(

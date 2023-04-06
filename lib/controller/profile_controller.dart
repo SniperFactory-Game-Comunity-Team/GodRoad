@@ -39,6 +39,7 @@ class ProfileController extends GetxController {
       'id': auth.user!.uid,
       'nickname': nameController.text,
       'email': auth.user!.email,
+      'profileUrl' : profileUrl.value
       //'createdAt': Timestamp.now()
     });
     Get.toNamed(AppRoute.main);
