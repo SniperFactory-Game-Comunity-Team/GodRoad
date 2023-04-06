@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:godroad/model/challenge.dart';
 
 class RealTimeTile extends StatelessWidget {
-  const RealTimeTile(
-      {super.key,
-      required this.imgUrl,
-      required this.title,
-      required this.content,
-      required this.date,
-      required this.keyword,
-      required this.favorite,
-      required this.memberNum});
-  final String imgUrl;
-  final String title;
-  final String content;
-  final String date;
-  final String keyword;
-  final int favorite;
-  final String memberNum;
+  const RealTimeTile({
+    super.key,
+    required this.challenge,
+  });
+  final Challenge challenge;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +20,10 @@ class RealTimeTile extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
-                child: Image(image: NetworkImage(imgUrl))),
+                child: Image(
+                    image: NetworkImage(challenge.mainPicture != ''
+                        ? challenge.mainPicture
+                        : 'https://picsum/photos/100/100'))),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
               child: SizedBox(
@@ -42,7 +35,7 @@ class RealTimeTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          title,
+                          challenge.title,
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Container(
@@ -63,7 +56,7 @@ class RealTimeTile extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      content,
+                      challenge.content,
                       style: TextStyle(fontSize: 12),
                     ),
                     SizedBox(
@@ -72,9 +65,15 @@ class RealTimeTile extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Text(
-                          keyword,
-                          style: TextStyle(fontSize: 12),
+                        Wrap(
+                          children: challenge.keyword
+                              .map((e) => GestureDetector(
+                                    onTap: () {},
+                                    child: Chip(
+                                      label: Text(e),
+                                    ),
+                                  ))
+                              .toList(),
                         ),
                         SizedBox(
                           width: 10,
@@ -84,7 +83,7 @@ class RealTimeTile extends StatelessWidget {
                           size: 15,
                         ),
                         Text(
-                          memberNum,
+                          '0/4',
                           style: TextStyle(fontSize: 12),
                         ),
                         SizedBox(
@@ -94,7 +93,7 @@ class RealTimeTile extends StatelessWidget {
                           Icons.star,
                           size: 15,
                         ),
-                        Text(favorite.toString())
+                        Text('123')
                       ],
                     )
                   ],
