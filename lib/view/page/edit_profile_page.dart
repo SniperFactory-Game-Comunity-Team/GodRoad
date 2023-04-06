@@ -102,7 +102,10 @@ class EditProfilePage extends GetView<ProfileController> {
                   onPressedFunction: () {
                     Get.dialog(CustomDialog(
                       content: '프로필을\n 수정하시겠습니까?',
-                      btnOk: () {controller.setProfile();},
+                      btnOk: () {
+                        controller.setProfile();
+                        controller.auth.getProfile();
+                      },
                     ));
                   },
                   isEnabled: controller.isUniqueName.value),

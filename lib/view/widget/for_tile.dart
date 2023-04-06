@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:godroad/model/challenge.dart';
 
 class ForTile extends StatelessWidget {
-  const ForTile(
-      {super.key,
-      required this.imageUrl,
-      required this.title,
-      required this.keyWord});
-  final String imageUrl;
-  final String title;
-  final String keyWord;
+  const ForTile({
+    super.key,
+    required this.challenge,
+  });
+  final Challenge challenge;
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +16,22 @@ class ForTile extends StatelessWidget {
           color: Colors.grey.shade300,
           child: ListTile(
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(imageUrl),
+              backgroundImage: NetworkImage(challenge.mainPicture),
             ),
             title: Text(
-              title,
+              challenge.title,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(
-              keyWord,
-              style: TextStyle(fontSize: 12),
+            subtitle: Wrap(
+              children: challenge.keyword
+                  .map((e) => GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          e,
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ))
+                  .toList(),
             ),
             trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.grey),

@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         Get.put(AuthController());
         Get.put(LoginController());
         Get.put(SignUpController());
-        Get.lazyPut(() => ProfileController());
+        Get.lazyPut(() => ProfileController(), fenix: true);
         Get.lazyPut(() => MainController(), fenix: true);
         Get.lazyPut(() => ChallengeUploadController(), fenix: true);
       }),

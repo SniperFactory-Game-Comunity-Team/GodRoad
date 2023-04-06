@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
-import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/routes.dart';
-
-import 'challenge_screen.dart';
-import 'outside_activity_screen.dart';
+import 'package:godroad/view/page/screen/challenge_screen.dart';
+import 'package:godroad/view/page/screen/outside_activity_screen.dart';
 
 class MainPage extends GetView<MainController> {
   const MainPage({super.key});
@@ -14,9 +11,6 @@ class MainPage extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    final page = [ChallengeScreen(), OutsideActivityScreen()];
-    RxInt selectedIndex = 0.obs;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -112,68 +106,47 @@ class MainPage extends GetView<MainController> {
                     ),
                   ],
                 ),
-                FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
-                  future: controller.readChallenge(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.connectionState == ConnectionState.done) {
-                      return Obx(
-                        () => ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      TextButton(
-                                          onPressed: () {
-                                            selectedIndex.value = 0;
-                                          },
-                                          child: Text(
-                                            '챌린지',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          )),
-                                      SizedBox(
-                                        width: 110,
-                                      ),
-                                      TextButton(
-                                          onPressed: () {
-                                            selectedIndex.value = 1;
-                                          },
-                                          child: Text('대외활동',
-                                              style: TextStyle(
-                                                  color: Colors.black))),
-                                    ],
-                                  ),
-                                  Stack(children: [
-                                    Container(
-                                      width: 340,
-                                      height: 5,
-                                      color: Colors.grey.shade300,
-                                    ),
-                                    Obx(() => Positioned(
-                                          left: selectedIndex == 0 ? 0 : 170,
-                                          child: Container(
-                                            width: 170,
-                                            height: 5,
-                                            color: Colors.grey,
-                                          ),
-                                        ))
-                                  ]),
-                                  Obx(() => page[selectedIndex.value])
-                                ],
-                              );
-                            }),
-                      );
-                    }
-                    return const SizedBox();
-                  },
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          controller.selectedIndex.value = 0;
+                        },
+                        child: const Text(
+                          '챌린지',
+                          style: TextStyle(color: Colors.black),
+                        )),
+                    const SizedBox(
+                      width: 110,
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          controller.selectedIndex.value = 1;
+                        },
+                        child: const Text('대외활동',
+                            style: TextStyle(color: Colors.black))),
+                  ],
                 ),
+                Stack(children: [
+                  Container(
+                    width: 340,
+                    height: 5,
+                    color: Colors.grey.shade300,
+                  ),
+                  Obx(() => Positioned(
+                        left: controller.selectedIndex == 0 ? 0 : 170,
+                        child: Container(
+                          width: 170,
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                      ))
+                ]),
+                Obx(() => [
+                      const ChallengeScreen(),
+                      const OutsideActivityScreen()
+                    ][controller.selectedIndex.value]),
               ],
             ),
           ),

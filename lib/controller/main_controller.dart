@@ -8,6 +8,7 @@ class MainController extends GetxController {
   var auth = Get.find<AuthController>();
   RxList<QueryDocumentSnapshot<Challenge>> challengeList =
       RxList<QueryDocumentSnapshot<Challenge>>();
+  RxInt selectedIndex = 0.obs;
 
   readProfile() async {
     var profileData = await FirebaseFirestore.instance
