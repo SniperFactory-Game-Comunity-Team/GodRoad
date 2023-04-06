@@ -4,6 +4,8 @@ import 'package:godroad/view/page/challenge_upload_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
 import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/view/page/main_page.dart';
+import 'package:godroad/view/page/main_pageview_page.dart';
+import 'package:godroad/view/page/permission_page.dart';
 import 'package:godroad/view/page/edit_profile_page.dart';
 import 'package:godroad/view/page/my_page.dart';
 import 'package:godroad/view/page/profile_page.dart';
@@ -16,8 +18,12 @@ class AppPages {
     GetPage(name: AppRoute.loginDetail, page: () => const LoginDetailPage()),
     GetPage(name: AppRoute.signup, page: () => const SignupPage()),
     GetPage(name: AppRoute.profile, page: () => const ProfilePage()),
+    GetPage(name: AppRoute.pageivew, page: () => const MainPageViewPage()),
+    GetPage(name: AppRoute.permission, page: () => const PermissionPage()),
     GetPage(name: AppRoute.my, page: () => const MyPage()),
     GetPage(name: AppRoute.editProfile, page: () => const EditProfilePage()),
-    GetPage(name: AppRoute.challengeUpload, page: () => const ChallengeUploadPage()),
+    GetPage(
+        name: AppRoute.challengeUpload,
+        page: () => const ChallengeUploadPage()),
   ];
 }
