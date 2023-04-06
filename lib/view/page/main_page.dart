@@ -15,7 +15,6 @@ class MainPage extends GetView<MainController> {
         children: [
           const Text('메인 페이지'),
           TextButton(onPressed: controller.auth.signOut, child: Text('로그아웃')),
-         
         ],
       )),
     );
