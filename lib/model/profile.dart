@@ -4,25 +4,22 @@ import 'dart:convert';
 class Profile {
   String id;
   String? nickname;
-  String myClass;
-  int experience;
   String email;
-  //뱃지
+  String? profileUrl;
+  //createAt
   Profile({
     required this.id,
     this.nickname,
-    required this.myClass,
-    required this.experience,
     required this.email,
+    this.profileUrl,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
       'nickname': nickname,
-      'myClass': myClass,
-      'experience': experience,
       'email': email,
+      'profileUrl': profileUrl,
     };
   }
 
@@ -30,9 +27,8 @@ class Profile {
     return Profile(
       id: map['id'] as String,
       nickname: map['nickname'] != null ? map['nickname'] as String : null,
-      myClass: map['myClass'] as String,
-      experience: map['experience'] as int,
       email: map['email'] as String,
+      profileUrl: map['profileUrl'] != null ? map['profileUrl'] as String : null,
     );
   }
 
