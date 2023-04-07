@@ -13,13 +13,14 @@ class ProfileController extends GetxController {
   var auth = Get.find<AuthController>();
   RxString profileUrl = ''.obs;
   RxBool isUniqueName = false.obs;
+  RxInt selectedIndex = 0.obs;
 
   Future<bool> isDuplicateUniqueName(String nickname) async {
     QuerySnapshot query = await FirebaseFirestore.instance
         .collection('user')
         .where('nickname', isEqualTo: nickname)
         .get();
-    if(auth.userProfile != null && auth.userProfile!.nickname == nickname){
+    if (auth.userProfile != null && auth.userProfile!.nickname == nickname) {
       return false;
     }
     return query.docs.isNotEmpty;
@@ -39,7 +40,7 @@ class ProfileController extends GetxController {
       'id': auth.user!.uid,
       'nickname': nameController.text,
       'email': auth.user!.email,
-      'profileUrl' : profileUrl.value
+      'profileUrl': profileUrl.value
       //'createdAt': Timestamp.now()
     });
     Get.toNamed(AppRoute.main);
