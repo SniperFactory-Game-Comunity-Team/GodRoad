@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:godroad/view/widget/challenge_list_tile.dart';
+import 'package:godroad/view/widget/my_page_challenge_list_tile.dart';
 
 class InCompleteChallengeScreen extends StatelessWidget {
   const InCompleteChallengeScreen({super.key});
@@ -11,7 +11,7 @@ class InCompleteChallengeScreen extends StatelessWidget {
       child: ListView.separated(
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return ChallengeListTile(
+            return MyPageChallengeListTile(
               buttontext: '기록보기',
             );
           },
