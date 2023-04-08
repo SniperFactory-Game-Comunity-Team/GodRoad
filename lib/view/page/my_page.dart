@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
 
 class MyPage extends GetView<ProfileController> {
@@ -77,17 +75,19 @@ class MyPage extends GetView<ProfileController> {
               height: 30,
             ),
             TextButton(
-                onPressed: () {
-                  controller.userKeywordUpdate();
-                },
-                child: const Text(
-                  '관심 키워드 변경',
-                  Get.toNamed(AppRoute.endchallenge);
-                },
-                child: const Text(
-                  '종료된 챌린지',
-                  style: TextStyle(color: Colors.black),
-                )),
+              onPressed: () {
+                controller.userKeywordUpdate();
+              },
+              child: const Text(
+                '관심 키워드 변경',
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed(AppRoute.endchallenge);
+              },
+              child: Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
+            ),
             TextButton(
                 onPressed: () {
                   Get.toNamed(AppRoute.attending);
