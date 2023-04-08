@@ -35,6 +35,7 @@ class AppPages {
     GetPage(
         name: AppRoute.keywordUpdate, page: () => const KeywordUpdatePage()),
     GetPage(name: AppRoute.calendar, page: () => const CalendarPage()),
+    GetPage(
         name: AppRoute.attending, page: () => const AttendingChallengePage()),
     GetPage(name: AppRoute.endchallenge, page: () => const EndChallengePage()),
     GetPage(
