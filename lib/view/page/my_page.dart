@@ -82,6 +82,18 @@ class MyPage extends GetView<ProfileController> {
                 },
                 child: const Text(
                   '관심 키워드 변경',
+                  Get.toNamed(AppRoute.endchallenge);
+                },
+                child: const Text(
+                  '종료된 챌린지',
+                  style: TextStyle(color: Colors.black),
+                )),
+            TextButton(
+                onPressed: () {
+                  Get.toNamed(AppRoute.attending);
+                },
+                child: const Text(
+                  '참여중인 챌린지',
                   style: TextStyle(color: Colors.black),
                 )),
             TextButton(

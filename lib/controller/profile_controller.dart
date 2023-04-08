@@ -16,6 +16,8 @@ class ProfileController extends GetxController {
   RxBool isUniqueName = false.obs;
   RxMap isSelected = {}.obs;
   List<String> keywords = [];
+  RxInt selectedIndex = 0.obs;
+
 
   Future<bool> isDuplicateUniqueName(String nickname) async {
     QuerySnapshot query = await FirebaseFirestore.instance

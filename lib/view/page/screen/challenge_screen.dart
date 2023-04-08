@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/keyword.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/for_tile.dart';
 import 'package:godroad/view/widget/real_time_tile.dart';
 
@@ -25,7 +26,9 @@ class ChallengeScreen extends GetView<MainController> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoute.realtimechallengelist);
+                },
                 child: const Text('모두보기'),
               )
             ],
