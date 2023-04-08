@@ -25,6 +25,8 @@ class AuthController extends GetxController {
           toFirestore: (data, _) => data.toMap(),
         )
         .delete();
+    Get.find<LoginController>().formKey = GlobalKey<FormState>();
+    Get.find<SignUpController>().formKey = GlobalKey<FormState>();
   }
 
   signOut() async {
