@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:godroad/view/widget/challenge_list_tile.dart';
+import 'package:godroad/view/widget/main_page_challenge_list_tile.dart';
 
 class AttendingChallengePage extends StatelessWidget {
   const AttendingChallengePage({super.key});
@@ -15,7 +15,7 @@ class AttendingChallengePage extends StatelessWidget {
         ),
         body: ListView.separated(
             itemBuilder: (context, index) {
-              return ChallengeListTile(
+              return MainPageChallengeListTile(
                 buttontext: '인증하기',
               );
             },
