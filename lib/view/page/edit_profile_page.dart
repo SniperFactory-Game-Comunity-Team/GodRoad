@@ -14,8 +14,6 @@ class EditProfilePage extends GetView<ProfileController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.nameController.text = controller.auth.userProfile!.nickname!;
-    controller.isUniqueName(true);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -55,7 +53,9 @@ class EditProfilePage extends GetView<ProfileController> {
                       radius: 80,
                       backgroundImage: controller.profileUrl.value != ''
                           ? NetworkImage(controller.profileUrl.value)
-                          : null),
+                          : controller.auth.userProfile!.profileUrl != ''
+                              ? NetworkImage(controller.auth.userProfile!.profileUrl!)
+                              : null),
                 ),
                 const Positioned(
                     right: 10,
@@ -71,10 +71,10 @@ class EditProfilePage extends GetView<ProfileController> {
                     ))
               ]),
             ),
-            const Text('닉네임'),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text('닉네임'),
                 TextField(
                   onChanged: (value) => controller.uniqueNicknameCheck(),
                   controller: controller.nameController,
@@ -103,7 +103,7 @@ class EditProfilePage extends GetView<ProfileController> {
                     Get.dialog(CustomDialog(
                       content: '프로필을\n 수정하시겠습니까?',
                       btnOk: () {
-                        controller.setProfile();
+                        controller.updateProfile();
                         controller.auth.getProfile();
                       },
                     ));

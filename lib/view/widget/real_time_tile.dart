@@ -20,7 +20,7 @@ class RealTimeTile extends StatelessWidget {
               child: Image(
                 image: NetworkImage(challenge.mainPicture != ''
                     ? challenge.mainPicture
-                    : 'https://picsum/photos/100/100'),
+                    : 'https://picsum.photos/100/100'),
                 width: 100,
                 height: 100,
               )),
@@ -46,9 +46,9 @@ class RealTimeTile extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.grey,
                               borderRadius: BorderRadius.circular(16)),
-                          child: const Text(
-                            'D-15',
-                            style: TextStyle(color: Colors.white),
+                          child:  Text(
+                            'D-${challenge.applyEndDay.day - DateTime.now().day}',
+                            style: const TextStyle(color: Colors.white),
                             textAlign: TextAlign.center,
                           ),
                         )

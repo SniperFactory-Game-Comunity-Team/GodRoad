@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/challenge_upload_controller.dart';
 import 'package:godroad/util/keyword.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_button.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
@@ -90,7 +91,9 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
                       hintStyle: TextStyle(fontSize: 12)),
                 ),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(AppRoute.calendar);
+                  },
                   icon: const FaIcon(FontAwesomeIcons.calendar),
                 )),
             const Text('활동 소개'),
@@ -156,7 +159,9 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
                 ),
               ),
             ),
-            const Text('인증 내용'),
+            const SizedBox(
+              height: 8,
+            ),
             TextField(
               onChanged: (value) => controller.checkUpload(),
               minLines: 10,
@@ -172,7 +177,6 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
             const SizedBox(
               height: 8,
             ),
-            //기간 설정
             const Text('챌린지 키워드 설정'),
             Wrap(
               children: Keyword.keywords

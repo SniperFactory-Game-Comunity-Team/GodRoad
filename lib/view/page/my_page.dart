@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
 
 class MyPage extends GetView<ProfileController> {
@@ -16,6 +17,12 @@ class MyPage extends GetView<ProfileController> {
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Get.toNamed(AppRoute.main);
+          },
+          icon: const Icon(Icons.navigate_before),
+        ),
       ),
       body: SafeArea(
           child: Padding(
@@ -51,7 +58,7 @@ class MyPage extends GetView<ProfileController> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.toNamed(AppRoute.editProfile);
+                        controller.startEditProfile();
                       },
                       style: TextButton.styleFrom(
                         minimumSize: Size.zero,
@@ -71,6 +78,10 @@ class MyPage extends GetView<ProfileController> {
             ),
             TextButton(
                 onPressed: () {
+                  controller.userKeywordUpdate();
+                },
+                child: const Text(
+                  '관심 키워드 변경',
                   Get.toNamed(AppRoute.endchallenge);
                 },
                 child: const Text(
