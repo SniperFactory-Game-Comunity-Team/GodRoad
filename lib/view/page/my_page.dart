@@ -28,9 +28,12 @@ class MyPage extends GetView<ProfileController> {
                 Obx(
                   () => CircleAvatar(
                       radius: 80,
-                      backgroundImage: controller.auth.userProfile!.profileUrl != ''
-                          ? NetworkImage(controller.auth.userProfile!.profileUrl.toString())
-                          : null),
+                      backgroundImage:
+                          controller.auth.userProfile!.profileUrl != ''
+                              ? NetworkImage(controller
+                                  .auth.userProfile!.profileUrl
+                                  .toString())
+                              : null),
                 ),
                 const SizedBox(
                   width: 18,
@@ -67,6 +70,22 @@ class MyPage extends GetView<ProfileController> {
               height: 30,
             ),
             TextButton(
+                onPressed: () {
+                  Get.toNamed(AppRoute.endchallenge);
+                },
+                child: const Text(
+                  '종료된 챌린지',
+                  style: TextStyle(color: Colors.black),
+                )),
+            TextButton(
+                onPressed: () {
+                  Get.toNamed(AppRoute.attending);
+                },
+                child: const Text(
+                  '참여중인 챌린지',
+                  style: TextStyle(color: Colors.black),
+                )),
+            TextButton(
                 onPressed: () {},
                 child: const Text(
                   '이용약관',
@@ -84,7 +103,7 @@ class MyPage extends GetView<ProfileController> {
                   style: TextStyle(color: Colors.black),
                 )),
             TextButton(
-                 onPressed: () {
+                onPressed: () {
                   Get.dialog(CustomDialog(
                     content: '계정 탈퇴\n 하시겠습니까?',
                     btnOk: controller.auth.userDelete,
