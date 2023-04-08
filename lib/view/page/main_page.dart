@@ -52,102 +52,111 @@ class MainPage extends GetView<MainController> {
           physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(35.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${controller.auth.userProfile!.nickname}님, 반가워요!',
-                  style: const TextStyle(fontSize: 20.0),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '지금 올라온',
-                          style: TextStyle(fontSize: 23.0),
-                        ),
-                        Row(
-                          children: const [
-                            Text(
-                              '챌린지',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 23.0,
+            child: FutureBuilder(
+              future: controller.auth.getProfile(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${controller.auth.userProfile!.nickname}님, 반가워요!',
+                        style: const TextStyle(fontSize: 20.0),
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                '지금 올라온',
+                                style: TextStyle(fontSize: 23.0),
                               ),
-                            ),
-                            Text(
-                              '를',
-                              style: TextStyle(fontSize: 23.0),
-                            ),
-                          ],
-                        ),
-                        const Text(
-                          '살펴볼까요??',
-                          style: TextStyle(fontSize: 23.0),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 60,
-                    ),
-                    Obx(
-                      () => CircleAvatar(
-                          radius: 50,
-                          backgroundImage:
-                              controller.auth.userProfile!.profileUrl != ''
-                                  ? NetworkImage(controller
-                                      .auth.userProfile!.profileUrl
-                                      .toString())
-                                  : null),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          controller.selectedIndex.value = 0;
-                        },
-                        child: const Text(
-                          '챌린지',
-                          style: TextStyle(color: Colors.black),
-                        )),
-                    const SizedBox(
-                      width: 110,
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          controller.selectedIndex.value = 1;
-                        },
-                        child: const Text('대외활동',
-                            style: TextStyle(color: Colors.black))),
-                  ],
-                ),
-                Stack(children: [
-                  Container(
-                    width: 340,
-                    height: 5,
-                    color: Colors.grey.shade300,
-                  ),
-                  Obx(() => Positioned(
-                        left: controller.selectedIndex == 0 ? 0 : 170,
-                        child: Container(
-                          width: 170,
+                              Row(
+                                children: const [
+                                  Text(
+                                    '챌린지',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 23.0,
+                                    ),
+                                  ),
+                                  Text(
+                                    '를',
+                                    style: TextStyle(fontSize: 23.0),
+                                  ),
+                                ],
+                              ),
+                              const Text(
+                                '살펴볼까요??',
+                                style: TextStyle(fontSize: 23.0),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 60,
+                          ),
+                          Obx(
+                            () => CircleAvatar(
+                                radius: 50,
+                                backgroundImage:
+                                    controller.auth.userProfile!.profileUrl !=
+                                            ''
+                                        ? NetworkImage(controller
+                                            .auth.userProfile!.profileUrl
+                                            .toString())
+                                        : null),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                controller.selectedIndex.value = 0;
+                              },
+                              child: const Text(
+                                '챌린지',
+                                style: TextStyle(color: Colors.black),
+                              )),
+                          const SizedBox(
+                            width: 110,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                controller.selectedIndex.value = 1;
+                              },
+                              child: const Text('대외활동',
+                                  style: TextStyle(color: Colors.black))),
+                        ],
+                      ),
+                      Stack(children: [
+                        Container(
+                          width: 340,
                           height: 5,
-                          color: Colors.grey,
+                          color: Colors.grey.shade300,
                         ),
-                      ))
-                ]),
-                Obx(() => [
-                      const ChallengeScreen(),
-                      const OutsideActivityScreen()
-                    ][controller.selectedIndex.value]),
-              ],
+                        Obx(() => Positioned(
+                              left: controller.selectedIndex == 0 ? 0 : 170,
+                              child: Container(
+                                width: 170,
+                                height: 5,
+                                color: Colors.grey,
+                              ),
+                            ))
+                      ]),
+                      Obx(() => [
+                            const ChallengeScreen(),
+                            const OutsideActivityScreen()
+                          ][controller.selectedIndex.value]),
+                    ],
+                  );
+                }
+                return SizedBox();
+              },
             ),
           ),
         ),

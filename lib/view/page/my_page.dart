@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
 
 class MyPage extends GetView<ProfileController> {
@@ -16,6 +17,12 @@ class MyPage extends GetView<ProfileController> {
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
+        leading: IconButton(
+          onPressed: () {
+            Get.toNamed(AppRoute.main);
+          },
+          icon: const Icon(Icons.navigate_before),
+        ),
       ),
       body: SafeArea(
           child: Padding(
@@ -28,9 +35,12 @@ class MyPage extends GetView<ProfileController> {
                 Obx(
                   () => CircleAvatar(
                       radius: 80,
-                      backgroundImage: controller.auth.userProfile!.profileUrl != ''
-                          ? NetworkImage(controller.auth.userProfile!.profileUrl.toString())
-                          : null),
+                      backgroundImage:
+                          controller.auth.userProfile!.profileUrl != ''
+                              ? NetworkImage(controller
+                                  .auth.userProfile!.profileUrl
+                                  .toString())
+                              : null),
                 ),
                 const SizedBox(
                   width: 18,
@@ -48,7 +58,7 @@ class MyPage extends GetView<ProfileController> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Get.toNamed(AppRoute.editProfile);
+                        controller.startEditProfile();
                       },
                       style: TextButton.styleFrom(
                         minimumSize: Size.zero,
@@ -67,6 +77,14 @@ class MyPage extends GetView<ProfileController> {
               height: 30,
             ),
             TextButton(
+                onPressed: () {
+                  controller.userKeywordUpdate();
+                },
+                child: const Text(
+                  '관심 키워드 변경',
+                  style: TextStyle(color: Colors.black),
+                )),
+            TextButton(
                 onPressed: () {},
                 child: const Text(
                   '이용약관',
@@ -84,7 +102,7 @@ class MyPage extends GetView<ProfileController> {
                   style: TextStyle(color: Colors.black),
                 )),
             TextButton(
-                 onPressed: () {
+                onPressed: () {
                   Get.dialog(CustomDialog(
                     content: '계정 탈퇴\n 하시겠습니까?',
                     btnOk: controller.auth.userDelete,

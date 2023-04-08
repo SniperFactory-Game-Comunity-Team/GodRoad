@@ -11,9 +11,12 @@ class Challenge {
   String testimonyPicture;
   String testimonyContent;
   List keyword;
-  //DateTime createAt
-  //DateTime startDay;
-  //DateTime dDay;
+  int bookmark;
+  DateTime createAt;
+  DateTime applyStartDay;
+  DateTime applyEndDay;
+  DateTime? startDay;
+  DateTime? endDay;
 
   Challenge({
     required this.id,
@@ -25,6 +28,12 @@ class Challenge {
     required this.testimonyPicture,
     required this.testimonyContent,
     required this.keyword,
+    required this.bookmark,
+    required this.createAt,
+    required this.applyStartDay,
+    required this.applyEndDay,
+    this.startDay,
+    this.endDay,
   });
 
   Map<String, dynamic> toMap() {
@@ -38,22 +47,42 @@ class Challenge {
       'testimonyPicture': testimonyPicture,
       'testimonyContent': testimonyContent,
       'keyword': keyword,
+      'bookmark': bookmark,
+      'createAt': createAt.millisecondsSinceEpoch,
+      'applyStartDay': applyStartDay.millisecondsSinceEpoch,
+      'applyEndDay': applyEndDay.millisecondsSinceEpoch,
+      'startDay': startDay?.millisecondsSinceEpoch,
+      'endDay': endDay?.millisecondsSinceEpoch,
     };
   }
 
   factory Challenge.fromMap(Map<String, dynamic> map) {
     return Challenge(
-        id: map['id'] as String,
-        userId: map['userId'] as String,
-        title: map['title'] as String,
-        subtitle: map['subtitle'] as String,
-        content: map['content'] as String,
-        mainPicture: map['mainPicture'] as String,
-        testimonyPicture: map['testimonyPicture'] as String,
-        testimonyContent: map['testimonyContent'] as String,
-        keyword: List.from(
-          (map['keyword'] as List),
-        ));
+      id: map['id'] as String,
+      userId: map['userId'] as String,
+      title: map['title'] as String,
+      subtitle: map['subtitle'] as String,
+      content: map['content'] as String,
+      mainPicture: map['mainPicture'] as String,
+      testimonyPicture: map['testimonyPicture'] as String,
+      testimonyContent: map['testimonyContent'] as String,
+      keyword: List.from((map['keyword'] as List)),
+      bookmark: map['bookmark'] as int,
+      createAt: DateTime.fromMillisecondsSinceEpoch(
+          map['createAt'].microsecondsSinceEpoch),
+      applyStartDay: DateTime.fromMillisecondsSinceEpoch(
+          map['applyStartDay'].microsecondsSinceEpoch),
+      applyEndDay: DateTime.fromMillisecondsSinceEpoch(
+          map['applyEndDay'].microsecondsSinceEpoch),
+      startDay: map['startDay'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              map['startDay'].microsecondsSinceEpoch)
+          : null,
+      endDay: map['endDay'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(
+              map['endDay'].microsecondsSinceEpoch)
+          : null,
+    );
   }
 
   String toJson() => json.encode(toMap());

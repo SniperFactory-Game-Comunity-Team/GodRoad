@@ -16,7 +16,9 @@ class ForTile extends StatelessWidget {
           color: Colors.grey.shade300,
           child: ListTile(
             leading: CircleAvatar(
-              backgroundImage: NetworkImage(challenge.mainPicture),
+              backgroundImage: NetworkImage(challenge.mainPicture != ''
+                  ? challenge.mainPicture
+                  : 'https://picsum.photos/100/100'),
             ),
             title: Text(
               challenge.title,

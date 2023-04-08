@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_button.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
@@ -70,9 +71,7 @@ class ProfilePage extends GetView<ProfileController> {
                 TextField(
                   onChanged: (value) => controller.uniqueNicknameCheck(),
                   controller: controller.nameController,
-                  decoration: const InputDecoration(
-                    hintText: '닉네임을 입력해주세요'
-                  ),
+                  decoration: const InputDecoration(hintText: '닉네임을 입력해주세요'),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -84,8 +83,7 @@ class ProfilePage extends GetView<ProfileController> {
                       : controller.nameController.text != ''
                           ? const Text(
                               '중복된 닉네임입니다.',
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 12),
+                              style: TextStyle(color: Colors.red, fontSize: 12),
                             )
                           : const SizedBox()),
                 ),
@@ -96,6 +94,7 @@ class ProfilePage extends GetView<ProfileController> {
                   text: '시작하기',
                   onPressedFunction: () {
                     controller.setProfile();
+                    Get.toNamed(AppRoute.keywordSelect);
                   },
                   isEnabled: controller.isUniqueName.value),
             )

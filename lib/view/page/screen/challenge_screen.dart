@@ -67,9 +67,26 @@ class ChallengeScreen extends GetView<MainController> {
           ),
         ),
         SizedBox(
+              height: 50,
+              child: Obx(()=>
+                ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children: controller.auth.userProfile!.keyword
+                      .map((e) => GestureDetector(
+                            onTap: () {},
+                            child: Chip(
+                              label: Text(e),
+                            ),
+                          ))
+                      .toList(),
+                ),
+              ),
+            ),
+        SizedBox(
           height: 200,
           child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
-              future: controller.readChallenge(),
+              future: controller.readMyChallenge(),
               builder: (context, snapshot) {
                 if (snapshot.hasData &&
                     snapshot.connectionState == ConnectionState.done) {

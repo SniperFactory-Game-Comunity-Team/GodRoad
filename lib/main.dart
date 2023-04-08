@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
+import 'package:godroad/controller/calendar_controller.dart';
 import 'package:godroad/controller/challenge_upload_controller.dart';
 import 'package:godroad/controller/login_controller.dart';
 import 'package:godroad/controller/main_controller.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => ProfileController(), fenix: true);
         Get.lazyPut(() => MainController(), fenix: true);
         Get.lazyPut(() => ChallengeUploadController(), fenix: true);
+        Get.lazyPut(() => CalendarController(), fenix: true);
       }),
       getPages: AppPages.pages,
       initialRoute: AppRoute.login,

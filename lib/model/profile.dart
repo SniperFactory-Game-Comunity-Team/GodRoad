@@ -6,12 +6,14 @@ class Profile {
   String? nickname;
   String email;
   String? profileUrl;
+  List keyword;
   //createAt
   Profile({
     required this.id,
     this.nickname,
     required this.email,
     this.profileUrl,
+    required this.keyword,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class Profile {
       'nickname': nickname,
       'email': email,
       'profileUrl': profileUrl,
+      'keyword': keyword,
     };
   }
 
@@ -28,11 +31,16 @@ class Profile {
       id: map['id'] as String,
       nickname: map['nickname'] != null ? map['nickname'] as String : null,
       email: map['email'] as String,
-      profileUrl: map['profileUrl'] != null ? map['profileUrl'] as String : null,
+      profileUrl:
+          map['profileUrl'] != null ? map['profileUrl'] as String : null,
+      keyword: List.from(
+        (map['keyword'] as List),
+      ),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Profile.fromJson(String source) => Profile.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Profile.fromJson(String source) =>
+      Profile.fromMap(json.decode(source) as Map<String, dynamic>);
 }

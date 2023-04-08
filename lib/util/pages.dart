@@ -1,6 +1,9 @@
 import 'package:get/get.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/page/calendar_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
+import 'package:godroad/view/page/keyword_select_page.dart';
+import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
 import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/view/page/main_page.dart';
@@ -23,5 +26,10 @@ class AppPages {
     GetPage(
         name: AppRoute.challengeUpload,
         page: () => const ChallengeUploadPage()),
+    GetPage(
+        name: AppRoute.keywordSelect, page: () => const KeywordSelectPage()),
+    GetPage(
+        name: AppRoute.keywordUpdate, page: () => const KeywordUpdatePage()),
+    GetPage(name: AppRoute.calendar, page: () => const CalendarPage()),
   ];
 }
