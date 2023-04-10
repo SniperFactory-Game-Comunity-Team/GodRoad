@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:godroad/util/routes.dart';
 
 class ForTile extends StatelessWidget {
   const ForTile({
@@ -37,7 +39,9 @@ class ForTile extends StatelessWidget {
             ),
             trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.grey),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoute.challengedetail);
+                },
                 child: Text('참여하기')),
           )),
     );
