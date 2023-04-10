@@ -1,5 +1,5 @@
-
 import 'package:godroad/view/page/calendar_page.dart';
+import 'package:godroad/view/page/challenge_detail_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
 import 'package:godroad/view/page/keyword_select_page.dart';
 import 'package:godroad/view/page/keyword_update_page.dart';
@@ -32,4 +32,5 @@ class AppRoute {
   static final attending = AttendingChallengePage.route;
   static final endchallenge = EndChallengePage.route;
   static final realtimechallengelist = RealTimeChallengeListPage.route;
+  static final challengedetail = ChallengeDetailPage.route;
 }

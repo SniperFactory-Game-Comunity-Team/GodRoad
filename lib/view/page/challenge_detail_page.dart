@@ -8,6 +8,7 @@ import 'package:godroad/view/page/screen/challenge_%20certification_screen.dart'
 
 class ChallengeDetailPage extends GetView<MainController> {
   const ChallengeDetailPage({super.key});
+  static String route = "/challengedetail";
 
   @override
   Widget build(BuildContext context) {
