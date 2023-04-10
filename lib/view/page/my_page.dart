@@ -82,11 +82,17 @@ class MyPage extends GetView<ProfileController> {
                 '관심 키워드 변경',
               ),
             ),
+             TextButton(
+              onPressed: () {
+                Get.toNamed(AppRoute.createdChallenge);
+              },
+              child: const Text('업로드한 챌린지', style: TextStyle(color: Colors.black)),
+            ),
             TextButton(
               onPressed: () {
                 Get.toNamed(AppRoute.endchallenge);
               },
-              child: Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
+              child: const Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
             ),
             TextButton(
                 onPressed: () {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:godroad/model/challenge.dart';
 import 'package:godroad/view/widget/custom_button.dart';
 
 class MainPageChallengeListTile extends StatelessWidget {
-  const MainPageChallengeListTile({super.key, required this.buttontext});
+  const MainPageChallengeListTile(
+      {super.key, required this.buttontext, required this.challenge});
   final String buttontext;
-
+  final Challenge challenge;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,7 +15,10 @@ class MainPageChallengeListTile extends StatelessWidget {
         height: 130,
         child: Row(
           children: [
-            Image(image: NetworkImage('https://picsum.photos/100/100')),
+            Image(
+                image: NetworkImage(challenge.mainPicture != ''
+                    ? challenge.mainPicture
+                    : 'https://picsum.photos/100/100')),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -24,23 +29,23 @@ class MainPageChallengeListTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        '대학생 서포터즈 모집',
-                        style: TextStyle(
+                        challenge.title,
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15),
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.bookmark,
                             color: Colors.grey,
                           ),
-                          Text('12'),
-                          SizedBox(
+                          Text(challenge.bookmark.toString()),
+                          const SizedBox(
                             width: 20,
                           ),
                           Text(
-                            'D-12',
-                            style: TextStyle(color: Colors.greenAccent),
+                            '챌린지 마감 D-${challenge.endDay!.day - DateTime.now().day}',
+                            style: const TextStyle(color: Colors.greenAccent),
                           ),
                         ],
                       )
@@ -68,24 +73,16 @@ class MainPageChallengeListTile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: const [
-                          Chip(
-                              label: Text(
-                            '#음악',
-                            style: TextStyle(fontSize: 8),
-                          )),
-                          Chip(
-                              label: Text(
-                            '#취미',
-                            style: TextStyle(fontSize: 8),
-                          )),
-                          Chip(
-                              label: Text(
-                            '#모집완료',
-                            style: TextStyle(fontSize: 8),
-                          )),
-                        ],
+                      Wrap(
+                        children: challenge.keyword
+                            .map((e) => GestureDetector(
+                                  onTap: () {},
+                                  child: Text(
+                                    e,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ))
+                            .toList(),
                       ),
                       CustomButton(
                           text: buttontext,

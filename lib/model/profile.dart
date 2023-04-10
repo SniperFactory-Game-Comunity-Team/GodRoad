@@ -6,15 +6,20 @@ class Profile {
   String? nickname;
   String email;
   String? profileUrl;
+  List myBookmark;
+  List myChallenge;
   List keyword;
-  //createAt
   Profile({
     required this.id,
     this.nickname,
     required this.email,
     this.profileUrl,
+    required this.myBookmark,
+    required this.myChallenge,
     required this.keyword,
   });
+  //createAt
+
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -22,6 +27,8 @@ class Profile {
       'nickname': nickname,
       'email': email,
       'profileUrl': profileUrl,
+      'myBookmark': myBookmark,
+      'myChallenge': myChallenge,
       'keyword': keyword,
     };
   }
@@ -31,16 +38,14 @@ class Profile {
       id: map['id'] as String,
       nickname: map['nickname'] != null ? map['nickname'] as String : null,
       email: map['email'] as String,
-      profileUrl:
-          map['profileUrl'] != null ? map['profileUrl'] as String : null,
-      keyword: List.from(
-        (map['keyword'] as List),
-      ),
+      profileUrl: map['profileUrl'] != null ? map['profileUrl'] as String : null,
+      myBookmark: List.from((map['myBookmark'] as List)),
+      myChallenge: List.from((map['myChallenge'] as List)),
+      keyword: List.from((map['keyword'] as List)),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Profile.fromJson(String source) =>
-      Profile.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Profile.fromJson(String source) => Profile.fromMap(json.decode(source) as Map<String, dynamic>);
 }

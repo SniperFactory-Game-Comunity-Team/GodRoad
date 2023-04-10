@@ -140,7 +140,7 @@ class MainPage extends GetView<MainController> {
                           color: Colors.grey.shade300,
                         ),
                         Obx(() => Positioned(
-                              left: controller.selectedIndex == 0 ? 0 : 170,
+                              left: controller.selectedIndex.value == 0 ? 0 : 170,
                               child: Container(
                                 width: 170,
                                 height: 5,
@@ -148,6 +148,24 @@ class MainPage extends GetView<MainController> {
                               ),
                             ))
                       ]),
+                      TextField(
+                        onSubmitted: (value) =>
+                            Get.toNamed(AppRoute.searchChallenge),
+                        controller: controller.searchcontroller,
+                        decoration: InputDecoration(
+                          hintText: 'search..',
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                Get.toNamed(AppRoute.searchChallenge);
+                              },
+                              icon: const Icon(Icons.search)),
+                          enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 0.5)),
+                        ),
+                      ),
                       Obx(() => [
                             const ChallengeScreen(),
                             const OutsideActivityScreen()

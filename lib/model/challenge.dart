@@ -11,6 +11,8 @@ class Challenge {
   String testimonyPicture;
   String testimonyContent;
   List keyword;
+  List participationUserId;
+  int authenticationCount;
   int bookmark;
   DateTime createAt;
   DateTime applyStartDay;
@@ -28,6 +30,8 @@ class Challenge {
     required this.testimonyPicture,
     required this.testimonyContent,
     required this.keyword,
+    required this.participationUserId,
+    required this.authenticationCount,
     required this.bookmark,
     required this.createAt,
     required this.applyStartDay,
@@ -67,7 +71,9 @@ class Challenge {
       testimonyPicture: map['testimonyPicture'] as String,
       testimonyContent: map['testimonyContent'] as String,
       keyword: List.from((map['keyword'] as List)),
+      participationUserId: List.from((map['participationUserId'] as List)),
       bookmark: map['bookmark'] as int,
+      authenticationCount: map['authenticationCount'] as int,
       createAt: DateTime.fromMillisecondsSinceEpoch(
           map['createAt'].microsecondsSinceEpoch),
       applyStartDay: DateTime.fromMillisecondsSinceEpoch(
