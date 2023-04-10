@@ -33,6 +33,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
               ],
             ),
+            TextButton(onPressed: controller.auth.signOut, child: Text('로그아웃')),
             SizedBox(
               height: Get.width * 0.5,
             ),

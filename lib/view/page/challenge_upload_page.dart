@@ -104,10 +104,8 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
               controller: controller.contentController,
               decoration: const InputDecoration(
                   hintText: '챌린지를 소개해주세요',
-                  filled: true,
-                  fillColor: Colors.black12,
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 0))),
+                      borderSide: BorderSide(color: Colors.black, width: 0.5))),
             ),
             const Text('인증 방법'),
             Container(
@@ -169,13 +167,34 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
               controller: controller.testimonyContentController,
               decoration: const InputDecoration(
                   hintText: '인증 예시를 입력해주세요',
-                  filled: true,
-                  fillColor: Colors.black12,
                   enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 0))),
+                      borderSide: BorderSide(color: Colors.black, width: 0.5))),
             ),
             const SizedBox(
               height: 8,
+            ),
+            Row(
+              children: [
+                const Text(
+                  "인증 횟수",
+                  textAlign: TextAlign.left,
+                ),
+                SizedBox(
+                  width: 50,
+                  height: 35,
+                  child: TextFormField(
+                    controller: controller.countController,
+                    decoration: const InputDecoration(
+                      hintText: '0',
+                      border: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.black, width: 0.5)),
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ),
+              ],
             ),
             const Text('챌린지 키워드 설정'),
             Wrap(

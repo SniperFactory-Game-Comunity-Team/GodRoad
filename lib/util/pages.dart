@@ -2,10 +2,10 @@ import 'package:get/get.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/calendar_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
+import 'package:godroad/view/page/created_challenge_page.dart';
 import 'package:godroad/view/page/keyword_select_page.dart';
 import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/page/attending_challenge_page.dart';
-import 'package:godroad/view/page/challenge_upload_page.dart';
 import 'package:godroad/view/page/end_challenge_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
 import 'package:godroad/view/page/login_page.dart';
@@ -15,6 +15,7 @@ import 'package:godroad/view/page/edit_profile_page.dart';
 import 'package:godroad/view/page/my_page.dart';
 import 'package:godroad/view/page/profile_page.dart';
 import 'package:godroad/view/page/real_tile_challenge_list_page.dart';
+import 'package:godroad/view/page/search_challenge_page.dart';
 import 'package:godroad/view/page/signup_page.dart';
 
 class AppPages {
@@ -35,10 +36,17 @@ class AppPages {
     GetPage(
         name: AppRoute.keywordUpdate, page: () => const KeywordUpdatePage()),
     GetPage(name: AppRoute.calendar, page: () => const CalendarPage()),
+    GetPage(
         name: AppRoute.attending, page: () => const AttendingChallengePage()),
     GetPage(name: AppRoute.endchallenge, page: () => const EndChallengePage()),
     GetPage(
         name: AppRoute.realtimechallengelist,
-        page: () => const RealTimeChallengeListPage())
+        page: () => const RealTimeChallengeListPage()),
+    GetPage(
+        name: AppRoute.searchChallenge,
+        page: () => const SearchChallengePage()),
+    GetPage(
+        name: AppRoute.createdChallenge,
+        page: () => const CreatedChallengePage())
   ];
 }
