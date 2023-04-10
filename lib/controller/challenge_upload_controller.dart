@@ -51,6 +51,8 @@ class ChallengeUploadController extends GetxController {
       Get.snackbar('업로드 실패', '챌린지 기간을 설정해주세요');
     } else if (tPicture.value == '') {
       Get.snackbar('업로드 실패', '인증 사진 예시를 올려주세요');
+      } else if (countController.text == '') {
+      Get.snackbar('업로드 실패', '인증 횟수를 정해주세요');
     } else {
       saveId++;
       if (prefs != null) {

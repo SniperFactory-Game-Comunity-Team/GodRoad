@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/calendar_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
+import 'package:godroad/view/page/created_challenge_page.dart';
 import 'package:godroad/view/page/keyword_select_page.dart';
 import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/page/attending_challenge_page.dart';
@@ -43,6 +44,9 @@ class AppPages {
         page: () => const RealTimeChallengeListPage()),
     GetPage(
         name: AppRoute.searchChallenge,
-        page: () => const SearchChallengePage())
+        page: () => const SearchChallengePage()),
+    GetPage(
+        name: AppRoute.createdChallenge,
+        page: () => const CreatedChallengePage())
   ];
 }

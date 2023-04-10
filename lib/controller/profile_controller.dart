@@ -115,7 +115,7 @@ class ProfileController extends GetxController {
   }
 
   //내가 만든 챌린지 읽어오기
-  Future<RxList<QueryDocumentSnapshot<Challenge>>>
+  Future<RxList<QueryDocumentSnapshot<Challenge>>?>
       readCreatedChallenge() async {
     var challenge = await FirebaseFirestore.instance
         .collection('challenge')
@@ -126,12 +126,11 @@ class ProfileController extends GetxController {
         .where('userId', isEqualTo: auth.user!.uid)
         .get();
     createdChallenge(challenge.docs);
-    print(createdChallenge);
-    return createdChallenge;
+    return createdChallenge.isNotEmpty ? createdChallenge : null;
   }
 
   //내가 참여중인 챌린지 - 작동 확인 필요
-  Future<RxList<Challenge>> readmyChallenge() async {
+  Future<RxList<Challenge>?> readmyChallenge() async {
     for (var myChall in auth.userProfile!.myChallenge) {
       var challenge = await FirebaseFirestore.instance
           .collection('challenge')
@@ -143,7 +142,6 @@ class ProfileController extends GetxController {
           .get();
       myChallenge.add(challenge.data() as Challenge);
     }
-    print(myChallenge);
-    return myChallenge;
+    return myChallenge.isNotEmpty ?  myChallenge : null;
   }
 }
