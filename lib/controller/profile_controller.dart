@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
+import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,7 +18,10 @@ class ProfileController extends GetxController {
   RxMap isSelected = {}.obs;
   List<String> keywords = [];
   RxInt selectedIndex = 0.obs;
-
+  RxList<QueryDocumentSnapshot<Challenge>> createdChallenge =
+      RxList<QueryDocumentSnapshot<Challenge>>();
+  RxList<Challenge> myChallenge =
+      RxList<Challenge>();
 
   Future<bool> isDuplicateUniqueName(String nickname) async {
     QuerySnapshot query = await FirebaseFirestore.instance
@@ -45,6 +49,8 @@ class ProfileController extends GetxController {
       'nickname': nameController.text,
       'email': auth.user!.email,
       'profileUrl': profileUrl.value,
+      'myBookmark': [],
+      'myChallenge': [],
       'keyword': []
       //'createdAt': Timestamp.now()
     });
@@ -106,5 +112,38 @@ class ProfileController extends GetxController {
         keywords = keywords.toSet().toList();
       }
     }
+  }
+
+  //내가 만든 챌린지 읽어오기
+  Future<RxList<QueryDocumentSnapshot<Challenge>>>
+      readCreatedChallenge() async {
+    var challenge = await FirebaseFirestore.instance
+        .collection('challenge')
+        .withConverter(
+          fromFirestore: (snapshot, _) => Challenge.fromMap(snapshot.data()!),
+          toFirestore: (data, _) => data.toMap(),
+        )
+        .where('userId', isEqualTo: auth.user!.uid)
+        .get();
+    createdChallenge(challenge.docs);
+    print(createdChallenge);
+    return createdChallenge;
+  }
+
+  //내가 참여중인 챌린지 - 작동 확인 필요
+  Future<RxList<Challenge>> readmyChallenge() async {
+    for (var myChall in auth.userProfile!.myChallenge) {
+      var challenge = await FirebaseFirestore.instance
+          .collection('challenge')
+          .withConverter(
+            fromFirestore: (snapshot, _) => Challenge.fromMap(snapshot.data()!),
+            toFirestore: (data, _) => data.toMap(),
+          )
+          .doc(myChall.toString())
+          .get();
+      myChallenge.add(challenge.data() as Challenge);
+    }
+    print(myChallenge);
+    return myChallenge;
   }
 }

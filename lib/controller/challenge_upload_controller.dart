@@ -19,6 +19,7 @@ class ChallengeUploadController extends GetxController {
   var subtitleController = TextEditingController();
   var contentController = TextEditingController();
   var testimonyContentController = TextEditingController();
+  var countController = TextEditingController();
   SharedPreferences? prefs;
   int saveId = 0;
   RxString mPicture = ''.obs;
@@ -26,6 +27,7 @@ class ChallengeUploadController extends GetxController {
   RxMap isSelected = {}.obs;
   RxBool isUpload = false.obs;
   List<String> keywords = [];
+  RxInt authenticationCount = 0.obs;
 
   checkUpload() => (contentController.text != '' &&
           titleController.text != '' &&
@@ -65,6 +67,8 @@ class ChallengeUploadController extends GetxController {
         'testimonyPicture': tPicture.value,
         'testimonyContent': testimonyContentController.text,
         'keyword': keywords,
+        'participationUserId' : [],
+        'authenticationCount': int.parse(countController.text),
         'bookmark': 0,
         'createAt': Timestamp.now(),
         'applyStartDay': calendar.applyStartDay.value,
@@ -82,7 +86,7 @@ class ChallengeUploadController extends GetxController {
     var picker = ImagePicker();
     var res = await picker.pickImage(source: source);
     if (res != null) {
-    Get.back();
+      Get.back();
       var ref = FirebaseStorage.instance.ref('mainPicture/${auth.user!.uid}');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
@@ -94,7 +98,7 @@ class ChallengeUploadController extends GetxController {
   testimonyPictureUpload(ImageSource source) async {
     var res = await picker.pickImage(source: source);
     if (res != null) {
-    Get.back();
+      Get.back();
       var ref =
           FirebaseStorage.instance.ref('testimonyPicture/${auth.user!.uid}');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
