@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
+import 'package:godroad/view/page/screen/challenge_%20certification_screen.dart';
+import 'package:godroad/view/page/screen/challenge_%20information_screen.dart';
 
-class ChallengeDetailPage extends GetView<MainController> {
-  const ChallengeDetailPage({super.key});
-  static String route = "/challengedetail";
+class AttendingChallengeDetailPage extends GetView<MainController> {
+  const AttendingChallengeDetailPage({super.key});
+  static String route = "/attendchallengedetail";
 
   @override
   Widget build(BuildContext context) {
+    RxInt selectedIndex = 0.obs;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -110,102 +113,50 @@ class ChallengeDetailPage extends GetView<MainController> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "활동소개",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          selectedIndex.value = 0;
+                        },
+                        child: const Text(
+                          '활동 정보',
+                          style: TextStyle(color: Colors.black),
+                        )),
+                    const SizedBox(
+                      width: 110,
                     ),
+                    TextButton(
+                        onPressed: () {
+                          selectedIndex.value = 1;
+                        },
+                        child: const Text('인증 하기',
+                            style: TextStyle(color: Colors.black))),
+                  ],
+                ),
+                Stack(children: [
+                  Container(
+                    width: 410,
+                    height: 5,
+                    color: Colors.grey.shade300,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    '활동설명\n활동설명',
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "인증방법",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Container(
-                      width: 500,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text('인증샷예시'),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    '인증설명\n인증설명',
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Center(
-                          child: Row(
-                            children: [
-                              Icon(Icons.bookmark),
-                              SizedBox(width: 2),
-                              Text("123"),
-                            ],
-                          ),
+                  Obx(() => Positioned(
+                        left: selectedIndex.value == 0 ? 0 : 205,
+                        child: Container(
+                          width: 205,
+                          height: 5,
+                          color: Colors.grey,
                         ),
-                        style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all<Size>(
-                            Size(150, 50),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 30,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text("참여하기"),
-                        style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all<Size>(
-                            Size(150, 50),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                      ))
+                ]),
+                Obx(() => [
+                      const ChallengeInformationScreen(),
+                      const ChallengeCertificationScreen()
+                    ][selectedIndex.value]),
+              ],
             ),
           ],
         ),

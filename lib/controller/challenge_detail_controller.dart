@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/model/challenge.dart';
@@ -8,6 +9,22 @@ class ChallengeDetailController extends GetxController {
   RxBool isBookmark = false.obs;
   RxBool isApply = false.obs;
   Rxn<Challenge> detailChallenge = Rxn<Challenge>();
+
+  final PageController pageController = PageController(initialPage: 0);
+
+  final List<Map<String, dynamic>> pages = [
+    {
+      'title': '1번 인증',
+    },
+    {
+      'title': '2번 인증',
+    },
+    {
+      'title': '3번 인증',
+    },
+  ];
+
+  RxInt currentPageIndex = 0.obs;
 
   Future<Rxn<Challenge>> readDetailChallenge(String challengeId) async {
     var challenge = await FirebaseFirestore.instance
@@ -50,12 +67,14 @@ class ChallengeDetailController extends GetxController {
   }
 
   //챌린지 신청
-  applyChallenge(String challengeId)async{
+  applyChallenge(String challengeId) async {
     if (isApply.value) {
       await FirebaseFirestore.instance
           .collection('challenge')
           .doc(challengeId)
-          .update({'participationUserId': FieldValue.arrayUnion([auth.user!.uid])});
+          .update({
+        'participationUserId': FieldValue.arrayUnion([auth.user!.uid])
+      });
       await FirebaseFirestore.instance
           .collection('profile')
           .doc(auth.user!.uid)
@@ -66,7 +85,9 @@ class ChallengeDetailController extends GetxController {
       await FirebaseFirestore.instance
           .collection('challenge')
           .doc(challengeId)
-          .update({'participationUserId': FieldValue.arrayRemove([auth.user!.uid])});
+          .update({
+        'participationUserId': FieldValue.arrayRemove([auth.user!.uid])
+      });
       await FirebaseFirestore.instance
           .collection('profile')
           .doc(auth.user!.uid)

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
@@ -54,7 +53,8 @@ class EditProfilePage extends GetView<ProfileController> {
                       backgroundImage: controller.profileUrl.value != ''
                           ? NetworkImage(controller.profileUrl.value)
                           : controller.auth.userProfile!.profileUrl != ''
-                              ? NetworkImage(controller.auth.userProfile!.profileUrl!)
+                              ? NetworkImage(
+                                  controller.auth.userProfile!.profileUrl!)
                               : null),
                 ),
                 const Positioned(

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
-import 'package:godroad/view/widget/main_page_challenge_list_tile.dart';
 import 'package:godroad/view/widget/real_time_tile.dart';
 import '../../model/challenge.dart';
 import '../../util/routes.dart';

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/keyword.dart';
-import 'package:godroad/util/routes.dart';
 
 class KeywordUpdatePage extends GetView<ProfileController> {
   const KeywordUpdatePage({super.key});

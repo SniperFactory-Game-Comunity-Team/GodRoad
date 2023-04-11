@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/page/attending_challenge_detail_page.dart';
 import 'package:godroad/view/page/calendar_page.dart';
 import 'package:godroad/view/page/challenge_detail_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
@@ -51,7 +52,9 @@ class AppPages {
         page: () => const SearchChallengePage()),
     GetPage(
         name: AppRoute.createdChallenge,
-        page: () => const CreatedChallengePage())
-
+        page: () => const CreatedChallengePage()),
+    GetPage(
+        name: AppRoute.attendchallengedetail,
+        page: () => AttendingChallengeDetailPage())
   ];
 }
