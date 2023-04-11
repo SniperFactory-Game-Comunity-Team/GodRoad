@@ -32,7 +32,7 @@ class MainPage extends GetView<MainController> {
             child: IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                // 아이콘 클릭 시 수행할 작업
+                Get.toNamed(AppRoute.attendchallengedetail);
               },
             ),
           ),
@@ -140,7 +140,8 @@ class MainPage extends GetView<MainController> {
                           color: Colors.grey.shade300,
                         ),
                         Obx(() => Positioned(
-                              left: controller.selectedIndex.value == 0 ? 0 : 170,
+                              left:
+                                  controller.selectedIndex.value == 0 ? 0 : 170,
                               child: Container(
                                 width: 170,
                                 height: 5,
