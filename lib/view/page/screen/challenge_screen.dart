@@ -6,6 +6,7 @@ import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/for_tile.dart';
+import 'package:godroad/view/widget/main_page_my_challenge_tile.dart';
 import 'package:godroad/view/widget/real_time_tile.dart';
 
 class ChallengeScreen extends GetView<MainController> {
@@ -16,6 +17,34 @@ class ChallengeScreen extends GetView<MainController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                '나의 챌린지',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.toNamed(AppRoute.realtimechallengelist);
+                },
+                child: const Text('모두보기'),
+              )
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 250,
+          child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: 3,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return MainPageMyChallnegeTile();
+              }),
+        ),
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
@@ -70,22 +99,22 @@ class ChallengeScreen extends GetView<MainController> {
           ),
         ),
         SizedBox(
-              height: 50,
-              child: Obx(()=>
-                ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: controller.auth.userProfile!.keyword
-                      .map((e) => GestureDetector(
-                            onTap: () {},
-                            child: Chip(
-                              label: Text(e),
-                            ),
-                          ))
-                      .toList(),
-                ),
-              ),
+          height: 50,
+          child: Obx(
+            () => ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: controller.auth.userProfile!.keyword
+                  .map((e) => GestureDetector(
+                        onTap: () {},
+                        child: Chip(
+                          label: Text(e),
+                        ),
+                      ))
+                  .toList(),
             ),
+          ),
+        ),
         SizedBox(
           height: 200,
           child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(

@@ -6,19 +6,24 @@ class InCompleteChallengeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 600,
-      child: ListView.separated(
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            return MyPageChallengeListTile(
-              buttontext: '기록보기',
-            );
-          },
-          separatorBuilder: (context, index) => Divider(
-                thickness: 1,
-              ),
-          itemCount: 4),
+    return Column(
+      children: [
+        Text('incomplete'),
+        SizedBox(
+          height: 600,
+          child: ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return MyPageChallengeListTile(
+                  buttontext: '기록보기',
+                );
+              },
+              separatorBuilder: (context, index) => Divider(
+                    thickness: 1,
+                  ),
+              itemCount: 4),
+        ),
+      ],
     );
   }
 }

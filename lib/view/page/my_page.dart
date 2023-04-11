@@ -82,17 +82,19 @@ class MyPage extends GetView<ProfileController> {
                 '관심 키워드 변경',
               ),
             ),
-             TextButton(
+            TextButton(
               onPressed: () {
                 Get.toNamed(AppRoute.createdChallenge);
               },
-              child: const Text('업로드한 챌린지', style: TextStyle(color: Colors.black)),
+              child:
+                  const Text('업로드한 챌린지', style: TextStyle(color: Colors.black)),
             ),
             TextButton(
               onPressed: () {
                 Get.toNamed(AppRoute.endchallenge);
               },
-              child: const Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
+              child:
+                  const Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
             ),
             TextButton(
                 onPressed: () {
@@ -100,6 +102,14 @@ class MyPage extends GetView<ProfileController> {
                 },
                 child: const Text(
                   '참여중인 챌린지',
+                  style: TextStyle(color: Colors.black),
+                )),
+            TextButton(
+                onPressed: () {
+                  Get.toNamed(AppRoute.mycreate);
+                },
+                child: const Text(
+                  '내가 올린 게시물',
                   style: TextStyle(color: Colors.black),
                 )),
             TextButton(

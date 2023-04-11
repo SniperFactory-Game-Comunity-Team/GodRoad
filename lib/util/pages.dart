@@ -12,6 +12,7 @@ import 'package:godroad/view/page/end_challenge_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
 import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/view/page/main_page.dart';
+import 'package:godroad/view/page/my_create_challenge_page.dart';
 import 'package:godroad/view/page/permission_page.dart';
 import 'package:godroad/view/page/edit_profile_page.dart';
 import 'package:godroad/view/page/my_page.dart';
@@ -55,6 +56,7 @@ class AppPages {
         page: () => const CreatedChallengePage()),
     GetPage(
         name: AppRoute.attendchallengedetail,
-        page: () => AttendingChallengeDetailPage())
+        page: () => AttendingChallengeDetailPage()),
+    GetPage(name: AppRoute.mycreate, page: () => const MyCreatePage())
   ];
 }
