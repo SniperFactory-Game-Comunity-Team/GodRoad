@@ -44,7 +44,7 @@ class MainPageChallengeListTile extends StatelessWidget {
                             width: 20,
                           ),
                           Text(
-                            '챌린지 마감 D-${challenge.endDay!.day - DateTime.now().day}',
+                            '챌린지 마감 D-${challenge.endDay.day - DateTime.now().day}',
                             style: const TextStyle(color: Colors.greenAccent),
                           ),
                         ],

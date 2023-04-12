@@ -26,73 +26,55 @@ class MyPage extends GetView<ProfileController> {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Obx(
-                  () => CircleAvatar(
-                      radius: 80,
-                      backgroundImage:
-                          controller.auth.userProfile!.profileUrl != ''
-                              ? NetworkImage(controller
-                                  .auth.userProfile!.profileUrl
-                                  .toString())
-                              : null),
-                ),
-                const SizedBox(
-                  width: 18,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      controller.auth.userProfile!.nickname!,
-                      style: const TextStyle(),
-                    ),
-                    Text(
-                      controller.auth.userProfile!.email,
-                      style: const TextStyle(),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        controller.startEditProfile();
-                      },
-                      style: TextButton.styleFrom(
-                        minimumSize: Size.zero,
-                        padding: EdgeInsets.zero,
+            Center(
+              child: Column(
+                children: [
+                  Obx(
+                    () => CircleAvatar(
+                        radius: 55,
+                        backgroundImage:
+                            controller.auth.userProfile!.profileUrl != ''
+                                ? NetworkImage(controller
+                                    .auth.userProfile!.profileUrl
+                                    .toString())
+                                : null),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    controller.auth.userProfile!.nickname!,
+                    style: const TextStyle(),
+                  ),
+                  Text(
+                    controller.auth.userProfile!.email,
+                    style: const TextStyle(),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      controller.startEditProfile();
+                    },
+                    style: TextButton.styleFrom(
+                      minimumSize: Size.zero,
+                      padding: const EdgeInsets.only(
+                          left: 12, right: 12, top: 5, bottom: 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      child: const Text(
-                        '프로필 수정',
-                        style: TextStyle(),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            TextButton(
-              onPressed: () {
-                controller.userKeywordUpdate();
-              },
-              child: const Text(
-                '관심 키워드 변경',
+                    ),
+                    child: const Text(
+                      '프로필 수정',
+                      style: TextStyle(),
+                    ),
+                  ),
+                ],
               ),
             ),
-             TextButton(
-              onPressed: () {
-                Get.toNamed(AppRoute.createdChallenge);
-              },
-              child: const Text('업로드한 챌린지', style: TextStyle(color: Colors.black)),
-            ),
-            TextButton(
-              onPressed: () {
-                Get.toNamed(AppRoute.endchallenge);
-              },
-              child: const Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
+            const SizedBox(
+              height: 12,
             ),
             TextButton(
                 onPressed: () {
@@ -103,33 +85,73 @@ class MyPage extends GetView<ProfileController> {
                   style: TextStyle(color: Colors.black),
                 )),
             TextButton(
-                onPressed: () {},
-                child: const Text(
-                  '이용약관',
-                  style: TextStyle(color: Colors.black),
-                )),
+              onPressed: () {
+                Get.toNamed(AppRoute.endchallenge);
+              },
+              child:
+                  const Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
+            ),
             TextButton(
-                onPressed: () {
-                  Get.dialog(CustomDialog(
-                    content: '로그아웃\n 하시겠습니까?',
-                    btnOk: controller.auth.signOut,
-                  ));
-                },
-                child: const Text(
-                  '로그아웃',
-                  style: TextStyle(color: Colors.black),
-                )),
+              onPressed: () {
+                Get.toNamed(AppRoute.bookmark);
+              },
+              child: const Text(
+                '북마크 목록',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
             TextButton(
-                onPressed: () {
-                  Get.dialog(CustomDialog(
-                    content: '계정 탈퇴\n 하시겠습니까?',
-                    btnOk: controller.auth.userDelete,
-                  ));
-                },
-                child: const Text(
-                  '계정 탈퇴',
-                  style: TextStyle(color: Colors.red),
-                )),
+              onPressed: () {
+                controller.userKeywordUpdate();
+              },
+              child: const Text(
+                '관심 키워드 변경',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Get.toNamed(AppRoute.createdChallenge);
+              },
+              child: const Text('업로드한 게시물들',
+                  style: TextStyle(color: Colors.black)),
+            ),
+            const SizedBox(
+              width: 18,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      Get.dialog(CustomDialog(
+                        content: '계정 탈퇴\n 하시겠습니까?',
+                        btnOk: controller.auth.userDelete,
+                      ));
+                    },
+                    child: const Text(
+                      '계정 탈퇴',
+                      style: TextStyle(color: Colors.red),
+                    )),
+                TextButton(
+                    onPressed: () {
+                      Get.dialog(CustomDialog(
+                        content: '로그아웃\n 하시겠습니까?',
+                        btnOk: controller.auth.signOut,
+                      ));
+                    },
+                    child: const Text(
+                      '로그아웃',
+                      style: TextStyle(color: Colors.black),
+                    )),
+                TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      '이용약관',
+                      style: TextStyle(color: Colors.black),
+                    )),
+              ],
+            )
           ],
         ),
       )),

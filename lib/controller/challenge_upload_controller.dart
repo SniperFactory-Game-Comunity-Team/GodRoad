@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/controller/calendar_controller.dart';
 import 'package:godroad/controller/main_controller.dart';
+import 'package:godroad/model/service/firebase.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,7 +60,7 @@ class ChallengeUploadController extends GetxController {
         prefs!.setInt('saveId', saveId);
       }
       String id = auth.user!.uid + saveId.toString();
-      await FirebaseFirestore.instance.collection('challenge').doc(id).set({
+      await Firebase.colChall.doc(id).set({
         'id': id,
         'userId': auth.user!.uid,
         'title': titleController.text,

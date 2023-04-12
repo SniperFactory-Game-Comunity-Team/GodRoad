@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:godroad/model/challenge.dart';
 
 class ChallengeInformationScreen extends StatelessWidget {
-  const ChallengeInformationScreen({super.key});
+  const ChallengeInformationScreen({super.key, required this.challenge});
   static String route = '/challengeinformation';
+  final Challenge challenge;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class ChallengeInformationScreen extends StatelessWidget {
             height: 20,
           ),
           Text(
-            '활동설명\n활동설명\n활동설명',
+            challenge.content,
             style: TextStyle(
               fontSize: 15,
             ),
@@ -45,19 +47,21 @@ class ChallengeInformationScreen extends StatelessWidget {
               width: 500,
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.black26,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Text('인증샷예시'),
-              ),
+                  color: Colors.black26,
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                      image: NetworkImage(
+                    challenge.testimonyPicture != ''
+                        ? challenge.testimonyPicture
+                        : 'https://picsum.photos/500/200',
+                  ))),
             ),
           ),
           SizedBox(
             height: 20,
           ),
           Text(
-            '인증방법\n인증방법\n인증방법',
+            challenge.testimonyContent,
             style: TextStyle(
               fontSize: 15,
             ),
