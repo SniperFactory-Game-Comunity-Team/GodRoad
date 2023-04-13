@@ -17,8 +17,8 @@ class Challenge {
   DateTime createAt;
   DateTime applyStartDay;
   DateTime applyEndDay;
-  DateTime? startDay;
-  DateTime? endDay;
+  DateTime startDay;
+  DateTime endDay;
 
   Challenge({
     required this.id,
@@ -36,8 +36,8 @@ class Challenge {
     required this.createAt,
     required this.applyStartDay,
     required this.applyEndDay,
-    this.startDay,
-    this.endDay,
+    required this.startDay,
+    required this.endDay,
   });
 
   Map<String, dynamic> toMap() {
@@ -52,11 +52,11 @@ class Challenge {
       'testimonyContent': testimonyContent,
       'keyword': keyword,
       'bookmark': bookmark,
-      'createAt': createAt.millisecondsSinceEpoch,
-      'applyStartDay': applyStartDay.millisecondsSinceEpoch,
-      'applyEndDay': applyEndDay.millisecondsSinceEpoch,
-      'startDay': startDay?.millisecondsSinceEpoch,
-      'endDay': endDay?.millisecondsSinceEpoch,
+      'createAt': createAt,
+      'applyStartDay': applyStartDay,
+      'applyEndDay': applyEndDay,
+      'startDay': startDay,
+      'endDay': endDay,
     };
   }
 
@@ -74,20 +74,16 @@ class Challenge {
       participationUserId: List.from((map['participationUserId'] as List)),
       bookmark: map['bookmark'] as int,
       authenticationCount: map['authenticationCount'] as int,
-      createAt: DateTime.fromMillisecondsSinceEpoch(
+      createAt: DateTime.fromMicrosecondsSinceEpoch(
           map['createAt'].microsecondsSinceEpoch),
-      applyStartDay: DateTime.fromMillisecondsSinceEpoch(
+      applyStartDay: DateTime.fromMicrosecondsSinceEpoch(
           map['applyStartDay'].microsecondsSinceEpoch),
-      applyEndDay: DateTime.fromMillisecondsSinceEpoch(
+      applyEndDay: DateTime.fromMicrosecondsSinceEpoch(
           map['applyEndDay'].microsecondsSinceEpoch),
-      startDay: map['startDay'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-              map['startDay'].microsecondsSinceEpoch)
-          : null,
-      endDay: map['endDay'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(
-              map['endDay'].microsecondsSinceEpoch)
-          : null,
+      startDay: DateTime.fromMicrosecondsSinceEpoch(
+          map['startDay'].microsecondsSinceEpoch),
+      endDay: DateTime.fromMicrosecondsSinceEpoch(
+          map['endDay'].microsecondsSinceEpoch),
     );
   }
 

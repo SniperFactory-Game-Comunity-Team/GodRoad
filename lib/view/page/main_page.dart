@@ -33,7 +33,7 @@ class MainPage extends GetView<MainController> {
             child: IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                Get.toNamed(AppRoute.attendchallengedetail);
+                //Get.toNamed(AppRoute.attendchallengedetail);
               },
             ),
           ),
@@ -162,7 +162,7 @@ class MainPage extends GetView<MainController> {
                     ],
                   );
                 }
-                return SizedBox();
+                return const SizedBox();
               },
             ),
           ),

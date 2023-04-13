@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:godroad/model/service/firebase.dart';
 import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,12 +21,11 @@ class ProfileController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<QueryDocumentSnapshot<Challenge>> createdChallenge =
       RxList<QueryDocumentSnapshot<Challenge>>();
-  RxList<Challenge> myChallenge =
-      RxList<Challenge>();
+  RxList<Challenge> myChallenge = RxList<Challenge>();
+  RxList<Challenge> bookmarkChallenge = RxList<Challenge>();
 
   Future<bool> isDuplicateUniqueName(String nickname) async {
-    QuerySnapshot query = await FirebaseFirestore.instance
-        .collection('user')
+    QuerySnapshot query = await Firebase.colUser
         .where('nickname', isEqualTo: nickname)
         .get();
     if (auth.userProfile != null && auth.userProfile!.nickname == nickname) {
@@ -41,8 +41,7 @@ class ProfileController extends GetxController {
   }
 
   setProfile() async {
-    await FirebaseFirestore.instance
-        .collection('user')
+    await Firebase.colUser
         .doc(auth.user!.uid)
         .set({
       'id': auth.user!.uid,
@@ -63,8 +62,7 @@ class ProfileController extends GetxController {
   }
 
   updateProfile() async {
-    await FirebaseFirestore.instance
-        .collection('user')
+    await Firebase.colUser
         .doc(auth.user!.uid)
         .update(
             {'nickname': nameController.text, 'profileUrl': profileUrl.value});
@@ -94,8 +92,7 @@ class ProfileController extends GetxController {
   }
 
   userKeywordUpload() async {
-    await FirebaseFirestore.instance
-        .collection('user')
+    await Firebase.colUser
         .doc(auth.user!.uid)
         .update({
       'keyword': keywords,
@@ -117,31 +114,39 @@ class ProfileController extends GetxController {
   //내가 만든 챌린지 읽어오기
   Future<RxList<QueryDocumentSnapshot<Challenge>>?>
       readCreatedChallenge() async {
-    var challenge = await FirebaseFirestore.instance
-        .collection('challenge')
-        .withConverter(
-          fromFirestore: (snapshot, _) => Challenge.fromMap(snapshot.data()!),
-          toFirestore: (data, _) => data.toMap(),
-        )
+    var challenge = await Firebase.getChallenge
         .where('userId', isEqualTo: auth.user!.uid)
         .get();
     createdChallenge(challenge.docs);
     return createdChallenge.isNotEmpty ? createdChallenge : null;
   }
 
-  //내가 참여중인 챌린지 - 작동 확인 필요
+  //내가 참여중인 챌린지 
   Future<RxList<Challenge>?> readmyChallenge() async {
-    for (var myChall in auth.userProfile!.myChallenge) {
-      var challenge = await FirebaseFirestore.instance
-          .collection('challenge')
-          .withConverter(
-            fromFirestore: (snapshot, _) => Challenge.fromMap(snapshot.data()!),
-            toFirestore: (data, _) => data.toMap(),
-          )
+    myChallenge.clear();
+     var profile = await Firebase.getUser
+        .doc(auth.user!.uid)
+        .get();
+    for (var myChall in profile.data()!.myChallenge) {
+      var challenge = await Firebase.getChallenge
           .doc(myChall.toString())
           .get();
       myChallenge.add(challenge.data() as Challenge);
     }
-    return myChallenge.isNotEmpty ?  myChallenge : null;
+    return myChallenge.isNotEmpty ? myChallenge : null;
+  }
+
+  Future<RxList<Challenge>?> readmyBookmark() async {
+    bookmarkChallenge.clear();
+    var profile = await Firebase.getUser
+        .doc(auth.user!.uid)
+        .get();
+    for (var myBookmark in profile.data()!.myBookmark) {
+      var bookmark = await Firebase.getChallenge
+          .doc(myBookmark.toString())
+          .get();
+      bookmarkChallenge.add(bookmark.data() as Challenge);
+    }
+    return bookmarkChallenge.isNotEmpty ? bookmarkChallenge : null;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:godroad/view/page/attending_challenge_detail_page.dart';
+import 'package:godroad/view/page/bookmark_page.dart';
 import 'package:godroad/view/page/calendar_page.dart';
 import 'package:godroad/view/page/challenge_detail_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
@@ -40,4 +41,5 @@ class AppRoute {
   static final createdChallenge = CreatedChallengePage.route;
   static final attendchallengedetail = AttendingChallengeDetailPage.route;
   static final mycreate = MyCreatePage.route;
+  static final bookmark = BookmarkPage.route;
 }
