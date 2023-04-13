@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => ChallengeDetailController(), fenix: true);
       }),
       getPages: AppPages.pages,
-      initialRoute: AppRoute.login,
+      initialRoute: AppRoute.explanation,
     );
   }
 }

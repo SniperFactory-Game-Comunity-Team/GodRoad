@@ -36,61 +36,65 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                 ), //임의로 사진 넣음
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        challenge.title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
+            SizedBox(
+              width: Get.width,
+              child: Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          challenge.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        challenge.subtitle,
-                        style: const TextStyle(
-                          fontSize: 13.0,
+                        const SizedBox(
+                          height: 10,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 60,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        "챌린지 기간 ${DateFormat('yyyy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.endDay)}",
-                        style: const TextStyle(
-                          fontSize: 12.0,
+                        Text(
+                          challenge.subtitle,
+                          style: const TextStyle(
+                            fontSize: 13.0,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "모집기간 ${DateFormat('yyyy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.applyEndDay)}",
-                        style: const TextStyle(
-                          fontSize: 12.0,
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 60,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "챌린지 기간 ${DateFormat('yyyy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.endDay)}",
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "모집마감 D-${challenge.applyEndDay.day - DateTime.now().day}",
-                        style: TextStyle(
-                          fontSize: 15.0,
+                        Text(
+                          "모집기간 ${DateFormat('yyyy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.applyEndDay)}",
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "모집마감 D-${challenge.applyEndDay.day - DateTime.now().day}",
+                          style: TextStyle(
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
