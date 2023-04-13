@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:godroad/view/widget/my_page_challenge_list_tile.dart';
 
-class CompleteChallengeScreen extends StatelessWidget {
-  const CompleteChallengeScreen({super.key});
+import '../../widget/my_page_challenge_list_tile.dart';
+
+class MyCreateOutsideActivityScreen extends StatelessWidget {
+  const MyCreateOutsideActivityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('complete'),
+        Text('MyPageChallengeListTile 데이터 값 손봐야함'),
+        Text('대외활동'),
         SizedBox(
           height: 600,
           child: ListView.separated(

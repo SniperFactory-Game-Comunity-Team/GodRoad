@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:godroad/controller/profile_controller.dart';
-import 'package:godroad/view/page/screen/complete_challenge_screen.dart';
-import 'package:godroad/view/page/screen/incomplete_challenge_screen.dart';
-import 'package:godroad/view/widget/page_view_bar.dart';
+import 'package:godroad/view/page/screen/my_create_challenge_screen.dart';
+import 'package:godroad/view/page/screen/my_create_outside_activity_screen.dart';
 
-class EndChallengePage extends GetView<ProfileController> {
-  static String route = '/endchallenge';
-  const EndChallengePage({super.key});
+import '../widget/page_view_bar.dart';
+
+class MyCreatePage extends StatelessWidget {
+  const MyCreatePage({super.key});
+  static String route = '/mycreate';
 
   @override
   Widget build(BuildContext context) {
+    RxInt selectedIndex = 0.obs;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.grey,
-          title: Text('종료된 챌린지'),
+          title: Text('내가 올린 게시물'),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               PageViewBar(
                   onPressedFirst: () {
-                    controller.selectedIndex.value = 0;
+                    selectedIndex.value = 0;
                   },
                   onPressedSecond: () {
-                    controller.selectedIndex.value = 1;
+                    selectedIndex.value = 1;
                   },
-                  firstCat: '완료',
-                  secondCat: '미완료'),
+                  firstCat: '챌린지',
+                  secondCat: '대외활동'),
               Stack(children: [
                 Container(
                   width: 410,
@@ -36,7 +37,7 @@ class EndChallengePage extends GetView<ProfileController> {
                   color: Colors.grey.shade300,
                 ),
                 Obx(() => Positioned(
-                      left: controller.selectedIndex.value == 0 ? 0 : 205,
+                      left: selectedIndex.value == 0 ? 0 : 205,
                       child: Container(
                         width: 205,
                         height: 5,
@@ -45,9 +46,9 @@ class EndChallengePage extends GetView<ProfileController> {
                     ))
               ]),
               Obx(() => [
-                    const CompleteChallengeScreen(),
-                    const InCompleteChallengeScreen()
-                  ][controller.selectedIndex.value]),
+                    const MyCreateChallengeScreen(),
+                    const MyCreateOutsideActivityScreen()
+                  ][selectedIndex.value]),
             ],
           ),
         ));

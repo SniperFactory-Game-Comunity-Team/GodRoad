@@ -4,6 +4,7 @@ import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/screen/challenge_screen.dart';
 import 'package:godroad/view/page/screen/outside_activity_screen.dart';
+import 'package:godroad/view/widget/page_view_bar.dart';
 
 class MainPage extends GetView<MainController> {
   const MainPage({super.key});
@@ -111,28 +112,15 @@ class MainPage extends GetView<MainController> {
                           ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                              onPressed: () {
-                                controller.selectedIndex.value = 0;
-                              },
-                              child: const Text(
-                                '챌린지',
-                                style: TextStyle(color: Colors.black),
-                              )),
-                          const SizedBox(
-                            width: 110,
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                controller.selectedIndex.value = 1;
-                              },
-                              child: const Text('대외활동',
-                                  style: TextStyle(color: Colors.black))),
-                        ],
-                      ),
+                      PageViewBar(
+                          onPressedFirst: () {
+                            controller.selectedIndex.value = 0;
+                          },
+                          onPressedSecond: () {
+                            controller.selectedIndex.value = 1;
+                          },
+                          firstCat: '챌린지',
+                          secondCat: '대외활동'),
                       Stack(children: [
                         Container(
                           width: 340,
