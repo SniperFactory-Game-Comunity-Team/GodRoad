@@ -6,6 +6,7 @@ import 'package:godroad/view/page/calendar_page.dart';
 import 'package:godroad/view/page/challenge_detail_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
 import 'package:godroad/view/page/created_challenge_page.dart';
+import 'package:godroad/view/page/explanation_page.dart';
 import 'package:godroad/view/page/keyword_select_page.dart';
 import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/page/attending_challenge_page.dart';
@@ -57,7 +58,8 @@ class AppPages {
         page: () => const CreatedChallengePage()),
     GetPage(
         name: AppRoute.attendchallengedetail,
-        page: () => AttendingChallengeDetailPage()),
-    GetPage(name: AppRoute.bookmark, page: () => const BookmarkPage())
+        page: () => const AttendingChallengeDetailPage()),
+    GetPage(name: AppRoute.bookmark, page: () => const BookmarkPage()),
+    GetPage(name: AppRoute.explanation, page: () => ExplanationPage())
   ];
 }

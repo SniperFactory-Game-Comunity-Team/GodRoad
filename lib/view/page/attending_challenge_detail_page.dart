@@ -128,28 +128,6 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
                     },
                     firstCat: '활동 정보',
                     secondCat: '인증 하기'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          controller.selectedIndex.value = 0;
-                        },
-                        child: const Text(
-                          '활동 정보',
-                          style: TextStyle(color: Colors.black),
-                        )),
-                    const SizedBox(
-                      width: 110,
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          controller.selectedIndex.value = 1;
-                        },
-                        child: const Text('인증 하기',
-                            style: TextStyle(color: Colors.black))),
-                  ],
-                ),
                 Stack(children: [
                   Container(
                     width: 410,

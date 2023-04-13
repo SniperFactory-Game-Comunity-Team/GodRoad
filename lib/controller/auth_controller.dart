@@ -82,7 +82,7 @@ class AuthController extends GetxController {
       if (value != null) {
         getProfile();
       } else {
-        Get.toNamed(AppRoute.login);
+        Get.toNamed(AppRoute.explanation);
       }
     });
   }
