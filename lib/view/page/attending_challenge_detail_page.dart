@@ -7,7 +7,6 @@ import 'package:godroad/view/page/screen/challenge_%20information_screen.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
 import 'package:intl/intl.dart';
 
-
 class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
   const AttendingChallengeDetailPage({super.key});
   static String route = "/attendchallengedetail";
@@ -120,17 +119,15 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
             ),
             Column(
               children: [
-
                 PageViewBar(
                     onPressedFirst: () {
-                      selectedIndex.value = 0;
+                      controller.selectedIndex.value = 0;
                     },
                     onPressedSecond: () {
-                      selectedIndex.value = 1;
+                      controller.selectedIndex.value = 1;
                     },
                     firstCat: '활동 정보',
                     secondCat: '인증 하기'),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -153,7 +150,6 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
                             style: TextStyle(color: Colors.black))),
                   ],
                 ),
-
                 Stack(children: [
                   Container(
                     width: 410,

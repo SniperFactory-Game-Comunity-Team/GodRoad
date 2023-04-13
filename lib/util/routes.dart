@@ -11,7 +11,6 @@ import 'package:godroad/view/page/end_challenge_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
 import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/view/page/main_page.dart';
-import 'package:godroad/view/page/my_create_challenge_page.dart';
 import 'package:godroad/view/page/permission_page.dart';
 import 'package:godroad/view/page/edit_profile_page.dart';
 import 'package:godroad/view/page/my_page.dart';
@@ -40,6 +39,5 @@ class AppRoute {
   static final searchChallenge = SearchChallengePage.route;
   static final createdChallenge = CreatedChallengePage.route;
   static final attendchallengedetail = AttendingChallengeDetailPage.route;
-  static final mycreate = MyCreatePage.route;
   static final bookmark = BookmarkPage.route;
 }

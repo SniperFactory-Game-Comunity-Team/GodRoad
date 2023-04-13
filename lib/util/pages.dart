@@ -58,9 +58,6 @@ class AppPages {
     GetPage(
         name: AppRoute.attendchallengedetail,
         page: () => AttendingChallengeDetailPage()),
-    GetPage(name: AppRoute.mycreate, page: () => const MyCreatePage())
-    GetPage(
-        name: AppRoute.bookmark,
-        page: () => const BookmarkPage())
+    GetPage(name: AppRoute.bookmark, page: () => const BookmarkPage())
   ];
 }
