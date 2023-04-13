@@ -26,7 +26,8 @@ class CreatedChallengePage extends GetView<ProfileController> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       return Obx(
-                        () => RealTimeTile( //업로드한 챌린지 리스트 위젯 필요
+                        () => RealTimeTile(
+                          //업로드한 챌린지 리스트 위젯 필요
                           challenge: snapshot.data![index].data(),
                         ),
                       );

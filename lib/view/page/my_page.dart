@@ -104,66 +104,15 @@ class MyPage extends GetView<ProfileController> {
               onPressed: () {
                 controller.userKeywordUpdate();
               },
-              child:
-                  const Text('업로드한 챌린지', style: TextStyle(color: Colors.black)),
-
               child: const Text(
                 '관심 키워드 변경',
                 style: TextStyle(color: Colors.black),
               ),
-
             ),
             TextButton(
               onPressed: () {
                 Get.toNamed(AppRoute.createdChallenge);
               },
-              child:
-                  const Text('종료된 챌린지', style: TextStyle(color: Colors.black)),
-            ),
-            TextButton(
-                onPressed: () {
-                  Get.toNamed(AppRoute.attending);
-                },
-                child: const Text(
-                  '참여중인 챌린지',
-                  style: TextStyle(color: Colors.black),
-                )),
-            TextButton(
-                onPressed: () {
-                  Get.toNamed(AppRoute.mycreate);
-                },
-                child: const Text(
-                  '내가 올린 게시물',
-                  style: TextStyle(color: Colors.black),
-                )),
-            TextButton(
-                onPressed: () {},
-                child: const Text(
-                  '이용약관',
-                  style: TextStyle(color: Colors.black),
-                )),
-            TextButton(
-                onPressed: () {
-                  Get.dialog(CustomDialog(
-                    content: '로그아웃\n 하시겠습니까?',
-                    btnOk: controller.auth.signOut,
-                  ));
-                },
-                child: const Text(
-                  '로그아웃',
-                  style: TextStyle(color: Colors.black),
-                )),
-            TextButton(
-                onPressed: () {
-                  Get.dialog(CustomDialog(
-                    content: '계정 탈퇴\n 하시겠습니까?',
-                    btnOk: controller.auth.userDelete,
-                  ));
-                },
-                child: const Text(
-                  '계정 탈퇴',
-                  style: TextStyle(color: Colors.red),
-                )),
               child: const Text('업로드한 게시물들',
                   style: TextStyle(color: Colors.black)),
             ),
