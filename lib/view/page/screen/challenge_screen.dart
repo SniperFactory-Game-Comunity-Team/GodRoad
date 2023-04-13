@@ -34,6 +34,63 @@ class ChallengeScreen extends GetView<MainController> {
             ],
           ),
         ),
+         OutlinedButton(
+              onPressed: () {
+                Get.bottomSheet(
+                  SizedBox(
+                    height: Get.height * 0.3,
+                    child: Column(
+                      children: [
+                        Wrap(
+                          children: Keyword.keywords
+                              .map((e) => GestureDetector(
+                                    onTap: () {
+                                      controller.selectKeyword(e);
+                                    },
+                                    child: Obx(
+                                      () => Chip(
+                                        backgroundColor:
+                                            controller.isSelected[e] == null
+                                                ? Colors.grey
+                                                : controller.isSelected[e]
+                                                    ? Colors.lightBlue
+                                                    : Colors.grey,
+                                        label: Text(e),
+                                      ),
+                                    ),
+                                  ))
+                              .toList(),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              controller.startReadKeyword();
+                            },
+                            child: const Text('키워드별 챌린지 보기'))
+                      ],
+                    ),
+                  ),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ),
+                  ),
+                  backgroundColor: Colors.white,
+                  clipBehavior: Clip.hardEdge,
+                );
+              },
+              child: Obx(
+                () => controller.keywords.isEmpty
+                    ? const Text('키워드')
+                    : Wrap(
+                        children: controller.keywords
+                            .map((e) => Chip(
+                                  label: Text(e),
+                                ))
+                            .toList(),
+                      ),
+              ),
+            ),
         SizedBox(
           height: 200,
           child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
@@ -70,23 +127,6 @@ class ChallengeScreen extends GetView<MainController> {
           ),
         ),
         SizedBox(
-              height: 50,
-              child: Obx(()=>
-                ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: controller.auth.userProfile!.keyword
-                      .map((e) => GestureDetector(
-                            onTap: () {},
-                            child: Chip(
-                              label: Text(e),
-                            ),
-                          ))
-                      .toList(),
-                ),
-              ),
-            ),
-        SizedBox(
           height: 200,
           child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
               future: controller.readMyChallenge(),
@@ -102,30 +142,8 @@ class ChallengeScreen extends GetView<MainController> {
                         );
                       }));
                 }
-                return SizedBox();
+                return const SizedBox();
               }),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '키워드로 모아보기',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Wrap(
-                children: Keyword.keywords
-                    .map((e) => GestureDetector(
-                          onTap: () {},
-                          child: Chip(
-                            label: Text(e),
-                          ),
-                        ))
-                    .toList(),
-              ),
-            ],
-          ),
         ),
       ],
     );

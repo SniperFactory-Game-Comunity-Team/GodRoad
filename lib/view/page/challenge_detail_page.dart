@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:godroad/controller/main_controller.dart';
+import 'package:godroad/controller/challenge_detail_controller.dart';
+import 'package:godroad/model/challenge.dart';
+import 'package:godroad/model/profile.dart';
+import 'package:godroad/util/routes.dart';
+import 'package:intl/intl.dart';
 
-class ChallengeDetailPage extends GetView<MainController> {
+class ChallengeDetailPage extends GetView<ChallengeDetailController> {
   const ChallengeDetailPage({super.key});
   static String route = "/challengedetail";
 
   @override
   Widget build(BuildContext context) {
+    Challenge challenge = Get.arguments;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -22,7 +27,12 @@ class ChallengeDetailPage extends GetView<MainController> {
             Stack(
               children: [
                 Image.network(
-                  "https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzAzMTJfMTk4%2FMDAxNjc4NTk1NzI0MjUx.PPX5LDRE8gOfTuO0THAeE2kQK0i6srapXKXE9QSHZ-og.nS2yJ13pyBfXX2j4OGmIYLgmH0motDoPrVtz34dv6swg.JPEG.arsonne%2F20190526_105935.jpg&type=sc960_832",
+                  challenge.mainPicture != ''
+                      ? challenge.mainPicture
+                      : 'https://picsum.photos/100/100',
+                  width: Get.width,
+                  height: 300,
+                  fit: BoxFit.cover,
                 ), //임의로 사진 넣음
               ],
             ),
@@ -34,46 +44,46 @@ class ChallengeDetailPage extends GetView<MainController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "챌린지 제목",
-                        style: TextStyle(
+                        challenge.title,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 20.0,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        "챌린지 부제목",
-                        style: TextStyle(
+                        challenge.subtitle,
+                        style: const TextStyle(
                           fontSize: 13.0,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 60,
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "챌린지 기간 2023.04.01 ~ 2023.06.21",
-                        style: TextStyle(
+                        "챌린지 기간 ${DateFormat('yyyy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.endDay)}",
+                        style: const TextStyle(
                           fontSize: 12.0,
                         ),
                       ),
                       Text(
-                        "모집기간 2023.04.01 ~ 2023.06.21",
-                        style: TextStyle(
+                        "모집기간 ${DateFormat('yyyy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.applyEndDay)}",
+                        style: const TextStyle(
                           fontSize: 12.0,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Text(
-                        "D-14",
+                        "모집마감 D-${challenge.applyEndDay.day - DateTime.now().day}",
                         style: TextStyle(
                           fontSize: 15.0,
                         ),
@@ -85,63 +95,78 @@ class ChallengeDetailPage extends GetView<MainController> {
             ),
             Padding(
               padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 15,
-                    backgroundColor: Colors.grey,
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "OO음악사",
-                        style: TextStyle(fontSize: 10),
-                      ),
-                      Text(
-                        "2023.04.01 20:23",
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: FutureBuilder<Rxn<Profile>>(
+                  future: controller.readUploader(challenge),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData &&
+                        snapshot.connectionState == ConnectionState.done) {
+                      return Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 15,
+                            backgroundColor: Colors.grey,
+                            backgroundImage: NetworkImage(
+                              snapshot.data!.value!.profileUrl != ''
+                                  ? snapshot.data!.value!.profileUrl.toString()
+                                  : 'https://picsum.photos/100/100',
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                snapshot.data!.value!.nickname.toString(),
+                                style: const TextStyle(fontSize: 10),
+                              ),
+                              Text(
+                                //'계정 생성 날짜? 챌린지 업로드 날짜?',
+                                DateFormat('yyy.M.d. h:mm')
+                                    .format(challenge.createAt),
+                                style: const TextStyle(fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    }
+                    return const SizedBox();
+                  }),
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "활동소개",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    '활동설명\n활동설명',
-                    style: TextStyle(
+                    challenge.content,
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     "인증방법",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Center(
@@ -149,58 +174,94 @@ class ChallengeDetailPage extends GetView<MainController> {
                       width: 500,
                       height: 150,
                       decoration: BoxDecoration(
-                        color: Colors.black26,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: Text('인증샷예시'),
-                      ),
+                          color: Colors.black26,
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                            challenge.testimonyPicture != ''
+                                ? challenge.testimonyPicture
+                                : 'https://picsum.photos/100/100',
+                          ))),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
-                    '인증설명\n인증설명',
-                    style: TextStyle(
+                    challenge.testimonyContent,
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Center(
-                          child: Row(
-                            children: [
-                              Icon(Icons.bookmark),
-                              SizedBox(width: 2),
-                              Text("123"),
-                            ],
-                          ),
-                        ),
-                        style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all<Size>(
-                            Size(150, 50),
-                          ),
+                      Center(
+                        child: FutureBuilder(
+                          future: controller.readBookmark(challenge),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData &&
+                                snapshot.connectionState ==
+                                    ConnectionState.done) {
+                              return ElevatedButton(
+                                onPressed: () {
+                                  controller
+                                      .isBookmark(!controller.isBookmark.value);
+                                  controller.bookMarkCheck(challenge.id);
+                                  controller.readChallenge(challenge);
+                                },
+                                style: ButtonStyle(
+                                  fixedSize: MaterialStateProperty.all<Size>(
+                                    const Size(150, 50),
+                                  ),
+                                ),
+                                child: FutureBuilder(
+                                  future: controller.readChallenge(challenge),
+                                  builder: (context, snapshots) {
+                                    if (snapshots.hasData) {
+                                      return Obx(
+                                        () => Row(
+                                          children: [
+                                            snapshot.data!.value
+                                                ? const Icon(Icons.bookmark)
+                                                : const Icon(
+                                                    Icons.bookmark_border),
+                                            const SizedBox(width: 2),
+                                            Text(snapshots.data!.value!.bookmark
+                                                .toString()),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                    return const SizedBox();
+                                  },
+                                ),
+                              );
+                            }
+                            return const SizedBox();
+                          },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 30,
                       ),
                       ElevatedButton(
-                        onPressed: () {},
-                        child: Text("참여하기"),
+                        onPressed: () {
+                          controller.isApply(!controller.isApply.value);
+                          controller.applyChallenge(challenge.id);
+                          Get.toNamed(AppRoute.attendchallengedetail,
+                              arguments: challenge);
+                        },
                         style: ButtonStyle(
                           fixedSize: MaterialStateProperty.all<Size>(
-                            Size(150, 50),
+                            const Size(150, 50),
                           ),
                         ),
+                        child: const Text("참여하기"),
                       ),
                     ],
                   )
