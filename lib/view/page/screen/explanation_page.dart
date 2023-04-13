@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/view/page/login_page.dart';
 
-class MyApp extends StatefulWidget {
+class ExplanationPage extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _ExplanationPageState createState() => _ExplanationPageState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _ExplanationPageState extends State<ExplanationPage> {
   final PageController _pageController = PageController(initialPage: 0);
   final List<Map<String, dynamic>> _pages = [
     {
-      'title': '첫번째 페이지',
-      'description': '첫번째 페이지 설명입니다',
+      'image': 'assets/explanation_1.svg',
     },
     {
-      'title': '두번째 페이지',
-      'description': '두번째 페이지 설명입니다',
+      'image': 'assets/explanation_2.svg',
     },
     {
-      'title': '세번째 페이지',
-      'description': '로그인 하세요!',
+      'image': 'assets/explanation_3.svg',
     },
   ];
   int _currentPageIndex = 0;
@@ -30,8 +28,8 @@ class _MyAppState extends State<MyApp> {
     return Scaffold(
       body: Center(
         child: SizedBox(
-          height: 400,
-          width: 300,
+          height: 600,
+          width: 400,
           child: PageView.builder(
             controller: _pageController,
             itemCount: _pages.length,
@@ -49,6 +47,10 @@ class _MyAppState extends State<MyApp> {
       floatingActionButton: _currentPageIndex == _pages.length - 1
           ? ElevatedButton(
               child: Text('로그인하기'),
+              style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(Size(300, 30)),
+                backgroundColor: MaterialStateProperty.all(Colors.blue),
+              ),
               onPressed: () {
                 Get.to(LoginPage());
               },
@@ -64,17 +66,9 @@ class _MyAppState extends State<MyApp> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            pageData['title'],
-            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          SvgPicture.asset(
+            pageData['image'],
           ),
-          SizedBox(height: 16.0),
-          Text(
-            pageData['description'],
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16.0),
-          ),
-          SizedBox(height: 32.0),
         ],
       ),
     );
