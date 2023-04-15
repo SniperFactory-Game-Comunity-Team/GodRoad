@@ -4,6 +4,7 @@ import 'package:godroad/controller/login_controller.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_button.dart';
 import 'package:godroad/view/widget/custom_text_field.dart';
+import 'package:godroad/view/widget/term_of_service_widget.dart';
 
 class LoginDetailPage extends GetView<LoginController> {
   const LoginDetailPage({super.key});
@@ -56,6 +57,7 @@ class LoginDetailPage extends GetView<LoginController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    TermOfServiceButton(),
                     const SizedBox(),
                     TextButton(
                         onPressed: () => Get.toNamed(AppRoute.signup),
