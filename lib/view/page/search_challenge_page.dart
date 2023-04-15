@@ -64,7 +64,7 @@ class SearchChallengePage extends GetView<MainController> {
                       );
                     }));
               }
-              return const SizedBox();
+              return const Center(child: Text('정확한 챌린지 제목을 입력해주세요'));
             }),
       ),
     );

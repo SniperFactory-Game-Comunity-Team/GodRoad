@@ -1,60 +1,82 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:godroad/controller/certification_controller.dart';
+import 'package:godroad/model/challenge.dart';
+import 'package:godroad/util/routes.dart';
 
-class MainPageMyChallnegeTile extends StatelessWidget {
-  const MainPageMyChallnegeTile({super.key});
+class MainPageMyChallnegeTile extends GetView<CertificationController> {
+  const MainPageMyChallnegeTile({super.key, required this.challenge});
+  final Challenge challenge;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed(AppRoute.attendchallengedetail, arguments: challenge);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                        image: NetworkImage('https://picsum.photos/150/150'))),
-              ),
-              Positioned(
-                bottom: 10,
-                left: 25,
-                child: Container(
-                  width: 100,
-                  height: 20,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: Colors.black38),
-                  child: Center(
-                      child: Text(
-                    '인증하기(3/10)',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
-                  )),
+                      image: NetworkImage(challenge.mainPicture != ''
+                          ? challenge.mainPicture
+                          : 'https://picsum.photos/150/150'),
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-            child: Container(
-                width: 150,
-                height: 35,
-                child: Text(
-                  '스나이퍼팩토리에 대한 홍보글 작성 챌린지에 참여해보세요.',
-                  style: TextStyle(fontSize: 12),
-                )),
-          ),
-          Text(
-            '챌린지가 끝나기까지 D-7',
-            style: TextStyle(fontSize: 12, color: Colors.grey),
-          )
-        ],
+                Positioned(
+                  bottom: 10,
+                  left: 25,
+                  child: Container(
+                    width: 100,
+                    height: 20,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color: Colors.black38),
+                    child: Center(
+                        child: FutureBuilder(
+                            future: controller.getCerCount(challenge),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData &&
+                                  snapshot.connectionState ==
+                                      ConnectionState.done) {
+                                return Text(
+                                  '인증하기(${challenge.authenticationCount - controller.myChallCerCount!}/${challenge.authenticationCount}',
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                );
+                              }
+                              return const Text('');
+                            })),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+              child: SizedBox(
+                  width: 150,
+                  height: 35,
+                  child: Text(
+                    challenge.title,
+                    style: const TextStyle(fontSize: 12),
+                  )),
+            ),
+            Text(
+              '챌린지가 끝나기까지 D- ${challenge.endDay.day - DateTime.now().day}',
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
+            )
+          ],
+        ),
       ),
     );
   }

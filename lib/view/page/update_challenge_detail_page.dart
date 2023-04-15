@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:godroad/controller/challenge_detail_controller.dart';
+import 'package:godroad/controller/update_challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
-import 'package:godroad/util/routes.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:intl/intl.dart';
 
-class ChallengeDetailPage extends GetView<ChallengeDetailController> {
-  const ChallengeDetailPage({super.key});
-  static String route = "/challengedetail";
+class UpdateChallengeDetailPage
+    extends GetView<UpdateChallengeDetailController> {
+  const UpdateChallengeDetailPage({super.key});
+  static String route = '/updateChallengeDetail';
 
   @override
   Widget build(BuildContext context) {
     Challenge challenge = Get.arguments;
+    controller.contentController.text = challenge.content;
+    controller.testimonyContentController.text = challenge.testimonyContent;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -98,9 +101,9 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: const EdgeInsets.all(15.0),
               child: FutureBuilder<Rxn<Profile>>(
-                  future: controller.readUploader(challenge),
+                  future: controller.challdetail.readUploader(challenge),
                   builder: (context, snapshot) {
                     if (snapshot.hasData &&
                         snapshot.connectionState == ConnectionState.done) {
@@ -139,36 +142,91 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                     return const SizedBox();
                   }),
             ),
+            const Divider(
+              indent: 20,
+              endIndent: 20,
+              thickness: 1,
+            ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "활동소개",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "활동소개",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          controller
+                              .isEditContent(!controller.isEditContent.value);
+                        },
+                        child: const Text(
+                          '수정하기',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    challenge.content,
-                    style: const TextStyle(
-                      fontSize: 12,
-                    ),
+                  Obx(
+                    () => controller.isEditContent.value
+                        ? TextField(
+                            minLines: 10,
+                            maxLines: 1000,
+                            enableInteractiveSelection: true,
+                            controller: controller.contentController,
+                            decoration: const InputDecoration(
+                                hintText: '챌린지 활동을 소개해주세요',
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.black, width: 0.5))),
+                          )
+                        : Text(
+                            controller.contentController.text,
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "인증방법",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "인증방법",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          controller.isEditTestContent(
+                              !controller.isEditTestContent.value);
+                        },
+                        child: const Text(
+                          '수정하기',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 10,
@@ -191,11 +249,24 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    challenge.testimonyContent,
-                    style: const TextStyle(
-                      fontSize: 12,
-                    ),
+                  Obx(
+                    () => controller.isEditTestContent.value
+                        ? TextField(
+                            minLines: 10,
+                            maxLines: 1000,
+                            controller: controller.testimonyContentController,
+                            decoration: const InputDecoration(
+                                hintText: '인증 예시를 입력해주세요',
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.black, width: 0.5))),
+                          )
+                        : Text(
+                            controller.testimonyContentController.text,
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                   ),
                   const SizedBox(
                     height: 20,
@@ -204,50 +275,23 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Center(
-                        child: FutureBuilder(
-                          future: controller.readBookmark(challenge),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData &&
-                                snapshot.connectionState ==
-                                    ConnectionState.done) {
-                              return ElevatedButton(
-                                onPressed: () {
-                                  controller
-                                      .isBookmark(!controller.isBookmark.value);
-                                  controller.bookMarkCheck(challenge.id);
-                                  controller.readChallenge(challenge);
-                                },
-                                style: ButtonStyle(
-                                  fixedSize: MaterialStateProperty.all<Size>(
-                                    const Size(150, 50),
-                                  ),
-                                ),
-                                child: FutureBuilder(
-                                  future: controller.readChallenge(challenge),
-                                  builder: (context, snapshots) {
-                                    if (snapshots.hasData) {
-                                      return Obx(
-                                        () => Row(
-                                          children: [
-                                            snapshot.data!.value
-                                                ? const Icon(Icons.bookmark)
-                                                : const Icon(
-                                                    Icons.bookmark_border),
-                                            const SizedBox(width: 2),
-                                            Text(snapshots.data!.value!.bookmark
-                                                .toString()),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                    return const SizedBox();
-                                  },
-                                ),
-                              );
-                            }
-                            return const SizedBox();
-                          },
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 35, right: 35, top: 12, bottom: 12),
+                          elevation: 0,
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            side: const BorderSide(color: MyColor.primary2),
+                          ),
+                        ),
+                        child: const Text(
+                          "취소",
+                          style: TextStyle(color: MyColor.primary2),
                         ),
                       ),
                       const SizedBox(
@@ -255,17 +299,20 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          controller.isApply(!controller.isApply.value);
-                          controller.applyChallenge(challenge);
-                          Get.toNamed(AppRoute.attendchallengedetail,
-                              arguments: challenge);
+                          controller.updateChallenge(challenge);
+                          controller.profile.readCreatedChallenge();
+                          Get.back();
                         },
-                        style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all<Size>(
-                            const Size(150, 50),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              left: 25, right: 25, top: 12, bottom: 12),
+                          elevation: 0,
+                          backgroundColor: MyColor.primary2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: const Text("참여하기"),
+                        child: const Text("저장하기"),
                       ),
                     ],
                   )
