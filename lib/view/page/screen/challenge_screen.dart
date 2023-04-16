@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/keyword.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/for_tile.dart';
 import 'package:godroad/view/widget/keyword_chip.dart';
@@ -141,57 +142,72 @@ class ChallengeScreen extends GetView<MainController> {
                 return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
               }),
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '${controller.auth.userProfile!.nickname}님을 위한 챌린지',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: const Text('모두보기'),
-              )
-            ],
-          ),
+        const SizedBox(
+          height: 20,
         ),
-        SizedBox(
-          height: 50,
-          child: Obx(
-            () => ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: controller.auth.userProfile!.keyword
-                  .map((e) => GestureDetector(
-                        onTap: () {},
-                        child: Chip(
-                          label: Text(e),
-                        ),
-                      ))
-                  .toList(),
+        Container(
+          color: MyColor.lightgrey,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 16, left: 16, right: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '${controller.auth.userProfile!.nickname}님을 위한 챌린지',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('모두보기'),
+                )
+              ],
             ),
           ),
         ),
-        SizedBox(
-          height: 200,
-          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
-              future: controller.readMyChallenge(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData &&
-                    snapshot.connectionState == ConnectionState.done) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return ForTile(
-                          challenge: snapshot.data![index].data(),
-                        );
-                      });
-                }
-                return const Center(child: Text('추천 챌린지가 없습니다'));
-              }),
+        Container(
+          color: MyColor.lightgrey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 50,
+              child: Obx(
+                () => ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children: controller.auth.userProfile!.keyword
+                      .map((e) => GestureDetector(
+                            onTap: () {},
+                            child: Chip(
+                              label: Text(e),
+                            ),
+                          ))
+                      .toList(),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Container(
+          color: MyColor.lightgrey,
+          child: SizedBox(
+            height: 200,
+            child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+                future: controller.readMyChallenge(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData &&
+                      snapshot.connectionState == ConnectionState.done) {
+                    return Obx(() => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return ForTile(
+                            challenge: snapshot.data![index].data(),
+                          );
+                        }));
+                  }
+                  return const SizedBox();
+                }),
+          ),
         ),
       ],
     );

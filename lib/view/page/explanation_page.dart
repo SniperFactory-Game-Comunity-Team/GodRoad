@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:godroad/util/my_color.dart';
+import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/controller/explanation_controller.dart';
 import 'package:godroad/util/routes.dart';
+
 
 class ExplanationPage extends GetView<ExplanationController> {
   const ExplanationPage({super.key});
@@ -40,8 +43,9 @@ class ExplanationPage extends GetView<ExplanationController> {
                   controller.pages.length - 1
               ? ElevatedButton(
                   style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(const Size(300, 30)),
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    fixedSize: MaterialStateProperty.all(Size(300, 30)),
+                    backgroundColor:
+                        MaterialStateProperty.all(MyColor.color900),
                   ),
                   onPressed: () {
                     Get.toNamed(AppRoute.login);
