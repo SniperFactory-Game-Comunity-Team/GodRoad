@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
+import 'package:godroad/view/widget/term_of_service_widget.dart';
 
 class MyPage extends GetView<ProfileController> {
   const MyPage({super.key});
@@ -144,12 +145,7 @@ class MyPage extends GetView<ProfileController> {
                       '로그아웃',
                       style: TextStyle(color: Colors.black),
                     )),
-                TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      '이용약관',
-                      style: TextStyle(color: Colors.black),
-                    )),
+                const TermOfServiceButton()
               ],
             )
           ],
