@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/page/login_page.dart';
 
 import '../../util/routes.dart';
@@ -56,7 +57,8 @@ class ExplanationPage extends StatelessWidget {
                   child: Text('로그인하기'),
                   style: ButtonStyle(
                     fixedSize: MaterialStateProperty.all(Size(300, 30)),
-                    backgroundColor: MaterialStateProperty.all(Colors.blue),
+                    backgroundColor:
+                        MaterialStateProperty.all(MyColor.color900),
                   ),
                   onPressed: () {
                     Get.toNamed(AppRoute.login);

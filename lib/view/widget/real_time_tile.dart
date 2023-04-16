@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:godroad/util/my_color.dart';
 
 class RealTimeTile extends GetView<MainController> {
   const RealTimeTile({
@@ -12,18 +13,14 @@ class RealTimeTile extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        controller.goDetailChallenge(challenge);
-      },
-      child: Card(
-        color: Colors.grey.shade300,
-        child: Row(
-          children: [
-            ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(8),
-                    bottomLeft: Radius.circular(8)),
+    return Card(
+      color: Colors.white,
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
                 child: Image(
                   image: NetworkImage(challenge.mainPicture != ''
                       ? challenge.mainPicture
@@ -31,86 +28,102 @@ class RealTimeTile extends GetView<MainController> {
                   width: 100,
                   height: 100,
                 )),
-            Padding(
-              padding: const EdgeInsets.only(left: 3.0),
-              child: SizedBox(
-                width: 200,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            challenge.title,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Container(
-                            width: 85,
-                            height: 20,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(16)),
-                            child: Text(
-                              '모집마감 D-${challenge.applyEndDay.day - DateTime.now().day}',
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        challenge.content,
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Wrap(
-                        children: challenge.keyword
-                            .map((e) => Text(
+          ),
+          SizedBox(
+            width: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    challenge.title,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    challenge.content,
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  Wrap(
+                    children: challenge.keyword
+                        .map((e) => Text(
                               e,
                               style: const TextStyle(fontSize: 12),
                             ))
-                            .toList(),
+                        .toList(),
+                  ),
+                ],
+              ), //타이틀과 설명을 묶어주는 컴럼
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '모집마감',
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 12),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children:  [
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Icon(
-                            Icons.people,
-                            size: 15,
-                          ),
-                          Text(
-                            challenge.participationUserId.length.toString(),
-                            style: TextStyle(fontSize: 12),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Icon(
-                            Icons.star,
-                            size: 15,
-                          ),
-                          Text(challenge.bookmark.toString())
-                        ],
-                      )
+                      Text(
+                        ' D-${challenge.applyEndDay.day - DateTime.now().day}',
+                        style: const TextStyle(
+                            color: MyColor.primary,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ), //모집마감이랑 디데이를 묶어주는 로우
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.bookmark,
+                        size: 15,
+                        color: MyColor.color900,
+                      ),
+                      Text(
+                        challenge.bookmark.toString(),
+                        style: TextStyle(
+                          color: MyColor.color900,
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ),
-            )
-          ],
-        ),
+                  ElevatedButton(
+                    onPressed: () {
+                      controller.goDetailChallenge(challenge);
+                    },
+                    child: Text(
+                      "자세히 보기",
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: MyColor.color900,
+                      fixedSize: Size(70, 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      padding: EdgeInsets.zero,
+                    ),
+                  ), //북마크와 북마크 수를 묶어주는 로우
+                ],
+              ), //모집마감이랑 북마크를 묶어주는 컬럼
+            ],
+          ),
+        ],
       ),
     );
   }
