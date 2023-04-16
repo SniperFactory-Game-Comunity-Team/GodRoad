@@ -51,83 +51,85 @@ class RealTimeChallengeListPage extends GetView<MainController> {
       ),
       body: SizedBox(
         height: 550,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            OutlinedButton(
-              onPressed: () {
-                Get.bottomSheet(
-                  SizedBox(
-                    height: Get.height * 0.3,
-                    child: Column(
-                      children: [
-                        Wrap(
-                          children: Keyword.keywords
-                              .map((e) => GestureDetector(
-                                    onTap: () {
-                                      controller.selectKeyword(e);
-                                    },
-                                    child: Obx(
-                                      () => Chip(
-                                        backgroundColor:
-                                            controller.isSelected[e] == null
-                                                ? Colors.grey
-                                                : controller.isSelected[e]
-                                                    ? Colors.lightBlue
-                                                    : Colors.grey,
-                                        label: Text(e),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              OutlinedButton(
+                onPressed: () {
+                  Get.bottomSheet(
+                    SizedBox(
+                      height: Get.height * 0.3,
+                      child: Column(
+                        children: [
+                          Wrap(
+                            children: Keyword.keywords
+                                .map((e) => GestureDetector(
+                                      onTap: () {
+                                        controller.selectKeyword(e);
+                                      },
+                                      child: Obx(
+                                        () => Chip(
+                                          backgroundColor:
+                                              controller.isSelected[e] == null
+                                                  ? Colors.grey
+                                                  : controller.isSelected[e]
+                                                      ? Colors.lightBlue
+                                                      : Colors.grey,
+                                          label: Text(e),
+                                        ),
                                       ),
-                                    ),
+                                    ))
+                                .toList(),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                controller.startReadKeyword();
+                              },
+                              child: const Text('키워드별 챌린지 보기'))
+                        ],
+                      ),
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
+                    backgroundColor: Colors.white,
+                    clipBehavior: Clip.hardEdge,
+                  );
+                },
+                child: Obx(
+                  () => controller.keywords.isEmpty
+                      ? const Text('키워드')
+                      : Wrap(
+                          children: controller.keywords
+                              .map((e) => Chip(
+                                    label: Text(e),
                                   ))
                               .toList(),
                         ),
-                        ElevatedButton(
-                            onPressed: () {
-                              controller.startReadKeyword();
-                            },
-                            child: const Text('키워드별 챌린지 보기'))
-                      ],
-                    ),
-                  ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                    ),
-                  ),
-                  backgroundColor: Colors.white,
-                  clipBehavior: Clip.hardEdge,
-                );
-              },
-              child: Obx(
-                () => controller.keywords.isEmpty
-                    ? const Text('키워드')
-                    : Wrap(
-                        children: controller.keywords
-                            .map((e) => Chip(
-                                  label: Text(e),
-                                ))
-                            .toList(),
-                      ),
+                ),
               ),
-            ),
-            FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
-                future: controller.readChallenge(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData &&
-                      snapshot.connectionState == ConnectionState.done) {
-                    return Obx(() => ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return RealTimeTile(
-                            challenge: snapshot.data![index].data(),
-                          );
-                        }));
-                  }
-                  return const SizedBox();
-                }),
-          ],
+              FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+                  future: controller.readChallenge(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData &&
+                        snapshot.connectionState == ConnectionState.done) {
+                      return Obx(() => ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return RealTimeTile(
+                              challenge: snapshot.data![index].data(),
+                            );
+                          }));
+                    }
+                    return const SizedBox();
+                  }),
+            ],
+          ),
         ),
       ),
     );
