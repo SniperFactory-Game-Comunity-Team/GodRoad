@@ -39,7 +39,6 @@ class LoginPage extends GetView<LoginController> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextButton(onPressed: () {}, child: Text('이용약관')),
                 CustomButton(
                     text: '이메일로 로그인하기',
                     onPressedFunction: () {
