@@ -1,45 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
+import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/model/service/firebase.dart';
 
 class ChallengeDetailController extends GetxController {
   var auth = Get.find<AuthController>();
+  var cer = Get.find<CertificationController>();
   RxInt selectedIndex = 0.obs;
   RxBool isBookmark = false.obs;
   RxBool isApply = false.obs;
   Rxn<Profile> uploader = Rxn<Profile>();
   Rxn<Profile> profileBookmark = Rxn<Profile>();
   Rxn<Challenge> detailChallenge = Rxn<Challenge>();
-  final PageController pageController = PageController(initialPage: 0);
-
-  final List<Map<String, dynamic>> pages = [
-    {
-      'title': '1번 인증',
-    },
-    {
-      'title': '2번 인증',
-    },
-    {
-      'title': '3번 인증',
-    },
-  ];
-
-  RxInt currentPageIndex = 0.obs;
 
   Future<Rxn<Profile>> readUploader(Challenge challenge) async {
-    var profile = await Firebase.getUser.doc(challenge.userId)
-        .get();
+    var profile = await Firebase.getUser.doc(challenge.userId).get();
     uploader(profile.data());
     return uploader;
   }
 
   Future<Rxn<Challenge>> readChallenge(Challenge challenge) async {
-    var chall = await Firebase.getChallenge.doc(challenge.id)
-        .get();
+    var chall = await Firebase.getChallenge.doc(challenge.id).get();
     detailChallenge(chall.data());
     return detailChallenge;
   }
@@ -56,46 +40,35 @@ class ChallengeDetailController extends GetxController {
       await Firebase.colChall
           .doc(challengeId)
           .update({'bookmark': FieldValue.increment(1)});
-      await Firebase.colUser
-          .doc(auth.user!.uid)
-          .update({
+      await Firebase.colUser.doc(auth.user!.uid).update({
         'myBookmark': FieldValue.arrayUnion([challengeId])
       });
     } else {
       await Firebase.colChall
           .doc(challengeId)
           .update({'bookmark': FieldValue.increment(-1)});
-      await Firebase.colUser
-          .doc(auth.user!.uid)
-          .update({
+      await Firebase.colUser.doc(auth.user!.uid).update({
         'myBookmark': FieldValue.arrayRemove([challengeId])
       });
     }
   }
 
   //챌린지 신청
-  applyChallenge(String challengeId) async {
+  applyChallenge(Challenge challenge) async {
     if (isApply.value) {
-      await Firebase.colChall
-          .doc(challengeId)
-          .update({
+      await Firebase.colChall.doc(challenge.id).update({
         'participationUserId': FieldValue.arrayUnion([auth.user!.uid])
       });
-      await Firebase.colUser
-          .doc(auth.user!.uid)
-          .update({
-        'myChallenge': FieldValue.arrayUnion([challengeId])
+      await Firebase.colUser.doc(auth.user!.uid).update({
+        'myChallenge': FieldValue.arrayUnion([challenge.id])
       });
+      cer.setCertification(challenge);
     } else {
-      await Firebase.colChall
-          .doc(challengeId)
-          .update({
+      await Firebase.colChall.doc(challenge.id).update({
         'participationUserId': FieldValue.arrayRemove([auth.user!.uid])
       });
-      await Firebase.colUser
-          .doc(auth.user!.uid)
-          .update({
-        'myChallenge': FieldValue.arrayRemove([challengeId])
+      await Firebase.colUser.doc(auth.user!.uid).update({
+        'myChallenge': FieldValue.arrayRemove([challenge.id])
       });
     }
   }

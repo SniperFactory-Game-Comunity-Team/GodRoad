@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
-import 'package:godroad/util/routes.dart';
 
-class ForTile extends StatelessWidget {
+class ForTile extends GetView<MainController> {
   const ForTile({
     super.key,
     required this.challenge,
@@ -24,12 +24,11 @@ class ForTile extends StatelessWidget {
             ),
             title: Text(
               challenge.title,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             subtitle: Wrap(
               children: challenge.keyword
                   .map((e) => GestureDetector(
-                        onTap: () {},
                         child: Text(
                           e,
                           style: const TextStyle(fontSize: 12),
@@ -40,9 +39,9 @@ class ForTile extends StatelessWidget {
             trailing: ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.grey),
                 onPressed: () {
-                  Get.toNamed(AppRoute.challengedetail);
+                  controller.goDetailChallenge(challenge);
                 },
-                child: Text('참여하기')),
+                child: const Text('참여하기')),
           )),
     );
   }

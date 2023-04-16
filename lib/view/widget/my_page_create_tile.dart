@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
 
-class MainPageChallengeListTile extends GetView<CertificationController> {
-  const MainPageChallengeListTile(
-      {super.key,
-      required this.buttontext,
-      required this.challenge,
-      this.onPressed});
-  final String buttontext;
+class MyPageCreateTile extends StatelessWidget {
+  const MyPageCreateTile(
+      {super.key, required this.challenge, this.onPressed, this.funDelete});
   final Challenge challenge;
   final Function()? onPressed;
+  final Function()? funDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -29,44 +25,21 @@ class MainPageChallengeListTile extends GetView<CertificationController> {
                       fontSize: 17, fontWeight: FontWeight.bold)),
               Row(
                 children: [
-                  Text(
-                    'D-${challenge.endDay.day - DateTime.now().day}',
-                    style: const TextStyle(
-                      color: MyColor.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  const Icon(
+                    Icons.bookmark,
+                    color: MyColor.primary,
                   ),
+                  SizedBox(
+                      width: 25, child: Text(challenge.bookmark.toString())),
                 ],
-              )
+              ),
             ],
           ),
           Row(
             children: [
-              const Text('총 인증 수', style: TextStyle(fontSize: 10)),
-              const SizedBox(width: 3),
-              Text(challenge.authenticationCount.toString(),
-                  style: const TextStyle(
-                      fontSize: 10,
-                      height: 1.6,
-                      color: MyColor.primary2,
-                      fontWeight: FontWeight.bold)),
-              const SizedBox(width: 8),
-              const Text('남은 인증 수', style: TextStyle(fontSize: 10)),
-              const SizedBox(width: 3),
-              FutureBuilder(
-                  future: controller.getCerCount(challenge),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.connectionState == ConnectionState.done) {
-                      return Text('${controller.myChallCerCount}',
-                          style: const TextStyle(
-                              fontSize: 10,
-                              height: 1.6,
-                              color: MyColor.primary2,
-                              fontWeight: FontWeight.bold));
-                    }
-                    return const Text('');
-                  }),
+              const Text('참여자 수', style: TextStyle(fontSize: 10)),
+              Text(challenge.participationUserId.length.toString(),
+                  style: const TextStyle(fontSize: 10)),
             ],
           ),
           Row(
@@ -100,9 +73,9 @@ class MainPageChallengeListTile extends GetView<CertificationController> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: Text(
-                  buttontext,
-                  style: const TextStyle(fontSize: 10),
+                child: const Text(
+                  '수정하기',
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
             ],

@@ -25,9 +25,8 @@ class ProfileController extends GetxController {
   RxList<Challenge> bookmarkChallenge = RxList<Challenge>();
 
   Future<bool> isDuplicateUniqueName(String nickname) async {
-    QuerySnapshot query = await Firebase.colUser
-        .where('nickname', isEqualTo: nickname)
-        .get();
+    QuerySnapshot query =
+        await Firebase.colUser.where('nickname', isEqualTo: nickname).get();
     if (auth.userProfile != null && auth.userProfile!.nickname == nickname) {
       return false;
     }
@@ -41,9 +40,7 @@ class ProfileController extends GetxController {
   }
 
   setProfile() async {
-    await Firebase.colUser
-        .doc(auth.user!.uid)
-        .set({
+    await Firebase.colUser.doc(auth.user!.uid).set({
       'id': auth.user!.uid,
       'nickname': nameController.text,
       'email': auth.user!.email,
@@ -62,10 +59,8 @@ class ProfileController extends GetxController {
   }
 
   updateProfile() async {
-    await Firebase.colUser
-        .doc(auth.user!.uid)
-        .update(
-            {'nickname': nameController.text, 'profileUrl': profileUrl.value});
+    await Firebase.colUser.doc(auth.user!.uid).update(
+        {'nickname': nameController.text, 'profileUrl': profileUrl.value});
   }
 
   profileUpload(ImageSource source) async {
@@ -92,9 +87,7 @@ class ProfileController extends GetxController {
   }
 
   userKeywordUpload() async {
-    await Firebase.colUser
-        .doc(auth.user!.uid)
-        .update({
+    await Firebase.colUser.doc(auth.user!.uid).update({
       'keyword': keywords,
     });
     Get.toNamed(AppRoute.my);
@@ -121,16 +114,12 @@ class ProfileController extends GetxController {
     return createdChallenge.isNotEmpty ? createdChallenge : null;
   }
 
-  //내가 참여중인 챌린지 
+  //내가 참여중인 챌린지
   Future<RxList<Challenge>?> readmyChallenge() async {
     myChallenge.clear();
-     var profile = await Firebase.getUser
-        .doc(auth.user!.uid)
-        .get();
+    var profile = await Firebase.getUser.doc(auth.user!.uid).get();
     for (var myChall in profile.data()!.myChallenge) {
-      var challenge = await Firebase.getChallenge
-          .doc(myChall.toString())
-          .get();
+      var challenge = await Firebase.getChallenge.doc(myChall.toString()).get();
       myChallenge.add(challenge.data() as Challenge);
     }
     return myChallenge.isNotEmpty ? myChallenge : null;
@@ -138,14 +127,14 @@ class ProfileController extends GetxController {
 
   Future<RxList<Challenge>?> readmyBookmark() async {
     bookmarkChallenge.clear();
-    var profile = await Firebase.getUser
-        .doc(auth.user!.uid)
-        .get();
+    var profile = await Firebase.getUser.doc(auth.user!.uid).get();
     for (var myBookmark in profile.data()!.myBookmark) {
-      var bookmark = await Firebase.getChallenge
-          .doc(myBookmark.toString())
-          .get();
-      bookmarkChallenge.add(bookmark.data() as Challenge);
+      var bookmark =
+          await Firebase.getChallenge.doc(myBookmark.toString()).get();
+      if (bookmark.data() != null &&
+          !bookmark.data()!.participationUserId.contains(auth.user!.uid)) {
+        bookmarkChallenge.add(bookmark.data() as Challenge);
+      }
     }
     return bookmarkChallenge.isNotEmpty ? bookmarkChallenge : null;
   }
