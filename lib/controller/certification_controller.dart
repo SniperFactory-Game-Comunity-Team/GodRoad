@@ -9,6 +9,7 @@ import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/model/certification.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/service/firebase.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CertificationController extends GetxController {
@@ -22,7 +23,7 @@ class CertificationController extends GetxController {
   RxInt currentPageIndex = 0.obs;
   var isUpdate = RxMap<String, RxBool>();
   int cerUpdate = 0;
-  int? myChallCerCount;
+  int myChallCerCount = 0;
 
   setCertification(Challenge challenge) async {
     for (var cerCount = 0;
@@ -76,7 +77,7 @@ class CertificationController extends GetxController {
         .where('img', isEqualTo: '')
         .get();
     myChallCerCount = cer.docs.length;
-    return myChallCerCount != null ? myChallCerCount! : 0;
+    return  myChallCerCount;
   }
 
   updateCertification(Challenge challenge, int index) {
@@ -101,6 +102,8 @@ class CertificationController extends GetxController {
       cerImg.value = '';
       contentController.text = '';
       Get.back();
+      currentPageIndex(0);
+      Get.toNamed(AppRoute.attendchallengedetail, arguments:  challenge);
     }
   }
 

@@ -50,7 +50,7 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
                                   snapshot.connectionState ==
                                       ConnectionState.done) {
                                 return Text(
-                                  '인증하기(${challenge.authenticationCount - controller.myChallCerCount!}/${challenge.authenticationCount}',
+                                  '인증하기(${challenge.authenticationCount - snapshot.data!}/${challenge.authenticationCount}',
                                   style: const TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 );
