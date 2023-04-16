@@ -87,7 +87,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                         ),
                         Text(
                           "모집마감 D-${challenge.applyEndDay.day - DateTime.now().day}",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15.0,
                           ),
                         ),
@@ -256,7 +256,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       ElevatedButton(
                         onPressed: () {
                           controller.isApply(!controller.isApply.value);
-                          controller.applyChallenge(challenge.id);
+                          controller.applyChallenge(challenge);
                           Get.toNamed(AppRoute.attendchallengedetail,
                               arguments: challenge);
                         },

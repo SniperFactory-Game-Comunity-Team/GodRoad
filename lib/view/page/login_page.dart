@@ -20,11 +20,11 @@ class LoginPage extends GetView<LoginController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: const [
                 Text(
-                  '갓생으로 가는 길',
+                  '챌린지 스토리',
                   style: TextStyle(),
                 ),
                 Text(
-                  '갓길',
+                  '챌리',
                   style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
@@ -39,6 +39,7 @@ class LoginPage extends GetView<LoginController> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                TextButton(onPressed: () {}, child: Text('이용약관')),
                 CustomButton(
                     text: '이메일로 로그인하기',
                     onPressedFunction: () {

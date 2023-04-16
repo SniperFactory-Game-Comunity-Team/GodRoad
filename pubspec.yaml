@@ -29,7 +29,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  cloud_firestore: ^4.5.0
+  cloud_firestore: ^4.5.1
   cupertino_icons: ^1.0.5
   firebase_auth: ^4.2.2
   firebase_core: ^2.9.0
@@ -42,7 +42,7 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   get: ^4.6.5
   google_sign_in: ^6.1.0
-  image_picker: ^0.8.7+2
+  image_picker: ^0.8.7+3
   intl: ^0.18.0
   shared_preferences: ^2.1.0
   table_calendar: ^3.0.9
@@ -62,10 +62,14 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/
+    - assets/terms/
     - assets/logo.svg
     - assets/explanation_1.svg
     - assets/explanation_2.svg
     - assets/explanation_3.svg
+    - assets/upload_picture.svg
+    - assets/my_keyword.svg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

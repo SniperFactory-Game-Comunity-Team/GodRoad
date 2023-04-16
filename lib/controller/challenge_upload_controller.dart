@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
-import 'package:godroad/controller/calendar_controller.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/service/firebase.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ChallengeUploadController extends GetxController {
   var auth = Get.find<AuthController>();
   var main = Get.find<MainController>();
-  var calendar = Get.find<CalendarController>();
   var picker = ImagePicker();
   var titleController = TextEditingController();
   var subtitleController = TextEditingController();
@@ -29,6 +27,32 @@ class ChallengeUploadController extends GetxController {
   RxBool isUpload = false.obs;
   List<String> keywords = [];
   RxInt authenticationCount = 0.obs;
+  RxInt selectedIndex = 0.obs;
+
+  Rx<DateTime> datenow = DateTime.now().obs;
+  Rx<DateTime> applyStartDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  ).obs;
+  Rx<DateTime> applyEndDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  ).obs;
+  Rx<DateTime> applyFocusedDay = DateTime.now().obs;
+
+  Rx<DateTime> challStartDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  ).obs;
+  Rx<DateTime> challEndDay = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+  ).obs;
+  Rx<DateTime> challFocusedDay = DateTime.now().obs;
 
   checkUpload() => (contentController.text != '' &&
           titleController.text != '' &&
@@ -48,11 +72,11 @@ class ChallengeUploadController extends GetxController {
   }
 
   uploadChallenge() async {
-    if (calendar.challEndDay.value.day == DateTime.now().day) {
+    if (challEndDay.value.day == DateTime.now().day) {
       Get.snackbar('업로드 실패', '챌린지 기간을 설정해주세요');
     } else if (tPicture.value == '') {
       Get.snackbar('업로드 실패', '인증 사진 예시를 올려주세요');
-      } else if (countController.text == '') {
+    } else if (countController.text == '') {
       Get.snackbar('업로드 실패', '인증 횟수를 정해주세요');
     } else {
       saveId++;
@@ -70,14 +94,14 @@ class ChallengeUploadController extends GetxController {
         'testimonyPicture': tPicture.value,
         'testimonyContent': testimonyContentController.text,
         'keyword': keywords,
-        'participationUserId' : [],
+        'participationUserId': [],
         'authenticationCount': int.parse(countController.text),
         'bookmark': 0,
         'createAt': Timestamp.now(),
-        'applyStartDay': calendar.applyStartDay.value,
-        'applyEndDay': calendar.applyEndDay.value,
-        'startDay': calendar.challStartDay.value,
-        'endDay': calendar.challEndDay.value,
+        'applyStartDay': applyStartDay.value,
+        'applyEndDay': applyEndDay.value,
+        'startDay': challStartDay.value,
+        'endDay': challEndDay.value,
       });
       main.readChallenge();
       main.readMyChallenge();

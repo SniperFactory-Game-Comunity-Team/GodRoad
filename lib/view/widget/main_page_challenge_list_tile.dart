@@ -1,100 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/model/challenge.dart';
-import 'package:godroad/view/widget/custom_button.dart';
+import 'package:godroad/util/my_color.dart';
 
-class MainPageChallengeListTile extends StatelessWidget {
+class MainPageChallengeListTile extends GetView<CertificationController> {
   const MainPageChallengeListTile(
-      {super.key, required this.buttontext, required this.challenge});
+      {super.key,
+      required this.buttontext,
+      required this.challenge,
+      this.onPressed});
   final String buttontext;
   final Challenge challenge;
+  final Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: SizedBox(
-        height: 130,
-        child: Row(
-          children: [
-            Image(
-                image: NetworkImage(challenge.mainPicture != ''
-                    ? challenge.mainPicture
-                    : 'https://picsum.photos/100/100')),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+      padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(challenge.title,
+                  style: const TextStyle(
+                      fontSize: 17, fontWeight: FontWeight.bold)),
+              Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        challenge.title,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 15),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.bookmark,
-                            color: Colors.grey,
-                          ),
-                          Text(challenge.bookmark.toString()),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            '챌린지 마감 D-${challenge.endDay.day - DateTime.now().day}',
-                            style: const TextStyle(color: Colors.greenAccent),
-                          ),
-                        ],
-                      )
-                    ],
+                  Text(
+                    'D-${challenge.endDay.day - DateTime.now().day}',
+                    style: const TextStyle(
+                      color: MyColor.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  Row(
-                    children: const [
-                      Text(
-                        '총 인증 수 ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12),
-                      ),
-                      Text('15 '),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '남은 인증 수 ',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 12),
-                      ),
-                      Text('4')
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Wrap(
-                        children: challenge.keyword
-                            .map((e) => GestureDetector(
-                                  onTap: () {},
-                                  child: Text(
-                                    e,
-                                    style: const TextStyle(fontSize: 12),
-                                  ),
-                                ))
-                            .toList(),
-                      ),
-                      CustomButton(
-                          text: buttontext,
-                          onPressedFunction: () {},
-                          isEnabled: true)
-                    ],
-                  )
                 ],
+              )
+            ],
+          ),
+          Row(
+            children: [
+              const Text('총 인증 수', style: TextStyle(fontSize: 10)),
+              const SizedBox(width: 3),
+              Text(challenge.authenticationCount.toString(),
+                  style: const TextStyle(
+                      fontSize: 10,
+                      height: 1.6,
+                      color: MyColor.primary2,
+                      fontWeight: FontWeight.bold)),
+              const SizedBox(width: 8),
+              const Text('남은 인증 수', style: TextStyle(fontSize: 10)),
+              const SizedBox(width: 3),
+              FutureBuilder(
+                  future: controller.getCerCount(challenge),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData &&
+                        snapshot.connectionState == ConnectionState.done) {
+                      return Text('${controller.myChallCerCount}',
+                          style: const TextStyle(
+                              fontSize: 10,
+                              height: 1.6,
+                              color: MyColor.primary2,
+                              fontWeight: FontWeight.bold));
+                    }
+                    return const Text('');
+                  }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Wrap(
+                children: challenge.keyword
+                    .map((e) => GestureDetector(
+                          onTap: () {},
+                          child: Chip(
+                            padding: EdgeInsets.zero,
+                            visualDensity: const VisualDensity(
+                                horizontal: 0.0, vertical: -4),
+                            backgroundColor: MyColor.lightgrey,
+                            label: Text(
+                              e,
+                              style: const TextStyle(fontSize: 10),
+                            ),
+                          ),
+                        ))
+                    .toList(),
               ),
-            ),
-          ],
-        ),
+              ElevatedButton(
+                onPressed: onPressed,
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size.zero,
+                  padding: const EdgeInsets.only(
+                      left: 12, right: 12, top: 5, bottom: 5),
+                  backgroundColor: MyColor.primary2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  buttontext,
+                  style: const TextStyle(fontSize: 10),
+                ),
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

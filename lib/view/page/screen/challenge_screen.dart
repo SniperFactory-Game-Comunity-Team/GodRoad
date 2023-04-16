@@ -7,6 +7,7 @@ import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/for_tile.dart';
+import 'package:godroad/view/widget/keyword_chip.dart';
 import 'package:godroad/view/widget/main_page_my_challenge_tile.dart';
 import 'package:godroad/view/widget/real_time_tile.dart';
 
@@ -29,7 +30,7 @@ class ChallengeScreen extends GetView<MainController> {
               ),
               TextButton(
                 onPressed: () {
-                  Get.toNamed(AppRoute.realtimechallengelist);
+                  Get.toNamed(AppRoute.attending);
                 },
                 child: const Text('모두보기'),
               )
@@ -37,14 +38,26 @@ class ChallengeScreen extends GetView<MainController> {
           ),
         ),
         SizedBox(
-          height: 250,
-          child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 3,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return MainPageMyChallnegeTile();
-              }),
+          height: 300,
+          child: FutureBuilder(
+            future: controller.profile.readmyChallenge(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData &&
+                  snapshot.connectionState == ConnectionState.done) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return MainPageMyChallnegeTile(
+                      challenge: snapshot.data![index],
+                    );
+                  },
+                );
+              }
+              return const Center(child: Text('참여한 챌린지가 없습니다'));
+            },
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(12.0),
@@ -71,26 +84,10 @@ class ChallengeScreen extends GetView<MainController> {
                 height: Get.height * 0.3,
                 child: Column(
                   children: [
-                    Wrap(
-                      children: Keyword.keywords
-                          .map((e) => GestureDetector(
-                                onTap: () {
-                                  controller.selectKeyword(e);
-                                },
-                                child: Obx(
-                                  () => Chip(
-                                    backgroundColor:
-                                        controller.isSelected[e] == null
-                                            ? Colors.grey
-                                            : controller.isSelected[e]
-                                                ? Colors.lightBlue
-                                                : Colors.grey,
-                                    label: Text(e),
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                    ),
+                    KeywordChip(
+                        keyword: Keyword.keywords,
+                        onTap: controller.selectKeyword,
+                        isSelected: controller.isSelected),
                     ElevatedButton(
                         onPressed: () {
                           controller.startReadKeyword();
@@ -122,22 +119,27 @@ class ChallengeScreen extends GetView<MainController> {
           ),
         ),
         SizedBox(
-          height: 200,
-          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+          height: 400,
+          child: FutureBuilder(
               future: controller.readChallenge(),
               builder: (context, snapshot) {
                 if (snapshot.hasData &&
                     snapshot.connectionState == ConnectionState.done) {
-                  return Obx(() => ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return RealTimeTile(
-                          challenge: snapshot.data![index].data(),
-                        );
-                      }));
+                  return Obx(
+                    () => ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.length > 3
+                            ? 3
+                            : snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return RealTimeTile(
+                            challenge: snapshot.data![index].data(),
+                          );
+                        }),
+                  );
                 }
-                return const SizedBox();
+                return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
               }),
         ),
         const SizedBox(

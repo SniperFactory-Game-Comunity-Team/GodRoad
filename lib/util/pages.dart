@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/attending_challenge_detail_page.dart';
 import 'package:godroad/view/page/bookmark_page.dart';
-import 'package:godroad/view/page/calendar_page.dart';
 import 'package:godroad/view/page/challenge_detail_page.dart';
 import 'package:godroad/view/page/challenge_upload_page.dart';
 import 'package:godroad/view/page/created_challenge_page.dart';
@@ -14,7 +13,6 @@ import 'package:godroad/view/page/end_challenge_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
 import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/view/page/main_page.dart';
-import 'package:godroad/view/page/my_create_challenge_page.dart';
 import 'package:godroad/view/page/permission_page.dart';
 import 'package:godroad/view/page/edit_profile_page.dart';
 import 'package:godroad/view/page/my_page.dart';
@@ -22,6 +20,7 @@ import 'package:godroad/view/page/profile_page.dart';
 import 'package:godroad/view/page/real_tile_challenge_list_page.dart';
 import 'package:godroad/view/page/search_challenge_page.dart';
 import 'package:godroad/view/page/signup_page.dart';
+import 'package:godroad/view/page/update_challenge_detail_page.dart';
 
 class AppPages {
   static final pages = [
@@ -40,7 +39,6 @@ class AppPages {
         name: AppRoute.keywordSelect, page: () => const KeywordSelectPage()),
     GetPage(
         name: AppRoute.keywordUpdate, page: () => const KeywordUpdatePage()),
-    GetPage(name: AppRoute.calendar, page: () => const CalendarPage()),
     GetPage(
         name: AppRoute.attending, page: () => const AttendingChallengePage()),
     GetPage(name: AppRoute.endchallenge, page: () => const EndChallengePage()),
@@ -60,6 +58,7 @@ class AppPages {
         name: AppRoute.attendchallengedetail,
         page: () => const AttendingChallengeDetailPage()),
     GetPage(name: AppRoute.bookmark, page: () => const BookmarkPage()),
-    GetPage(name: AppRoute.explanation, page: () => ExplanationPage())
+    GetPage(name: AppRoute.explanation, page: () => const ExplanationPage()),
+    GetPage(name: AppRoute.updateChallengeDetail, page: () => const UpdateChallengeDetailPage()),
   ];
 }
