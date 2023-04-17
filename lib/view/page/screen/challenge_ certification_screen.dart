@@ -234,7 +234,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
               const SizedBox(
                 height: 20,
               ),
-              FutureBuilder<List>(
+              FutureBuilder<RxList<Map>>(
                 future: controller.readCurrentChallParticipationUser(challenge),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -244,45 +244,34 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                           scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) =>
-                              //   Text(snapshot.data![index].toString())
                               Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 3.0),
                             child: GestureDetector(
-                              onTap: () {
-                                Get.to(()=>MemberCertificationPage(
-                                    userId: snapshot.data![index],
-                                    challenge: challenge));
-                              },
-                              child: FutureBuilder<Rxn<Profile>>(
-                                future: controller.readUploader(challenge),
-                                builder: (context, snapshots) {
-                                  if (snapshots.hasData &&
-                                      snapshots.connectionState ==
-                                          ConnectionState.done) {
-                                    return snapshots.data!.value!.profileUrl !=
-                                            ''
-                                        ? CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.grey,
-                                            backgroundImage: NetworkImage(
-                                                snapshots
-                                                    .data!.value!.profileUrl
-                                                    .toString()),
-                                          )
-                                        : const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: MyColor.lightgrey,
-                                            child: Icon(
-                                              Icons.person,
-                                              color: Colors.grey,
-                                            ),
-                                          );
-                                  }
-                                  return const SizedBox();
+                                onTap: () {
+                                  Get.to(() => MemberCertificationPage(
+                                      userId: snapshot
+                                          .data![index]['profile'].id,
+                                      challenge: challenge));
                                 },
-                              ),
-                            ),
+                                child: snapshot.data![index]['profile']
+                                            .profileUrl !=
+                                        ''
+                                    ? CircleAvatar(
+                                        radius: 15,
+                                        backgroundColor: Colors.grey,
+                                        backgroundImage: NetworkImage(snapshot
+                                            .data![index]['profile'].profileUrl
+                                            .toString()),
+                                      )
+                                    : const CircleAvatar(
+                                        radius: 15,
+                                        backgroundColor: MyColor.lightgrey,
+                                        child: Icon(
+                                          Icons.person,
+                                          color: Colors.grey,
+                                        ),
+                                      )),
                           ),
                         ));
                   }

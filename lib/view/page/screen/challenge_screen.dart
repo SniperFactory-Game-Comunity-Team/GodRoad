@@ -129,11 +129,11 @@ class ChallengeScreen extends GetView<MainController> {
                     ),
                   );
                 },
-                child: const Text('키워드 선택'),
                 style: ButtonStyle(
                   foregroundColor:
                       MaterialStateProperty.all<Color>(MyColor.primary2),
                 ),
+                child: const Text('키워드 선택'),
               ),
               TextButton(
                 style: ButtonStyle(

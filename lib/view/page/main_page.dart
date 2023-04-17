@@ -169,74 +169,75 @@ class MainPage extends GetView<MainController> {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text('모두보기'),
                         style: ButtonStyle(
                           foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.black54),
                         ),
+                        child: const Text('모두보기'),
                       ),
                     ],
                   ),
                 ),
               ),
-              Column(
-                children: [
-                  Container(
-                    height: 300,
-                    color: MyColor.lightgrey,
-                    child: SizedBox(
-                      height: 200,
-                      child: FutureBuilder<
-                              RxList<QueryDocumentSnapshot<Challenge>>>(
-                          future: controller.readMyChallenge(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData &&
-                                snapshot.connectionState ==
-                                    ConnectionState.done) {
-                              return Obx(() => ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: snapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    return ForTile(
-                                      challenge: snapshot.data![index].data(),
-                                    );
-                                  }));
-                            }
-                            return const SizedBox();
-                          }),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Container(
-                        color: MyColor.lightgrey,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  Get.dialog(CustomDialog(
-                                    imageRoute: SvgPicture.asset(
-                                        'assets/dialogsvg/logoutaccount.svg'),
-                                    content: '로그아웃 하시겠습니까?',
-                                    btn1fn: controller.auth.signOut,
-                                    btn2fn: Get.back,
-                                    firstText: '확인',
-                                    secondText: '취소',
-                                  ));
-                                },
-                                child: const Text(
-                                  '로그아웃',
-                                  style: TextStyle(color: Colors.black),
-                                )),
-                            TermOfServiceButton('이용약관', Colors.blue, 14)
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
+              Container(
+                height: 300,
+                color: MyColor.lightgrey,
+                child: SizedBox(
+                  height: 200,
+                  child: FutureBuilder<
+                          RxList<QueryDocumentSnapshot<Challenge>>>(
+                      future: controller.readMyChallenge(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData &&
+                            snapshot.connectionState ==
+                                ConnectionState.done) {
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 3,
+                              itemBuilder: (context, index) {
+                                return Obx(
+                                  ()=> ForTile(
+                                    challenge: snapshot.data![index].data(),
+                                  ),
+                                );
+                              });
+                        }
+                        return const SizedBox();
+                      }),
+                ),
               ),
+              Container(
+                height: 60,
+                color: MyColor.lightgrey,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 5),
+                      TextButton(
+                          onPressed: () {
+                            Get.dialog(CustomDialog(
+                              imageRoute: SvgPicture.asset(
+                                  'assets/dialogsvg/logoutaccount.svg'),
+                              content: '로그아웃 하시겠습니까?',
+                              btn1fn: controller.auth.signOut,
+                              btn2fn: Get.back,
+                              firstText: '확인',
+                              secondText: '취소',
+                            ));
+                          },
+                          child: const Text(
+                            '로그아웃',
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          )),
+                      const SizedBox(width: 5),
+                      const TermOfServiceButton('이용약관', Colors.black, 12),
+                      const SizedBox(width: 5),
+                      const TermOfServiceButton('개인정보처리방침', Colors.black, 12)
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),
