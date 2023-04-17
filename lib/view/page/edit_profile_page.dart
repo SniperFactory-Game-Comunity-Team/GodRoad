@@ -55,58 +55,80 @@ class EditProfilePage extends GetView<ProfileController> {
                 Obx(
                   () => controller.profileUrl.value != ''
                       ? CircleAvatar(
-                          radius: 55,
+                          radius: 80,
                           backgroundImage:
                               NetworkImage(controller.profileUrl.value))
                       : const CircleAvatar(
-                          radius: 55,
+                          radius: 80,
                           backgroundColor: MyColor.lightgrey,
                           child: Icon(
                             Icons.person,
                             color: Colors.grey,
-                            size: 80,
+                            size: 110,
                           ),
                         ),
                 ),
                 const Positioned(
-                    right: 5,
-                    bottom: 6,
+                    right: 0,
+                    bottom: 0,
                     child: CircleAvatar(
-                      radius: 15,
+                      radius: 25,
                       backgroundColor: MyColor.darkgrey,
                       child: FaIcon(
                         FontAwesomeIcons.camera,
-                        size: 19,
+                        size: 28,
                         color: Colors.white,
                       ),
                     ))
               ]),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('닉네임'),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Text(
+                    '닉네임',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextField(
+                    textAlign: TextAlign.center,
                     onChanged: (value) => controller.uniqueNicknameCheck(),
                     controller: controller.nameController,
-                    decoration: const InputDecoration(hintText: '닉네임을 입력해주세요'),
+                    decoration: const InputDecoration(
+                      hintText: '닉네임을 입력해주세요',
+                      filled: true,
+                      fillColor: MyColor.lightgrey,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Obx(() => controller.isUniqueName.value
                         ? const Text(
                             '사용가능한 닉네임입니다',
-                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                            style: TextStyle(
+                              color: MyColor.color700,
+                              fontSize: 12,
+                            ),
                           )
                         : controller.nameController.text != ''
                             ? const Text(
                                 '중복된 닉네임입니다.',
-                                style:
-                                    TextStyle(color: Colors.red, fontSize: 12),
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12,
+                                ),
                               )
                             : const SizedBox()),
+                  ),
+                  SizedBox(
+                    height: 30,
                   ),
                 ],
               ),

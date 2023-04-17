@@ -6,6 +6,8 @@ import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/screen/challenge_screen.dart';
+import 'package:godroad/view/widget/custom_dialog.dart';
+import 'package:godroad/view/widget/term_of_service_widget.dart';
 import '../../model/challenge.dart';
 import '../widget/for_tile.dart';
 
@@ -35,15 +37,6 @@ class MainPage extends GetView<MainController> {
               icon: const Icon(Icons.add),
               onPressed: () {
                 Get.toNamed(AppRoute.challengeUpload);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                //Get.toNamed(AppRoute.attendchallengedetail);
               },
             ),
           ),
@@ -108,10 +101,16 @@ class MainPage extends GetView<MainController> {
                                   ),
                                 ],
                               ),
-                              SvgPicture.asset(
-                                'assets/mainpage_image.svg',
-                                width: 100,
-                                height: 100,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 15,
+                                  right: 10,
+                                ),
+                                child: SvgPicture.asset(
+                                  'assets/mainpage_image.svg',
+                                  width: 125,
+                                  height: 125,
+                                ),
                               ),
                             ],
                           ),
@@ -180,13 +179,15 @@ class MainPage extends GetView<MainController> {
                   ),
                 ),
               ),
-              Container(
-                height: 300,
-                color: MyColor.lightgrey,
-                child: SizedBox(
-                  height: 200,
-                  child:
-                      FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+              Column(
+                children: [
+                  Container(
+                    height: 300,
+                    color: MyColor.lightgrey,
+                    child: SizedBox(
+                      height: 200,
+                      child: FutureBuilder<
+                              RxList<QueryDocumentSnapshot<Challenge>>>(
                           future: controller.readMyChallenge(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData &&
@@ -203,7 +204,38 @@ class MainPage extends GetView<MainController> {
                             }
                             return const SizedBox();
                           }),
-                ),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        color: MyColor.lightgrey,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            TextButton(
+                                onPressed: () {
+                                  Get.dialog(CustomDialog(
+                                    imageRoute: SvgPicture.asset(
+                                        'assets/dialogsvg/logoutaccount.svg'),
+                                    content: '로그아웃 하시겠습니까?',
+                                    btn1fn: controller.auth.signOut,
+                                    btn2fn: Get.back,
+                                    firstText: '확인',
+                                    secondText: '취소',
+                                  ));
+                                },
+                                child: const Text(
+                                  '로그아웃',
+                                  style: TextStyle(color: Colors.black),
+                                )),
+                            TermOfServiceButton('이용약관', Colors.blue, 14)
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
             ],
           ),
