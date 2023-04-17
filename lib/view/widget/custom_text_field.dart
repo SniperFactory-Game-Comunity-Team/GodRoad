@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../util/my_color.dart';
+
 class CustomTextField extends StatelessWidget {
   const CustomTextField(
       {super.key,
@@ -31,19 +33,20 @@ class CustomTextField extends StatelessWidget {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                  color: Colors.blue,
+                  color: MyColor.lightgrey,
                   width: 1,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
+                  color: MyColor.lightgrey,
                   width: 0.1,
                 ),
               ),
               hintText: textHint,
               filled: true,
-              fillColor: Colors.white),
+              fillColor: MyColor.lightgrey),
           validator: (val) {
             return textValidator != null ? textValidator!(val!) : null;
           },

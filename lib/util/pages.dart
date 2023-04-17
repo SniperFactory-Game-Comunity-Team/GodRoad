@@ -10,8 +10,8 @@ import 'package:godroad/view/page/keyword_select_page.dart';
 import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/page/attending_challenge_page.dart';
 import 'package:godroad/view/page/end_challenge_page.dart';
+import 'package:godroad/view/page/loading_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
-import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/view/page/main_page.dart';
 import 'package:godroad/view/page/permission_page.dart';
 import 'package:godroad/view/page/edit_profile_page.dart';
@@ -19,13 +19,13 @@ import 'package:godroad/view/page/my_page.dart';
 import 'package:godroad/view/page/profile_page.dart';
 import 'package:godroad/view/page/real_tile_challenge_list_page.dart';
 import 'package:godroad/view/page/search_challenge_page.dart';
+import 'package:godroad/view/page/signup_complete_page.dart';
 import 'package:godroad/view/page/signup_page.dart';
 import 'package:godroad/view/page/update_challenge_detail_page.dart';
 
 class AppPages {
   static final pages = [
     GetPage(name: AppRoute.main, page: () => const MainPage()),
-    GetPage(name: AppRoute.login, page: () => const LoginPage()),
     GetPage(name: AppRoute.loginDetail, page: () => const LoginDetailPage()),
     GetPage(name: AppRoute.signup, page: () => const SignupPage()),
     GetPage(name: AppRoute.profile, page: () => const ProfilePage()),
@@ -59,6 +59,11 @@ class AppPages {
         page: () => const AttendingChallengeDetailPage()),
     GetPage(name: AppRoute.bookmark, page: () => const BookmarkPage()),
     GetPage(name: AppRoute.explanation, page: () => const ExplanationPage()),
-    GetPage(name: AppRoute.updateChallengeDetail, page: () => const UpdateChallengeDetailPage()),
+    GetPage(
+        name: AppRoute.updateChallengeDetail,
+        page: () => const UpdateChallengeDetailPage()),
+    GetPage(
+        name: AppRoute.signupComplete, page: () => const SignUpCompletePage()),
+    GetPage(name: AppRoute.loading, page: () => const LoadingPage())
   ];
 }

@@ -90,7 +90,6 @@ class ProfileController extends GetxController {
     await Firebase.colUser.doc(auth.user!.uid).update({
       'keyword': keywords,
     });
-    Get.toNamed(AppRoute.my);
   }
 
   userKeywordUpdate() {

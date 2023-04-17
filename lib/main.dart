@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => CertificationController(), fenix: true);
       }),
       getPages: AppPages.pages,
-      initialRoute: AppRoute.login,
+      initialRoute: AppRoute.loginDetail,
     );
   }
 }
