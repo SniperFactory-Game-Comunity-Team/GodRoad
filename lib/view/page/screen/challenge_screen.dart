@@ -86,46 +86,24 @@ class ChallengeScreen extends GetView<MainController> {
                       MaterialStateProperty.all<Color>(MyColor.color900),
                 ),
                 onPressed: () {
-                  Get.bottomSheet(
-                    SizedBox(
-                      height: Get.height * 0.3,
-                      child: Column(
-                        children: [
-                          KeywordChip(
-                              keyword: Keyword.keywords,
-                              onTap: controller.selectKeyword,
-                              isSelected: controller.isSelected),
-                          ElevatedButton(
-                            onPressed: () {
-                              controller.startReadKeyword();
-                            },
-                            child: const Text('키워드별 챌린지 보기'),
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  MyColor.color900),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                      ),
-                    ),
-                    backgroundColor: Colors.white,
-                    clipBehavior: Clip.hardEdge,
-                  );
+                  Get.toNamed(AppRoute.realtimechallengelist);
                 },
                 child: const Text('모두보기'),
               )
             ],
           ),
         ),
-        OutlinedButton(
+        TextButton(
           onPressed: () {
             Get.bottomSheet(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                ),
+              ),
+              backgroundColor: Colors.white,
+              clipBehavior: Clip.hardEdge,
               SizedBox(
                 height: 270,
                 child: Column(
@@ -167,17 +145,11 @@ class ChallengeScreen extends GetView<MainController> {
                   ],
                 ),
               ),
-              TextButton(
-                onPressed: () {
-                  Get.toNamed(AppRoute.realtimechallengelist);
-                },
-                child: const Text('모두보기'),
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black54),
-                ),
-              ),
-            ],
+            );
+          },
+          child: const Text('모두보기'),
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(Colors.black54),
           ),
         ),
         SizedBox(
@@ -203,9 +175,6 @@ class ChallengeScreen extends GetView<MainController> {
                 }
                 return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
               }),
-        ),
-        const SizedBox(
-          height: 20,
         ),
       ],
     );

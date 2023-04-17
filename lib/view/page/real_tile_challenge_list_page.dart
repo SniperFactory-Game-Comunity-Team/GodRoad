@@ -128,7 +128,7 @@ class RealTimeChallengeListPage extends GetView<MainController> {
                 if (snapshot.hasData &&
                     snapshot.connectionState == ConnectionState.done) {
                   return SizedBox(
-                    height: Get.height * 0.8,
+                    height: Get.height * 0.79,
                     child: Obx(() => ListView.builder(
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
