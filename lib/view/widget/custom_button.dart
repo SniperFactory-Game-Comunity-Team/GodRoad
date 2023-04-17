@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:godroad/util/my_color.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -16,10 +17,10 @@ class CustomButton extends StatelessWidget {
     return ElevatedButton(
         onPressed: isEnabled ? onPressedFunction : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: isEnabled ? Colors.blue : Colors.grey,
+          backgroundColor: isEnabled ? MyColor.primary2: Colors.grey,
           fixedSize: const Size.fromHeight(50),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
         child: Text(

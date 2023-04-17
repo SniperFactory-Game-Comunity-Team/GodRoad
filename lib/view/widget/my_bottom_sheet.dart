@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class MyBottomSheet extends StatelessWidget {
@@ -36,7 +34,7 @@ class MyBottomSheet extends StatelessWidget {
                     firstIcon,
                     Text(
                       firstText,
-                      style: TextStyle(),
+                      style: const TextStyle(),
                     )
                   ],
                 ),
@@ -53,7 +51,7 @@ class MyBottomSheet extends StatelessWidget {
                     secondIcon,
                     Text(
                       secondText,
-                      style: TextStyle(),
+                      style: const TextStyle(),
                     )
                   ],
                 ),

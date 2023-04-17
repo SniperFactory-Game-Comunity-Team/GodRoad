@@ -5,6 +5,7 @@ import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/service/firebase.dart';
+import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/routes.dart';
 
 class MainController extends GetxController {
@@ -30,7 +31,6 @@ class MainController extends GetxController {
   }
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>> readMyChallenge() async {
-    challengeMyList.clear();
     var challenge = await Firebase.getChallenge
         .where('keyword', arrayContainsAny: auth.userProfile!.keyword)
         .orderBy('createAt', descending: true)
@@ -51,24 +51,17 @@ class MainController extends GetxController {
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>>
       readKeywordChallenge() async {
-    challengeList.clear();
     var challenge = await Firebase.getChallenge
-        .where('keyword', arrayContainsAny: keywords)
+        .where('keyword', arrayContainsAny:  keywords.isEmpty? Keyword.keywords as List : keywords)
         .orderBy('createAt', descending: true)
         .get();
     challengeList(challenge.docs);
     return challengeList;
   }
 
-  startReadKeyword() {
-    if (keywords.isNotEmpty) {
-      readKeywordChallenge();
-    }
-    Get.back();
-  }
+
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>> searchChallenge() async {
-    searchChallengeList.clear();
     var challenge = await Firebase.getChallenge
         .where('title', isEqualTo: searchcontroller.text)
         .get();

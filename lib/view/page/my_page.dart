@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/term_of_service_widget.dart';
@@ -35,14 +36,20 @@ class MyPage extends GetView<ProfileController> {
               child: Column(
                 children: [
                   Obx(
-                    () => CircleAvatar(
-                        radius: 55,
-                        backgroundImage:
-                            controller.auth.userProfile!.profileUrl != ''
-                                ? NetworkImage(controller
-                                    .auth.userProfile!.profileUrl
-                                    .toString())
-                                : null),
+                    () => controller.auth.userProfile!.profileUrl != ''
+                        ? CircleAvatar(
+                            radius: 55,
+                            backgroundImage: NetworkImage(controller
+                                .auth.userProfile!.profileUrl
+                                .toString()))
+                        : const CircleAvatar(
+                            radius: 55,
+                            backgroundColor: MyColor.lightgrey,
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.grey,size: 80,
+                            ),
+                          ),
                   ),
                   const SizedBox(
                     height: 8,
@@ -60,6 +67,7 @@ class MyPage extends GetView<ProfileController> {
                       controller.startEditProfile();
                     },
                     style: TextButton.styleFrom(
+                      backgroundColor: MyColor.primary2,
                       minimumSize: Size.zero,
                       padding: const EdgeInsets.only(
                           left: 12, right: 12, top: 5, bottom: 5),

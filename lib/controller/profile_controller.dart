@@ -21,7 +21,7 @@ class ProfileController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<QueryDocumentSnapshot<Challenge>> createdChallenge =
       RxList<QueryDocumentSnapshot<Challenge>>();
-  RxList<Challenge> myChallenge = RxList<Challenge>();
+  RxList<QueryDocumentSnapshot<Challenge>>  myChallenge = RxList<QueryDocumentSnapshot<Challenge>>();
   RxList<Challenge> bookmarkChallenge = RxList<Challenge>();
 
   Future<bool> isDuplicateUniqueName(String nickname) async {
@@ -114,14 +114,16 @@ class ProfileController extends GetxController {
   }
 
   //내가 참여중인 챌린지
-  Future<RxList<Challenge>?> readmyChallenge() async {
-    myChallenge.clear();
+  Future<RxList<QueryDocumentSnapshot<Challenge>>> readmyChallenge() async {
     var profile = await Firebase.getUser.doc(auth.user!.uid).get();
     for (var myChall in profile.data()!.myChallenge) {
-      var challenge = await Firebase.getChallenge.doc(myChall.toString()).get();
-      myChallenge.add(challenge.data() as Challenge);
+      var challenge = await Firebase.getChallenge
+          .where('participationUserId', arrayContainsAny: [auth.user!.uid])
+          .orderBy('createAt', descending: true)
+          .get();
+      myChallenge(challenge.docs);
     }
-    return myChallenge.isNotEmpty ? myChallenge : null;
+    return myChallenge;
   }
 
   Future<RxList<Challenge>?> readmyBookmark() async {

@@ -19,7 +19,7 @@ class CertificationController extends GetxController {
   RxList<QueryDocumentSnapshot<Certification>> certificationList =
       RxList<QueryDocumentSnapshot<Certification>>();
   var contentController = TextEditingController();
-  final PageController pageController = PageController(viewportFraction: 0.9);
+  PageController pageController = PageController(viewportFraction: 0.9);
   RxInt currentPageIndex = 0.obs;
   var isUpdate = RxMap<String, RxBool>();
   int cerUpdate = 0;
@@ -56,6 +56,7 @@ class CertificationController extends GetxController {
               Certification.fromMap(snapshot.data()!),
           toFirestore: (data, _) => data.toMap(),
         )
+        .where('userId', isEqualTo: auth.user!.uid)
         .where('img', isNotEqualTo: '')
         .get();
     cerUpdate = cer.docs.length;
@@ -66,6 +67,7 @@ class CertificationController extends GetxController {
   }
 
   Future<int> getCerCount(Challenge challenge) async {
+    myChallCerCount= 0;
     var cer = await Firebase.colChall
         .doc(challenge.id)
         .collection('certification')
@@ -77,7 +79,7 @@ class CertificationController extends GetxController {
         .where('img', isEqualTo: '')
         .get();
     myChallCerCount = cer.docs.length;
-    return  myChallCerCount;
+    return myChallCerCount;
   }
 
   updateCertification(Challenge challenge, int index) {
@@ -102,8 +104,7 @@ class CertificationController extends GetxController {
       cerImg.value = '';
       contentController.text = '';
       Get.back();
-      currentPageIndex(0);
-      Get.toNamed(AppRoute.attendchallengedetail, arguments:  challenge);
+      Get.toNamed(AppRoute.attendchallengedetail, arguments: challenge);
     }
   }
 

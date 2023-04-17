@@ -5,9 +5,6 @@ import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/screen/challenge_screen.dart';
-import 'package:godroad/view/page/screen/outside_activity_screen.dart';
-import 'package:godroad/view/widget/page_view_bar.dart';
-
 import '../../model/challenge.dart';
 import '../widget/for_tile.dart';
 

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/my_color.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/keyword_chip.dart';
 
 class KeywordUpdatePage extends GetView<ProfileController> {
@@ -39,7 +40,9 @@ class KeywordUpdatePage extends GetView<ProfileController> {
               KeywordChip(
                   keyword: Keyword.keywords,
                   isSelected: controller.isSelected,
-                  onTap: controller.addUserKeyword),
+                  onTap: controller.addUserKeyword,
+                  unSelectedBackgroundColor: MyColor.color200,
+                            unSelectedTextColor: MyColor.primary2,),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,6 +73,7 @@ class KeywordUpdatePage extends GetView<ProfileController> {
                   ElevatedButton(
                     onPressed: () {
                       controller.userKeywordUpload();
+                      Get.toNamed(AppRoute.my);
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.only(

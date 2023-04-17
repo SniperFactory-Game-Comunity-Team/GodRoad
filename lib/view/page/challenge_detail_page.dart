@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:intl/intl.dart';
 
 class ChallengeDetailPage extends GetView<ChallengeDetailController> {
@@ -24,17 +27,11 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Stack(
-              children: [
-                Image.network(
-                  challenge.mainPicture != ''
-                      ? challenge.mainPicture
-                      : 'https://picsum.photos/100/100',
-                  width: Get.width,
-                  height: 300,
-                  fit: BoxFit.cover,
-                ), //임의로 사진 넣음
-              ],
+            Image.network(
+              challenge.mainPicture,
+              width: Get.width,
+              height: 300,
+              fit: BoxFit.cover,
             ),
             SizedBox(
               width: Get.width,
@@ -82,15 +79,6 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                             fontSize: 12.0,
                           ),
                         ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "모집마감 D-${challenge.applyEndDay.day - DateTime.now().day}",
-                          style: const TextStyle(
-                            fontSize: 15.0,
-                          ),
-                        ),
                       ],
                     ),
                   ],
@@ -106,15 +94,19 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                         snapshot.connectionState == ConnectionState.done) {
                       return Row(
                         children: [
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.grey,
-                            backgroundImage: NetworkImage(
-                              snapshot.data!.value!.profileUrl != ''
-                                  ? snapshot.data!.value!.profileUrl.toString()
-                                  : 'https://picsum.photos/100/100',
-                            ),
-                          ),
+                          snapshot.data!.value!.profileUrl != ''
+                              ? CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey,
+                                  backgroundImage: NetworkImage(snapshot
+                                      .data!.value!.profileUrl
+                                      .toString()),
+                                )
+                              : const CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: MyColor.lightgrey,
+                                  child: Icon(Icons.person, color: Colors.grey,),
+                                ),
                           const SizedBox(
                             width: 5,
                           ),
@@ -163,6 +155,18 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                   const SizedBox(
                     height: 20,
                   ),
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 6,
+              color: MyColor.lightgrey,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   const Text(
                     "인증방법",
                     style: TextStyle(
@@ -191,14 +195,17 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    challenge.testimonyContent,
-                    style: const TextStyle(
-                      fontSize: 12,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Text(
+                      challenge.testimonyContent,
+                      style: const TextStyle(
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 50,
                   ),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -218,9 +225,14 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                                   controller.bookMarkCheck(challenge.id);
                                   controller.readChallenge(challenge);
                                 },
-                                style: ButtonStyle(
-                                  fixedSize: MaterialStateProperty.all<Size>(
-                                    const Size(150, 50),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.only(
+                                      left: 35, right: 35, top: 12, bottom: 12),
+                                  elevation: 0,
+                                  backgroundColor: Colors.transparent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    side: const BorderSide(color: MyColor.primary2),
                                   ),
                                 ),
                                 child: FutureBuilder(
@@ -231,12 +243,18 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                                         () => Row(
                                           children: [
                                             snapshot.data!.value
-                                                ? const Icon(Icons.bookmark)
+                                                ? const Icon(Icons.bookmark,
+                                                    color: MyColor.primary2)
                                                 : const Icon(
-                                                    Icons.bookmark_border),
+                                                    Icons.bookmark_border,
+                                                    color: MyColor.primary2),
                                             const SizedBox(width: 2),
-                                            Text(snapshots.data!.value!.bookmark
-                                                .toString()),
+                                            Text(
+                                              snapshots.data!.value!.bookmark
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  color: MyColor.primary2),
+                                            ),
                                           ],
                                         ),
                                       );
@@ -253,20 +271,22 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       const SizedBox(
                         width: 30,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          controller.isApply(!controller.isApply.value);
-                          controller.applyChallenge(challenge);
-                          Get.toNamed(AppRoute.attendchallengedetail,
-                              arguments: challenge);
-                        },
-                        style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all<Size>(
-                            const Size(150, 50),
-                          ),
-                        ),
-                        child: const Text("참여하기"),
-                      ),
+                      CustomSecondButton(
+                          text: '참여하기',
+                          onPressedFunction: () {
+                            controller.isApply(!controller.isApply.value);
+                            controller.applyChallenge(challenge);
+                            Get.toNamed(AppRoute.attendchallengedetail,
+                                arguments: challenge);
+                          },
+                          backgroundColor: MyColor.primary2,
+                          borderColor: Colors.transparent,
+                          textStyle: const TextStyle(color: Colors.white),
+                          left: 35,
+                          right: 35,
+                          top: 12,
+                          bottom: 12,
+                          borderCircular: 20),
                     ],
                   )
                 ],
