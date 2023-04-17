@@ -40,7 +40,7 @@ class ChallengeScreen extends GetView<MainController> {
         ),
         SizedBox(
           height: 300,
-          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
             future: controller.profile.readmyChallenge(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
@@ -56,7 +56,7 @@ class ChallengeScreen extends GetView<MainController> {
                     },
                   );
                 }
-                return const Center(child: Text('참여한 챌린지가 없습니다'));
+                return const Center(child: Text('참여 중인 챌린지가 없습니다'));
               }
               return const SpinKitFadingCircle(
                 color: MyColor.primary,

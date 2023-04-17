@@ -22,7 +22,7 @@ class AttendingChallengePage extends GetView<ProfileController> {
           title: const Text('참여중인 챌린지'),
         ),
         body: SafeArea(
-          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
               future: controller.readmyChallenge(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {

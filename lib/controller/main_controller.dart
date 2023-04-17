@@ -23,20 +23,20 @@ class MainController extends GetxController {
   var searchcontroller = TextEditingController();
   bool isAttending = false;
 
-  Future<RxList<QueryDocumentSnapshot<Challenge>>> readChallenge() async {
+  Future<RxList<QueryDocumentSnapshot<Challenge>>?> readChallenge() async {
     var challenge =
         await Firebase.getChallenge.orderBy('createAt', descending: true).get();
     challengeList(challenge.docs);
-    return challengeList;
+    return challengeList.isNotEmpty ? challengeList : null;
   }
 
-  Future<RxList<QueryDocumentSnapshot<Challenge>>> readMyChallenge() async {
+  Future<RxList<QueryDocumentSnapshot<Challenge>>?> readMyChallenge() async {
     var challenge = await Firebase.getChallenge
         .where('keyword', arrayContainsAny: auth.userProfile!.keyword)
         .orderBy('createAt', descending: true)
         .get();
     challengeMyList(challenge.docs);
-    return challengeMyList;
+    return challengeMyList.isNotEmpty ? challengeMyList : null;
   }
 
   selectKeyword(String keyword) {
@@ -49,17 +49,17 @@ class MainController extends GetxController {
     }
   }
 
-  Future<RxList<QueryDocumentSnapshot<Challenge>>>
+  Future<RxList<QueryDocumentSnapshot<Challenge>>?>
       readKeywordChallenge() async {
     var challenge = await Firebase.getChallenge
-        .where('keyword', arrayContainsAny:  keywords.isEmpty? Keyword.keywords as List : keywords)
+        .where('keyword',
+            arrayContainsAny:
+                keywords.isEmpty ? Keyword.keywords as List : keywords)
         .orderBy('createAt', descending: true)
         .get();
     challengeList(challenge.docs);
-    return challengeList;
+    return challengeList.isNotEmpty ? challengeList : null;
   }
-
-
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> searchChallenge() async {
     var challenge = await Firebase.getChallenge

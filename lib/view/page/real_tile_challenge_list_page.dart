@@ -123,7 +123,7 @@ class RealTimeChallengeListPage extends GetView<MainController> {
                       ),
               ),
             ),
-            FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+            FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
               future: controller.readChallenge(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
