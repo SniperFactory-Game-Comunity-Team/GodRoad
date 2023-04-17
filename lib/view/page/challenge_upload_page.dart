@@ -7,10 +7,13 @@ import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/widget/calendar.dart';
 import 'package:godroad/view/widget/custom_button.dart';
+import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/keyword_chip.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../util/routes.dart';
 
 class ChallengeUploadPage extends GetView<ChallengeUploadController> {
   const ChallengeUploadPage({super.key});
@@ -263,8 +266,17 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
                   Obx(
                     () => CustomButton(
                         text: '등록하기',
-                        onPressedFunction: () {
-                          controller.uploadChallenge();
+                        onPressedFunction: () async {
+                          await controller.uploadChallenge();
+                          Get.dialog(CustomDialog(
+                            imageRoute: SvgPicture.asset(
+                                'assets/dialogsvg/applicationchallenge.svg'),
+                            content: '챌린지 등록이 완료되었습니다!',
+                            btn2fn: () {
+                              Get.toNamed(AppRoute.main);
+                            },
+                            secondText: '확인',
+                          ));
                         },
                         isEnabled: controller.isUpload.value),
                   )

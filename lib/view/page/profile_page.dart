@@ -7,6 +7,8 @@ import 'package:godroad/view/widget/custom_button.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../util/my_color.dart';
+
 class ProfilePage extends GetView<ProfileController> {
   const ProfilePage({super.key});
   static String route = '/profile';
@@ -63,11 +65,20 @@ class ProfilePage extends GetView<ProfileController> {
               },
               child: Stack(children: [
                 Obx(
-                  () => CircleAvatar(
-                      radius: 80,
-                      backgroundImage: controller.profileUrl.value != ''
-                          ? NetworkImage(controller.profileUrl.value)
-                          : null),
+                  () => controller.profileUrl.value != ''
+                      ? CircleAvatar(
+                          radius: 80,
+                          backgroundImage:
+                              NetworkImage(controller.profileUrl.value))
+                      : const CircleAvatar(
+                          radius: 80,
+                          backgroundColor: MyColor.lightgrey,
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.grey,
+                            size: 105,
+                          ),
+                        ),
                 ),
                 const Positioned(
                     right: 10,
@@ -83,29 +94,36 @@ class ProfilePage extends GetView<ProfileController> {
                     ))
               ]),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextField(
-                  onChanged: (value) => controller.uniqueNicknameCheck(),
-                  controller: controller.nameController,
-                  decoration: const InputDecoration(hintText: '닉네임을 입력해주세요'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(() => controller.isUniqueName.value
-                      ? const Text(
-                          '사용가능한 닉네임입니다',
-                          style: TextStyle(color: Colors.blue, fontSize: 12),
-                        )
-                      : controller.nameController.text != ''
-                          ? const Text(
-                              '중복된 닉네임입니다.',
-                              style: TextStyle(color: Colors.red, fontSize: 12),
-                            )
-                          : const SizedBox()),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextField(
+                    onChanged: (value) => controller.uniqueNicknameCheck(),
+                    controller: controller.nameController,
+                    decoration: const InputDecoration(
+                        hintText: '닉네임을 입력해주세요',
+                        fillColor: MyColor.lightgrey,
+                        filled: true),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Obx(() => controller.isUniqueName.value
+                        ? const Text(
+                            '사용가능한 닉네임입니다',
+                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                          )
+                        : controller.nameController.text != ''
+                            ? const Text(
+                                '중복된 닉네임입니다.',
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 12),
+                              )
+                            : const SizedBox()),
+                  ),
+                ],
+              ),
             ),
             Obx(
               () => SizedBox(

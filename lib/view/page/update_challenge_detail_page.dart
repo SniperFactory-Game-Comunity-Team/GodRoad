@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/update_challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/my_color.dart';
+import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+
+import '../../util/routes.dart';
 
 class UpdateChallengeDetailPage
     extends GetView<UpdateChallengeDetailController> {
@@ -338,7 +342,19 @@ class UpdateChallengeDetailPage
                       CustomSecondButton(
                           text: "취소",
                           onPressedFunction: () {
-                            Get.back();
+                            Get.dialog(CustomDialog(
+                              imageRoute: SvgPicture.asset(
+                                  'assets/dialogsvg/modifycancel.svg'),
+                              content: '게시글 수정을\n취소하시겠습니까?',
+                              btn1fn: () {
+                                Get.toNamed(AppRoute.createdChallenge);
+                              },
+                              btn2fn: () {
+                                Get.back();
+                              },
+                              firstText: '확인',
+                              secondText: '취소',
+                            ));
                           },
                           backgroundColor: Colors.transparent,
                           borderColor: MyColor.primary2,
@@ -355,7 +371,16 @@ class UpdateChallengeDetailPage
                         onPressed: () {
                           controller.updateChallenge(challenge);
                           controller.profile.readCreatedChallenge();
-                          Get.back();
+
+                          Get.dialog(CustomDialog(
+                            imageRoute: SvgPicture.asset(
+                                'assets/dialogsvg/modifychallenge.svg'),
+                            content: '수정이 완료되었습니다!',
+                            btn1fn: () {
+                              Get.toNamed(AppRoute.createdChallenge);
+                            },
+                            firstText: '확인',
+                          ));
                         },
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.only(

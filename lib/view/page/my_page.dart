@@ -48,7 +48,8 @@ class MyPage extends GetView<ProfileController> {
                             backgroundColor: MyColor.lightgrey,
                             child: Icon(
                               Icons.person,
-                              color: Colors.grey,size: 80,
+                              color: Colors.grey,
+                              size: 80,
                             ),
                           ),
                   ),

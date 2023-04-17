@@ -147,8 +147,8 @@ class EditProfilePage extends GetView<ProfileController> {
                             btn2fn: () {
                               Get.back();
                             },
-                            firstText: '취소',
-                            secondText: '확인',
+                            firstText: '확인',
+                            secondText: '취소',
                           ));
                         },
                         isEnabled: controller.isUniqueName.value),
