@@ -33,10 +33,13 @@ class CertificationButton extends GetView<CertificationController> {
           child: Padding(
             padding: const EdgeInsets.all(2.0),
             child: CircleAvatar(
-              backgroundColor: isUpdate.value ? MyColor.primary2 : Colors.blue[100],
+              backgroundColor:
+                  isUpdate.value ? MyColor.primary2 : Colors.blue[100],
               child: Text(
                 text,
-                style: const TextStyle(fontSize: 12),
+                style: TextStyle(
+                    fontSize: 12,
+                    color: isUpdate.value ? Colors.white : MyColor.primary2),
               ),
             ),
           ),

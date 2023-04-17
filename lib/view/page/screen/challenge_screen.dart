@@ -26,20 +26,13 @@ class ChallengeScreen extends GetView<MainController> {
             children: [
               const Text(
                 '나의 챌린지',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               TextButton(
                 onPressed: () {
                   Get.toNamed(AppRoute.attending);
                 },
                 child: const Text('모두보기'),
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black54),
-                ),
               )
             ],
           ),
@@ -69,6 +62,7 @@ class ChallengeScreen extends GetView<MainController> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
                 '실시간 인기 챌린지',
@@ -163,7 +157,7 @@ class ChallengeScreen extends GetView<MainController> {
                     snapshot.connectionState == ConnectionState.done) {
                   return Obx(
                     () => ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length > 3
                             ? 3
@@ -177,6 +171,9 @@ class ChallengeScreen extends GetView<MainController> {
                 }
                 return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
               }),
+        ),
+        const SizedBox(
+          height: 20,
         ),
       ],
     );

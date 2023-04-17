@@ -163,7 +163,6 @@ class EditProfilePage extends GetView<ProfileController> {
                             content: '프로필을 수정하시겠습니까?',
                             btn1fn: () {
                               controller.updateProfile();
-                              controller.auth.getProfile();
                               Get.toNamed(AppRoute.my);
                             },
                             btn2fn: () {

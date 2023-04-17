@@ -49,8 +49,10 @@ class CustomDialog extends StatelessWidget {
                   firstText != null
                       ? TextButton(
                           onPressed: btn1fn,
-                          child: Text(firstText!,
-                              style: const TextStyle(color: Colors.black)),
+                          child: Text(
+                            firstText!,
+                            style: const TextStyle(color: Colors.black),
+                          ),
                         )
                       : const SizedBox(),
                   firstText == null || secondText == null

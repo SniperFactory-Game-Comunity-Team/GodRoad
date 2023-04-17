@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/keyword.dart';
@@ -25,29 +26,40 @@ class KeywordSelectPage extends GetView<ProfileController> {
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 23)),
               ),
-              const SizedBox(
-                height: 20,
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: SvgPicture.asset('assets/keywordselectpageicon.svg'),
               ),
-              Center(
-                child: KeywordChip(
-                    keyword: Keyword.keywords,
-                    onTap: controller.addUserKeyword,
-                    isSelected: controller.isSelected,
-                    unSelectedBackgroundColor: MyColor.color200,
-                    unSelectedTextColor: MyColor.primary2),
+              const Text(
+                '당신이 관심 있는 키워드를\n알려주세요!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(AppRoute.signupComplete);
-                },
-                child: const Text('선택완료'),
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16))),
-              )
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: Center(
+                  child: KeywordChip(
+                      keyword: Keyword.keywords,
+                      onTap: controller.addUserKeyword,
+                      isSelected: controller.isSelected,
+                      unSelectedBackgroundColor: MyColor.color200,
+                      unSelectedTextColor: MyColor.primary2),
+                ),
+              ),
             ],
           ),
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: SizedBox(
+        width: 350,
+        child: FloatingActionButton.extended(
+            backgroundColor: MyColor.primary2,
+            elevation: 0,
+            onPressed: () {
+              Get.toNamed(AppRoute.signupComplete);
+            },
+            label: Text('선택완료')),
       ),
     );
   }
