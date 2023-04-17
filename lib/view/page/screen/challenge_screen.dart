@@ -26,13 +26,20 @@ class ChallengeScreen extends GetView<MainController> {
             children: [
               const Text(
                 '나의 챌린지',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
               TextButton(
                 onPressed: () {
                   Get.toNamed(AppRoute.attending);
                 },
                 child: const Text('모두보기'),
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black54),
+                ),
               )
             ],
           ),
@@ -62,60 +69,78 @@ class ChallengeScreen extends GetView<MainController> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
                 '실시간 인기 챌린지',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(
+                width: 26,
+              ),
+              TextButton(
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(MyColor.color900),
+                ),
+                onPressed: () {
+                  Get.bottomSheet(
+                    SizedBox(
+                      height: Get.height * 0.3,
+                      child: Column(
+                        children: [
+                          KeywordChip(
+                              keyword: Keyword.keywords,
+                              onTap: controller.selectKeyword,
+                              isSelected: controller.isSelected),
+                          ElevatedButton(
+                            onPressed: () {
+                              controller.startReadKeyword();
+                            },
+                            child: const Text('키워드별 챌린지 보기'),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  MyColor.color900),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                      ),
+                    ),
+                    backgroundColor: Colors.white,
+                    clipBehavior: Clip.hardEdge,
+                  );
+                },
+                child: Obx(
+                  () => controller.keywords.isEmpty
+                      ? const Text('키워드 선택하기')
+                      : Wrap(
+                          children: controller.keywords
+                              .map((e) => Chip(
+                                    label: Text(e),
+                                  ))
+                              .toList(),
+                        ),
+                ),
               ),
               TextButton(
                 onPressed: () {
                   Get.toNamed(AppRoute.realtimechallengelist);
                 },
                 child: const Text('모두보기'),
-              )
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black54),
+                ),
+              ),
             ],
-          ),
-        ),
-        OutlinedButton(
-          onPressed: () {
-            Get.bottomSheet(
-              SizedBox(
-                height: Get.height * 0.3,
-                child: Column(
-                  children: [
-                    KeywordChip(
-                        keyword: Keyword.keywords,
-                        onTap: controller.selectKeyword,
-                        isSelected: controller.isSelected),
-                    ElevatedButton(
-                        onPressed: () {
-                          controller.startReadKeyword();
-                        },
-                        child: const Text('키워드별 챌린지 보기'))
-                  ],
-                ),
-              ),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                ),
-              ),
-              backgroundColor: Colors.white,
-              clipBehavior: Clip.hardEdge,
-            );
-          },
-          child: Obx(
-            () => controller.keywords.isEmpty
-                ? const Text('키워드')
-                : Wrap(
-                    children: controller.keywords
-                        .map((e) => Chip(
-                              label: Text(e),
-                            ))
-                        .toList(),
-                  ),
           ),
         ),
         SizedBox(

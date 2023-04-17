@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/keyword.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/keyword_chip.dart';
 import 'package:godroad/view/widget/real_time_tile.dart';
@@ -54,7 +55,11 @@ class RealTimeChallengeListPage extends GetView<MainController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            OutlinedButton(
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(MyColor.color900),
+              ),
               onPressed: () {
                 Get.bottomSheet(
                   SizedBox(
@@ -85,7 +90,7 @@ class RealTimeChallengeListPage extends GetView<MainController> {
               },
               child: Obx(
                 () => controller.keywords.isEmpty
-                    ? const Text('키워드')
+                    ? const Text('키워드 선택하기')
                     : Wrap(
                         children: controller.keywords
                             .map((e) => Chip(
@@ -103,7 +108,7 @@ class RealTimeChallengeListPage extends GetView<MainController> {
                   return SizedBox(
                     height: Get.height * 0.8,
                     child: Obx(() => ListView.builder(
-                      shrinkWrap: true,
+                        shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           return RealTimeTile(

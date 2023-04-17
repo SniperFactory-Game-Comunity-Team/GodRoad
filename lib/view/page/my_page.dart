@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
+import 'package:godroad/view/widget/mypage_list_tile.dart';
 import 'package:godroad/view/widget/term_of_service_widget.dart';
 
 class MyPage extends GetView<ProfileController> {

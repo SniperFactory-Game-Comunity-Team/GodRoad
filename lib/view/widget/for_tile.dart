@@ -15,7 +15,7 @@ class ForTile extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 7.0),
+        padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 7.0),
         child: Card(
           color: Colors.white,
           child: ListTile(
