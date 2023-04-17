@@ -51,7 +51,7 @@ class ForTile extends GetView<MainController> {
                   onPressed: () {
                     controller.goDetailChallenge(challenge);
                   },
-                  child: const Text('참여하기'))),
+                  child: const Text('자세히보기'))),
         ));
   }
 }

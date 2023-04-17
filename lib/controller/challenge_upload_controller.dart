@@ -107,7 +107,6 @@ class ChallengeUploadController extends GetxController {
       });
       main.readChallenge();
       main.readMyChallenge();
-      Get.back();
     }
   }
 

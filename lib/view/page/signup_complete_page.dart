@@ -12,49 +12,37 @@ class SignUpCompletePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SvgPicture.asset('assets/signupcomplete.svg'),
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-              '회원가입이 완료되었습니다!',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 80,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(32.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  controller.setProfile();
-                  controller.userKeywordUpload();
-                  Get.toNamed(AppRoute.main);
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: const EdgeInsets.only(
-                      left: 12, right: 12, top: 15, bottom: 15),
-                  backgroundColor: MyColor.primary2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-                child: const Text(
-                  '시작하기',
-                  style: TextStyle(fontSize: 10),
-                ),
+        resizeToAvoidBottomInset: false,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SvgPicture.asset('assets/signupcomplete.svg'),
+              SizedBox(
+                height: 40,
               ),
-            )
-          ],
+              Text(
+                '회원가입이 완료되었습니다!',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: SizedBox(
+          width: 350,
+          child: FloatingActionButton.extended(
+            backgroundColor: MyColor.primary2,
+            elevation: 0,
+            onPressed: () async {
+              await controller.setProfile();
+              await controller.userKeywordUpload();
+              Get.toNamed(AppRoute.main);
+            },
+            label: Text('시작하기'),
+          ),
+        ));
   }
 }

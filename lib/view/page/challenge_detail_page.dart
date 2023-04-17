@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/challenge_detail_controller.dart';
@@ -6,6 +7,7 @@ import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:intl/intl.dart';
 
@@ -105,7 +107,10 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                               : const CircleAvatar(
                                   radius: 15,
                                   backgroundColor: MyColor.lightgrey,
-                                  child: Icon(Icons.person, color: Colors.grey,),
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Colors.grey,
+                                  ),
                                 ),
                           const SizedBox(
                             width: 5,
@@ -232,7 +237,8 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                                   backgroundColor: Colors.transparent,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
-                                    side: const BorderSide(color: MyColor.primary2),
+                                    side: const BorderSide(
+                                        color: MyColor.primary2),
                                   ),
                                 ),
                                 child: FutureBuilder(
@@ -276,8 +282,17 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                           onPressedFunction: () {
                             controller.isApply(!controller.isApply.value);
                             controller.applyChallenge(challenge);
-                            Get.toNamed(AppRoute.attendchallengedetail,
-                                arguments: challenge);
+
+                            Get.dialog(CustomDialog(
+                              imageRoute: SvgPicture.asset(
+                                  'assets/dialogsvg/applychallenge.svg'),
+                              content: '챌린지 신청이 완료되었습니다!',
+                              btn1fn: () {
+                                Get.toNamed(AppRoute.attendchallengedetail,
+                                    arguments: challenge);
+                              },
+                              firstText: '확인',
+                            ));
                           },
                           backgroundColor: MyColor.primary2,
                           borderColor: Colors.transparent,
