@@ -18,6 +18,7 @@ class EditProfilePage extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('프로필 수정'),
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
@@ -25,6 +26,7 @@ class EditProfilePage extends GetView<ProfileController> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             InkWell(
               onTap: () {
@@ -81,30 +83,34 @@ class EditProfilePage extends GetView<ProfileController> {
                     ))
               ]),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('닉네임'),
-                TextField(
-                  onChanged: (value) => controller.uniqueNicknameCheck(),
-                  controller: controller.nameController,
-                  decoration: const InputDecoration(hintText: '닉네임을 입력해주세요'),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(() => controller.isUniqueName.value
-                      ? const Text(
-                          '사용가능한 닉네임입니다',
-                          style: TextStyle(color: Colors.blue, fontSize: 12),
-                        )
-                      : controller.nameController.text != ''
-                          ? const Text(
-                              '중복된 닉네임입니다.',
-                              style: TextStyle(color: Colors.red, fontSize: 12),
-                            )
-                          : const SizedBox()),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('닉네임'),
+                  TextField(
+                    onChanged: (value) => controller.uniqueNicknameCheck(),
+                    controller: controller.nameController,
+                    decoration: const InputDecoration(hintText: '닉네임을 입력해주세요'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Obx(() => controller.isUniqueName.value
+                        ? const Text(
+                            '사용가능한 닉네임입니다',
+                            style: TextStyle(color: Colors.blue, fontSize: 12),
+                          )
+                        : controller.nameController.text != ''
+                            ? const Text(
+                                '중복된 닉네임입니다.',
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 12),
+                              )
+                            : const SizedBox()),
+                  ),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

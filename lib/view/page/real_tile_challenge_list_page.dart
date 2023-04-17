@@ -56,7 +56,11 @@ class RealTimeChallengeListPage extends GetView<MainController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            OutlinedButton(
+            TextButton(
+              style: ButtonStyle(
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(MyColor.color900),
+              ),
               onPressed: () {
                 Get.bottomSheet(
                   SizedBox(
@@ -108,7 +112,7 @@ class RealTimeChallengeListPage extends GetView<MainController> {
               },
               child: Obx(
                 () => controller.keywords.isEmpty
-                    ? const Text('키워드')
+                    ? const Text('키워드 선택하기')
                     : Wrap(
                         children: controller.keywords
                             .map((e) => Chip(

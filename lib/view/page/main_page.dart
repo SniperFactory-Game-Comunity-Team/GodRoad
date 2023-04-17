@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/util/my_color.dart';
@@ -19,10 +20,17 @@ class MainPage extends GetView<MainController> {
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
         elevation: 0,
-        leading: const Icon(Icons.star), //로고 자리
+        leading: Container(
+          margin: EdgeInsets.only(left: 20),
+          child: SvgPicture.asset(
+            'assets/logo.svg',
+            width: 100,
+            height: 100,
+          ),
+        ), //로고 자리
         actions: [
           Padding(
-            padding: const EdgeInsets.all(3.0),
+            padding: const EdgeInsets.all(2.0),
             child: IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
@@ -31,7 +39,7 @@ class MainPage extends GetView<MainController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(3.0),
+            padding: const EdgeInsets.all(2.0),
             child: IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
@@ -40,7 +48,7 @@ class MainPage extends GetView<MainController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(3.0),
+            padding: const EdgeInsets.all(2.0),
             child: IconButton(
               icon: const Icon(Icons.person),
               onPressed: () {
@@ -76,7 +84,7 @@ class MainPage extends GetView<MainController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const Text(
-                                    '지금 올라온',
+                                    '지금 인기있는',
                                     style: TextStyle(fontSize: 23.0),
                                   ),
                                   Row(
@@ -100,27 +108,21 @@ class MainPage extends GetView<MainController> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(
-                                width: 60,
-                              ),
-                              Obx(
-                                () => CircleAvatar(
-                                    radius: 50,
-                                    backgroundImage: controller
-                                                .auth.userProfile!.profileUrl !=
-                                            ''
-                                        ? NetworkImage(controller
-                                            .auth.userProfile!.profileUrl
-                                            .toString())
-                                        : null),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  right: 20,
+                                  bottom: 20,
+                                ),
+                                child: SvgPicture.asset(
+                                  'assets/mainpage_image.svg',
+                                  width: 125,
+                                  height: 125,
+                                ),
                               ),
                             ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Divider(
-                              thickness: 1,
-                            ),
+                          const Divider(
+                            thickness: 2,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
@@ -130,7 +132,11 @@ class MainPage extends GetView<MainController> {
                                   Get.toNamed(AppRoute.searchChallenge),
                               controller: controller.searchcontroller,
                               decoration: InputDecoration(
-                                hintText: 'search..',
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                hintText: '찾으시는 챌린지가 있으신가요?',
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(fontSize: 13.0),
                                 suffixIcon: IconButton(
                                     onPressed: () {
                                       Get.toNamed(AppRoute.searchChallenge);
@@ -140,8 +146,8 @@ class MainPage extends GetView<MainController> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(20)),
                                     borderSide: BorderSide(
-                                        color: Colors.black, width: 0.5)),
-                                contentPadding: const EdgeInsets.all(10),
+                                        color: Colors.black26, width: 0.5)),
+                                contentPadding: const EdgeInsets.all(15),
                               ),
                             ),
                           ),
@@ -156,23 +162,32 @@ class MainPage extends GetView<MainController> {
               Container(
                 color: MyColor.lightgrey,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 16, left: 16, right: 10),
+                  padding: const EdgeInsets.only(
+                      top: 16, left: 25, right: 25, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         '${controller.auth.userProfile!.nickname}님을 위한 챌린지',
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {},
                         child: const Text('모두보기'),
-                      )
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.black54),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
               Container(
+                height: 300,
                 color: MyColor.lightgrey,
                 child: SizedBox(
                   height: 200,
