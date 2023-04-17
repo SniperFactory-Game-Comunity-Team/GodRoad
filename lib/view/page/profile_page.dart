@@ -14,6 +14,24 @@ class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 15,
+          ),
+        ),
+        title: Text(
+          '닉네임 설정',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.transparent,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -90,13 +108,15 @@ class ProfilePage extends GetView<ProfileController> {
               ],
             ),
             Obx(
-              () => CustomButton(
-                  text: '시작하기',
-                  onPressedFunction: () {
-                    controller.setProfile();
-                    Get.toNamed(AppRoute.keywordSelect);
-                  },
-                  isEnabled: controller.isUniqueName.value),
+              () => SizedBox(
+                width: 350,
+                child: CustomButton(
+                    text: '확인',
+                    onPressedFunction: () {
+                      Get.toNamed(AppRoute.keywordSelect);
+                    },
+                    isEnabled: controller.isUniqueName.value),
+              ),
             )
           ],
         ),

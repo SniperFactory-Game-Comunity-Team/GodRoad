@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/routes.dart';
@@ -126,8 +127,13 @@ class MyPage extends GetView<ProfileController> {
                 TextButton(
                     onPressed: () {
                       Get.dialog(CustomDialog(
-                        content: '계정 탈퇴\n 하시겠습니까?',
-                        btnOk: controller.auth.userDelete,
+                        imageRoute: SvgPicture.asset(
+                            'assets/dialogsvg/withdrawaccount.svg'),
+                        content: '계정 탈퇴 하시겠습니까?',
+                        btn1fn: controller.auth.userDelete,
+                        btn2fn: Get.back,
+                        firstText: '확인',
+                        secondText: '취소',
                       ));
                     },
                     child: const Text(
@@ -137,15 +143,20 @@ class MyPage extends GetView<ProfileController> {
                 TextButton(
                     onPressed: () {
                       Get.dialog(CustomDialog(
-                        content: '로그아웃\n 하시겠습니까?',
-                        btnOk: controller.auth.signOut,
+                        imageRoute: SvgPicture.asset(
+                            'assets/dialogsvg/logoutaccount.svg'),
+                        content: '로그아웃 하시겠습니까?',
+                        btn1fn: controller.auth.signOut,
+                        btn2fn: Get.back,
+                        firstText: '확인',
+                        secondText: '취소',
                       ));
                     },
                     child: const Text(
                       '로그아웃',
                       style: TextStyle(color: Colors.black),
                     )),
-                const TermOfServiceButton()
+                TermOfServiceButton('이용약관', Colors.blue, 14)
               ],
             )
           ],

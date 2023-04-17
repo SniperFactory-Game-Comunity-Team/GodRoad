@@ -47,10 +47,9 @@ class KeywordSelectPage extends GetView<ProfileController> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.userKeywordUpload();
-                  Get.toNamed(AppRoute.main);
+                  Get.toNamed(AppRoute.signupComplete);
                 },
-                child: const Text('확인'),
+                child: const Text('선택완료'),
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16))),

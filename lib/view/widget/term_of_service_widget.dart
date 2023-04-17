@@ -4,7 +4,10 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/term_docu_controller.dart';
 
 class TermOfServiceButton extends GetView<TermDocuController> {
-  const TermOfServiceButton({super.key});
+  const TermOfServiceButton(this.title, this.color, this.size, {super.key});
+  final String title;
+  final Color color;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +66,9 @@ class TermOfServiceButton extends GetView<TermDocuController> {
             },
           );
         },
-        child: const Text('이용약관'));
+        child: Text(
+          title,
+          style: TextStyle(color: color, fontSize: size),
+        ));
   }
 }

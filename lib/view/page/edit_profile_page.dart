@@ -101,11 +101,14 @@ class EditProfilePage extends GetView<ProfileController> {
                   text: '프로필 수정',
                   onPressedFunction: () {
                     Get.dialog(CustomDialog(
-                      content: '프로필을\n 수정하시겠습니까?',
-                      btnOk: () {
+                      content: '프로필을 수정하시겠습니까?',
+                      btn1fn: () {
                         controller.updateProfile();
                         controller.auth.getProfile();
                       },
+                      btn2fn: Get.back,
+                      firstText: '취소',
+                      secondText: '확인',
                     ));
                   },
                   isEnabled: controller.isUniqueName.value),
