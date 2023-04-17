@@ -7,7 +7,9 @@ class KeywordChip extends StatelessWidget {
       {super.key,
       required this.keyword,
       required this.onTap,
-      required this.isSelected, required this.unSelectedBackgroundColor, required this.unSelectedTextColor});
+      required this.isSelected,
+      required this.unSelectedBackgroundColor,
+      required this.unSelectedTextColor});
   final List keyword;
   final Function onTap;
   final RxMap isSelected;

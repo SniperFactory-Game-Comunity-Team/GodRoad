@@ -28,6 +28,7 @@ class BookmarkPage extends GetView<ProfileController> {
                   if (snapshot.hasData) {
                     return Obx(
                       () => ListView.separated(
+                        physics: const BouncingScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           return MainPageChallengeListTile(

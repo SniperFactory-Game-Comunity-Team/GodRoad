@@ -51,7 +51,7 @@ class SearchChallengePage extends GetView<MainController> {
         ],
       ),
       body: SizedBox(
-        height: 550,
+        height: Get.height * 0.9,
         child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
             future: controller.searchChallenge(),
             builder: (context, snapshot) {
@@ -59,6 +59,7 @@ class SearchChallengePage extends GetView<MainController> {
                 if (snapshot.hasData) {
                   return Obx(() => ListView.builder(
                       shrinkWrap: true,
+                      physics: const BouncingScrollPhysics(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return RealTimeTile(

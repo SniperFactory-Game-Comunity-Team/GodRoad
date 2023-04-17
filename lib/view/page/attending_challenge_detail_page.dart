@@ -31,6 +31,7 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
         foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

@@ -24,7 +24,7 @@ class MainPage extends GetView<MainController> {
         foregroundColor: Colors.black,
         elevation: 0,
         leading: Container(
-          margin: EdgeInsets.only(left: 20),
+          margin: const EdgeInsets.only(left: 20),
           child: SvgPicture.asset(
             'assets/logo.svg',
             width: 100,
@@ -188,35 +188,33 @@ class MainPage extends GetView<MainController> {
                 width: Get.width,
                 height: 300,
                 color: MyColor.lightgrey,
-                child: SizedBox(
-                  height: 200,
-                  child:
-                      FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
-                          future: controller.readMyChallenge(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              if (snapshot.hasData) {
-                                return ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: 3,
-                                    itemBuilder: (context, index) {
-                                      return Obx(
-                                        () => ForTile(
-                                          challenge:
-                                              snapshot.data![index].data(),
-                                        ),
-                                      );
-                                    });
-                              }
-                              return Center(child: const Text('추천 챌린지가 없습니다'));
-                            }
-                            return const SpinKitFadingCircle(
-                              color: MyColor.primary,
-                              size: 30,
-                            );
-                          }),
-                ),
+                child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
+                    future: controller.readMyChallenge(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          return Obx(
+                            () => ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.length < 3
+                                    ? snapshot.data!.length
+                                    : 3,
+                                itemBuilder: (context, index) {
+                                  return ForTile(
+                                    challenge:
+                                        snapshot.data![index].data(),
+                                  );
+                                }),
+                          );
+                        }
+                        return Center(child: const Text('추천 챌린지가 없습니다'));
+                      }
+                      return const SpinKitFadingCircle(
+                        color: MyColor.primary,
+                        size: 30,
+                      );
+                    }),
               ),
               Container(
                 height: 60,

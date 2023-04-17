@@ -24,7 +24,7 @@ class CreatedChallengePage extends GetView<ProfileController> {
               onPressed: () {
                 Get.toNamed(AppRoute.my);
               },
-              icon: Icon(Icons.arrow_back)),
+              icon: const Icon(Icons.arrow_back)),
         ),
         body: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
             future: controller.readCreatedChallenge(),
@@ -32,6 +32,7 @@ class CreatedChallengePage extends GetView<ProfileController> {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   return ListView.separated(
+                     physics: const BouncingScrollPhysics(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return Obx(

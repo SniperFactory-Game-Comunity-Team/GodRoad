@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
-
 import '../../util/my_color.dart';
 import '../../util/routes.dart';
 
@@ -19,10 +18,8 @@ class SignUpCompletePage extends GetView<ProfileController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SvgPicture.asset('assets/signupcomplete.svg'),
-              SizedBox(
-                height: 40,
-              ),
-              Text(
+              const SizedBox(height: 40),
+              const Text(
                 '회원가입이 완료되었습니다!',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 textAlign: TextAlign.center,
@@ -41,7 +38,7 @@ class SignUpCompletePage extends GetView<ProfileController> {
               await controller.userKeywordUpload();
               Get.toNamed(AppRoute.main);
             },
-            label: Text('시작하기'),
+            label: const Text('시작하기'),
           ),
         ));
   }

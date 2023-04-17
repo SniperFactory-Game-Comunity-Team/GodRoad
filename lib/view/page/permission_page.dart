@@ -65,10 +65,10 @@ class PermissionPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {},
-                child: const Text('확인'),
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16))),
+                child: const Text('확인'),
               )
             ],
           ),

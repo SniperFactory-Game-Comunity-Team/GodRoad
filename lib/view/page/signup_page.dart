@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/signup_controller.dart';
-import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_button.dart';
 import 'package:godroad/view/widget/custom_text_field.dart';
 
@@ -17,7 +16,7 @@ class SignupPage extends GetView<SignUpController> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
             size: 15,

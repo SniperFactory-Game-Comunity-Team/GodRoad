@@ -19,6 +19,7 @@ class ChallengeScreen extends GetView<MainController> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(12.0),
@@ -46,6 +47,7 @@ class ChallengeScreen extends GetView<MainController> {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     scrollDirection: Axis.horizontal,
@@ -154,6 +156,36 @@ class ChallengeScreen extends GetView<MainController> {
             ],
           ),
         ),
+        Obx(
+          () => controller.keywords.isEmpty
+              ? const SizedBox()
+              : Wrap(
+                  spacing: 7,
+                  children: controller.keywords
+                      .map((e) => Chip(
+                            visualDensity: const VisualDensity(
+                                horizontal: 0, vertical: -2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              side: const BorderSide(
+                                color: MyColor.primary,
+                                width: 1.0,
+                              ),
+                            ),
+                            backgroundColor: Colors.transparent,
+                            label: SizedBox(
+                              width: 55,
+                              child: Center(
+                                child: Text(
+                                  e,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                ),
+        ),
         SizedBox(
           height: 400,
           child: FutureBuilder(
@@ -163,7 +195,7 @@ class ChallengeScreen extends GetView<MainController> {
                   if (snapshot.hasData) {
                     return Obx(
                       () => ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length > 3
                               ? 3

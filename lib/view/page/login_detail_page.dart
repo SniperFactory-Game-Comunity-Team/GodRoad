@@ -22,7 +22,7 @@ class LoginDetailPage extends GetView<LoginController> {
             onPressed: () {
               Get.back();
             },
-            icon: Icon(Icons.arrow_back, color: Colors.black, size: 15),
+            icon: const Icon(Icons.arrow_back, color: Colors.black, size: 15),
           ),
           title: const Text(
             '로그인',

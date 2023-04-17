@@ -18,7 +18,7 @@ class MyPageListTile extends StatelessWidget {
       child: ListTile(
         title: Text(
           buttontext,
-          style: TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14),
         ),
         trailing: const Icon(Icons.chevron_right),
         onTap: onTap,

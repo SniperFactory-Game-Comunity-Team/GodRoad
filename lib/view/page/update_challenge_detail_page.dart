@@ -11,7 +11,6 @@ import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import '../../util/routes.dart';
 
 class UpdateChallengeDetailPage
@@ -79,16 +78,16 @@ class UpdateChallengeDetailPage
                         top: 140,
                         left: Get.width * 0.45,
                         child: Stack(
-                          children: [
+                          children: const [
                             CircleAvatar(
                               backgroundColor: Colors.transparent,
                               child: CircleAvatar(
                                 backgroundColor: Color.fromARGB(125, 0, 0, 0),
                                 radius: 30,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 3.0),
+                                  padding: EdgeInsets.only(left: 3.0),
                                   child: FaIcon(
-                                    FontAwesomeIcons.add,
+                                    FontAwesomeIcons.plus,
                                     size: 25,
                                     color: Colors.white,
                                   ),
@@ -358,7 +357,7 @@ class UpdateChallengeDetailPage
                           },
                           backgroundColor: Colors.transparent,
                           borderColor: MyColor.primary2,
-                          textStyle: TextStyle(color: MyColor.primary2),
+                          textStyle: const TextStyle(color: MyColor.primary2),
                           left: 35,
                           right: 35,
                           top: 12,

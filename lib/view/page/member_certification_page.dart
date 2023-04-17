@@ -144,6 +144,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                   snapshot.connectionState ==
                                       ConnectionState.done) {
                                 return ListView.builder(
+                                    physics: const BouncingScrollPhysics(),
                                     shrinkWrap: true,
                                     scrollDirection: Axis.horizontal,
                                     itemCount: challenge.authenticationCount,
@@ -193,6 +194,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                               return SizedBox(
                                 height: 300,
                                 child: PageView.builder(
+                                  physics: const BouncingScrollPhysics(),
                                   controller: controller.pageController,
                                   itemCount: challenge.authenticationCount,
                                   itemBuilder: (context, index) {
@@ -327,6 +329,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                             return SizedBox(
                                 height: 50,
                                 child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
                                   itemCount: snapshot.data!.length,
                                   itemBuilder: (context, index) => Padding(
