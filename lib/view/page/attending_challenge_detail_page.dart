@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:godroad/model/profile.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/screen/challenge_%20certification_screen.dart';
 import 'package:godroad/view/page/screen/challenge_%20information_screen.dart';
@@ -22,7 +24,7 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
           onPressed: () {
             Get.toNamed(AppRoute.main);
           },
-          icon: Icon(Icons.navigate_before),
+          icon: const Icon(Icons.navigate_before),
         ),
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -35,9 +37,7 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
             Stack(
               children: [
                 Image.network(
-                  challenge.mainPicture != ''
-                      ? challenge.mainPicture
-                      : 'https://picsum.photos/100/100',
+                  challenge.mainPicture,
                   width: Get.width,
                   height: 300,
                   fit: BoxFit.cover,
@@ -101,31 +101,52 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
             ),
             Padding(
               padding: const EdgeInsets.all(25.0),
-              child: Row(
-                children: [
-                  const CircleAvatar(
-                    radius: 15,
-                    backgroundColor: Colors.grey,
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        controller.auth.userProfile!.nickname.toString(),
-                        style: TextStyle(fontSize: 10),
-                      ),
-                      Text(
-                        //'계정 생성 날짜? 챌린지 업로드 날짜?',
-                        DateFormat('yyy.M.d. h:mm').format(challenge.createAt),
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              child: FutureBuilder<Rxn<Profile>>(
+                  future: controller.readUploader(challenge),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData &&
+                        snapshot.connectionState == ConnectionState.done) {
+                      return Row(
+                        children: [
+                          snapshot.data!.value!.profileUrl != ''
+                              ? CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey,
+                                  backgroundImage: NetworkImage(snapshot
+                                      .data!.value!.profileUrl
+                                      .toString()),
+                                )
+                              : const CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: MyColor.lightgrey,
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                snapshot.data!.value!.nickname.toString(),
+                                style: const TextStyle(fontSize: 10),
+                              ),
+                              Text(
+                                //'계정 생성 날짜? 챌린지 업로드 날짜?',
+                                DateFormat('yyy.M.d. h:mm')
+                                    .format(challenge.createAt),
+                                style: const TextStyle(fontSize: 10),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    }
+                    return const SizedBox();
+                  }),
             ),
             Column(
               children: [
@@ -142,14 +163,14 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
                   Container(
                     width: 410,
                     height: 5,
-                    color: Colors.grey.shade300,
+                    color: MyColor.lightgrey,
                   ),
                   Obx(() => Positioned(
                         left: controller.selectedIndex.value == 0 ? 0 : 205,
                         child: Container(
                           width: 205,
                           height: 5,
-                          color: Colors.grey,
+                          color: MyColor.primary,
                         ),
                       ))
                 ]),

@@ -26,20 +26,13 @@ class ChallengeScreen extends GetView<MainController> {
             children: [
               const Text(
                 '나의 챌린지',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               TextButton(
                 onPressed: () {
                   Get.toNamed(AppRoute.attending);
                 },
                 child: const Text('모두보기'),
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black54),
-                ),
               )
             ],
           ),
@@ -69,22 +62,13 @@ class ChallengeScreen extends GetView<MainController> {
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
                 '실시간 인기 챌린지',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(
-                width: 26,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
               TextButton(
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(MyColor.color900),
-                ),
                 onPressed: () {
                   Get.toNamed(AppRoute.realtimechallengelist);
                 },
@@ -93,24 +77,16 @@ class ChallengeScreen extends GetView<MainController> {
             ],
           ),
         ),
-        TextButton(
+        OutlinedButton(
           onPressed: () {
             Get.bottomSheet(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                ),
-              ),
-              backgroundColor: Colors.white,
-              clipBehavior: Clip.hardEdge,
               SizedBox(
-                height: 270,
+                height: 250,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding:  EdgeInsets.all(8.0),
                       child: Text(
                         '키워드 선택',
                         style: TextStyle(
@@ -124,32 +100,43 @@ class ChallengeScreen extends GetView<MainController> {
                       unSelectedBackgroundColor: MyColor.lightgrey,
                       unSelectedTextColor: Colors.black54,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CustomSecondButton(
-                          text: '키워드별 챌린지 검색',
-                          onPressedFunction: () {
-                            controller.readKeywordChallenge();
-                            Get.back();
-                          },
-                          backgroundColor: MyColor.primary2,
-                          borderColor: Colors.transparent,
-                          textStyle: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                          left: 35,
-                          right: 35,
-                          top: 12,
-                          bottom: 12,
-                          borderCircular: 20),
-                    )
+                    CustomSecondButton(
+                        text: '키워드별 챌린지 검색',
+                        onPressedFunction: () {
+                          controller.readKeywordChallenge();
+                          Get.back();
+                        },
+                        backgroundColor: MyColor.primary2,
+                        borderColor: Colors.transparent,
+                        textStyle: TextStyle(color: Colors.white),
+                        left: 35,
+                        right: 35,
+                        top: 12,
+                        bottom: 12,
+                        borderCircular: 25)
                   ],
                 ),
               ),
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                ),
+              ),
+              backgroundColor: Colors.white,
+              clipBehavior: Clip.hardEdge,
             );
           },
-          child: const Text('모두보기'),
-          style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.black54),
+          child: Obx(
+            () => controller.keywords.isEmpty
+                ? const Text('키워드')
+                : Wrap(
+                    children: controller.keywords
+                        .map((e) => Chip(
+                              label: Text(e),
+                            ))
+                        .toList(),
+                  ),
           ),
         ),
         SizedBox(
@@ -161,7 +148,7 @@ class ChallengeScreen extends GetView<MainController> {
                     snapshot.connectionState == ConnectionState.done) {
                   return Obx(
                     () => ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length > 3
                             ? 3
@@ -175,6 +162,9 @@ class ChallengeScreen extends GetView<MainController> {
                 }
                 return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
               }),
+        ),
+        const SizedBox(
+          height: 20,
         ),
       ],
     );

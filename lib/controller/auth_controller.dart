@@ -68,6 +68,11 @@ class AuthController extends GetxController {
     return userCredential;
   }
 
+  getOnlyProfile() async {
+    var profile = await Firebase.getUser.doc(_user.value!.uid).get();
+    _userProfile(profile.data());
+  }
+
   getProfile() async {
     var profile = await Firebase.getUser.doc(_user.value!.uid).get();
     _userProfile(profile.data());
