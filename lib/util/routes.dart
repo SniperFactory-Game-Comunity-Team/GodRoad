@@ -8,8 +8,8 @@ import 'package:godroad/view/page/keyword_select_page.dart';
 import 'package:godroad/view/page/keyword_update_page.dart';
 import 'package:godroad/view/page/attending_challenge_page.dart';
 import 'package:godroad/view/page/end_challenge_page.dart';
+import 'package:godroad/view/page/loading_page.dart';
 import 'package:godroad/view/page/login_detail_page.dart';
-import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/view/page/main_page.dart';
 import 'package:godroad/view/page/permission_page.dart';
 import 'package:godroad/view/page/edit_profile_page.dart';
@@ -17,12 +17,12 @@ import 'package:godroad/view/page/my_page.dart';
 import 'package:godroad/view/page/profile_page.dart';
 import 'package:godroad/view/page/real_tile_challenge_list_page.dart';
 import 'package:godroad/view/page/search_challenge_page.dart';
+import 'package:godroad/view/page/signup_complete_page.dart';
 import 'package:godroad/view/page/signup_page.dart';
 import 'package:godroad/view/page/update_challenge_detail_page.dart';
 
 class AppRoute {
   static final main = MainPage.route;
-  static final login = LoginPage.route;
   static final loginDetail = LoginDetailPage.route;
   static final signup = SignupPage.route;
   static final profile = ProfilePage.route;
@@ -41,5 +41,7 @@ class AppRoute {
   static final attendchallengedetail = AttendingChallengeDetailPage.route;
   static final bookmark = BookmarkPage.route;
   static final explanation = ExplanationPage.route;
-  static final updateChallengeDetail = UpdateChallengeDetailPage.route;  
+  static final updateChallengeDetail = UpdateChallengeDetailPage.route;
+  static final signupComplete = SignUpCompletePage.route;
+  static final loading = LoadingPage.route;
 }

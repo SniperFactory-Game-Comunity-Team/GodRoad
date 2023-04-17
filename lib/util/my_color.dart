@@ -14,4 +14,5 @@ class MyColor {
   static const Color color100 = Color(0xffE1EAFA);
   static const Color color50 = Color(0xffF0F5FF);
   static const Color lightgrey = Color.fromARGB(255, 233, 233, 233);
+  static const Color darkgrey = Color.fromARGB(255, 65, 65, 65);
 }

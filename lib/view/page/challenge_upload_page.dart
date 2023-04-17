@@ -7,6 +7,7 @@ import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/widget/calendar.dart';
 import 'package:godroad/view/widget/custom_button.dart';
+import 'package:godroad/view/widget/keyword_chip.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
 import 'package:image_picker/image_picker.dart';
@@ -225,9 +226,9 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
                     Obx(() => Positioned(
                           left: controller.selectedIndex.value == 0
                               ? 0
-                              : Get.width * 0.5,
+                              : Get.width * 0.45,
                           child: Container(
-                            width: Get.width * 0.5,
+                            width: Get.width * 0.45,
                             height: 5,
                             color: MyColor.primary,
                           ),
@@ -252,26 +253,12 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  Wrap(
-                    children: Keyword.keywords
-                        .map((e) => GestureDetector(
-                              onTap: () {
-                                controller.addKeyword(e);
-                              },
-                              child: Obx(
-                                () => Chip(
-                                  backgroundColor:
-                                      controller.isSelected[e] == null
-                                          ? Colors.grey
-                                          : controller.isSelected[e]
-                                              ? Colors.lightBlue
-                                              : Colors.grey,
-                                  label: Text(e),
-                                ),
-                              ),
-                            ))
-                        .toList(),
-                  ),
+                  KeywordChip(
+                      keyword: Keyword.keywords,
+                      onTap: controller.addKeyword,
+                      isSelected: controller.isSelected,
+                      unSelectedBackgroundColor: MyColor.lightgrey,
+                      unSelectedTextColor: Colors.black54),
                   const SizedBox(height: 30),
                   Obx(
                     () => CustomButton(

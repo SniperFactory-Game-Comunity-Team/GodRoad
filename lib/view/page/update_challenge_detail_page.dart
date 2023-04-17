@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/update_challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/my_color.dart';
+import 'package:godroad/view/widget/custom_second_button.dart';
+import 'package:godroad/view/widget/my_bottom_sheet.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class UpdateChallengeDetailPage
@@ -16,6 +20,7 @@ class UpdateChallengeDetailPage
     Challenge challenge = Get.arguments;
     controller.contentController.text = challenge.content;
     controller.testimonyContentController.text = challenge.testimonyContent;
+    controller.mainPic.value = challenge.mainPicture;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -29,14 +34,69 @@ class UpdateChallengeDetailPage
           children: [
             Stack(
               children: [
-                Image.network(
-                  challenge.mainPicture != ''
-                      ? challenge.mainPicture
-                      : 'https://picsum.photos/100/100',
-                  width: Get.width,
-                  height: 300,
-                  fit: BoxFit.cover,
-                ), //임의로 사진 넣음
+                GestureDetector(
+                  onTap: () {
+                    Get.bottomSheet(
+                      MyBottomSheet(
+                        firstText: '촬영하기',
+                        secondText: '갤러리',
+                        firstIcon: const FaIcon(FontAwesomeIcons.camera),
+                        secondIcon: const FaIcon(FontAwesomeIcons.photoFilm),
+                        fisrtFunction: () {
+                          controller.updateMainPicture(ImageSource.camera);
+                        },
+                        secondFunction: () {
+                          controller.updateMainPicture(ImageSource.gallery);
+                        },
+                      ),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(20),
+                        ),
+                      ),
+                      backgroundColor: Colors.white,
+                      clipBehavior: Clip.hardEdge,
+                    );
+                  },
+                  child: Stack(
+                    children: [
+                      Obx(
+                        () => Image.network(
+                          controller.mainPic.value != ''
+                              ? controller.mainPic.value
+                              : 'https://picsum.photos/100/100',
+                          width: Get.width,
+                          height: 300,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        top: 140,
+                        left: Get.width * 0.45,
+                        child: Stack(
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.transparent,
+                              child: CircleAvatar(
+                                backgroundColor: Color.fromARGB(125, 0, 0, 0),
+                                radius: 30,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 3.0),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.add,
+                                    size: 25,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
             SizedBox(
@@ -275,25 +335,19 @@ class UpdateChallengeDetailPage
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              left: 35, right: 35, top: 12, bottom: 12),
-                          elevation: 0,
+                      CustomSecondButton(
+                          text: "취소",
+                          onPressedFunction: () {
+                            Get.back();
+                          },
                           backgroundColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            side: const BorderSide(color: MyColor.primary2),
-                          ),
-                        ),
-                        child: const Text(
-                          "취소",
-                          style: TextStyle(color: MyColor.primary2),
-                        ),
-                      ),
+                          borderColor: MyColor.primary2,
+                          textStyle: TextStyle(color: MyColor.primary2),
+                          left: 35,
+                          right: 35,
+                          top: 12,
+                          bottom: 12,
+                          borderCircular: 20),
                       const SizedBox(
                         width: 30,
                       ),

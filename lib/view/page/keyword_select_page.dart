@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/keyword.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/keyword_chip.dart';
 
 class KeywordSelectPage extends GetView<ProfileController> {
   const KeywordSelectPage({super.key});
@@ -19,38 +21,26 @@ class KeywordSelectPage extends GetView<ProfileController> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Center(
-                child: Text('키워드 설정',
+                child: Text('키워드 선택',
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 23)),
               ),
               const SizedBox(
                 height: 20,
               ),
-              Wrap(
-                children: Keyword.keywords
-                    .map((e) => GestureDetector(
-                          onTap: () {
-                            controller.addUserKeyword(e);
-                          },
-                          child: Obx(
-                            () => Chip(
-                              backgroundColor: controller.isSelected[e] == null
-                                  ? Colors.grey
-                                  : controller.isSelected[e]
-                                      ? Colors.lightBlue
-                                      : Colors.grey,
-                              label: Text(e),
-                            ),
-                          ),
-                        ))
-                    .toList(),
+              Center(
+                child: KeywordChip(
+                    keyword: Keyword.keywords,
+                    onTap: controller.addUserKeyword,
+                    isSelected: controller.isSelected,
+                    unSelectedBackgroundColor: MyColor.color200,
+                    unSelectedTextColor: MyColor.primary2),
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.userKeywordUpload();
-                  Get.toNamed(AppRoute.main);
+                  Get.toNamed(AppRoute.signupComplete);
                 },
-                child: const Text('확인'),
+                child: const Text('선택완료'),
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16))),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
@@ -19,7 +20,7 @@ class AttendingChallengePage extends GetView<ProfileController> {
           title: const Text('참여중인 챌린지'),
         ),
         body: SafeArea(
-          child: FutureBuilder<RxList<Challenge>?>(
+          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
               future: controller.readmyChallenge(),
               builder: (context, snapshot) {
                 if (snapshot.hasData &&
@@ -30,10 +31,10 @@ class AttendingChallengePage extends GetView<ProfileController> {
                       itemBuilder: (context, index) {
                         return MainPageChallengeListTile(
                           buttontext: '인증하기',
-                          challenge: snapshot.data![index],
+                          challenge: snapshot.data![index].data(),
                            onPressed: () {
                             Get.toNamed(AppRoute.attendchallengedetail,
-                                arguments: snapshot.data![index]);
+                                arguments: snapshot.data![index].data());
                           },
                         );
                       },

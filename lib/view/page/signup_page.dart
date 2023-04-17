@@ -12,6 +12,25 @@ class SignupPage extends GetView<SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+            size: 15,
+          ),
+        ),
+        title: const Text(
+          '회원가입',
+          style: TextStyle(
+              color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
       body: Form(
         onChanged: () => controller.checkEmtpy(),
         key: controller.formKey,
@@ -22,13 +41,6 @@ class SignupPage extends GetView<SignUpController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
-                    '회원가입',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   CustomTextField(
                     controller: controller.idController,
                     textValidator: controller.idCheck,
@@ -47,26 +59,43 @@ class SignupPage extends GetView<SignUpController> {
                     obscure: true,
                   ),
                   const SizedBox(
-                    height: 10,
-                  ),
-                  Obx(
-                    () => CustomButton(
-                        text: '회원가입',
-                        onPressedFunction: () {
-                          controller.signUp();
-                          Get.toNamed(AppRoute.profile);
-                        },
-                        isEnabled: controller.isSignup.value),
+                    height: 30,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(),
-                      TextButton(
-                        onPressed: () => Get.toNamed(AppRoute.loginDetail),
-                        child: const Text(
-                          '로그인',
-                          style: TextStyle(color: Colors.black),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            side:
+                                const BorderSide(width: 1, color: Colors.blue),
+                            backgroundColor: Colors.white,
+                            fixedSize: const Size.fromHeight(50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 24.0, right: 24),
+                            child: Text(
+                              '취소하기',
+                              style: TextStyle(color: Colors.blue),
+                            ),
+                          )),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Obx(
+                        () => SizedBox(
+                          width: 130,
+                          child: CustomButton(
+                              text: '완료',
+                              onPressedFunction: () {
+                                controller.signUp();
+                              },
+                              isEnabled: controller.isSignup.value),
                         ),
                       ),
                     ],

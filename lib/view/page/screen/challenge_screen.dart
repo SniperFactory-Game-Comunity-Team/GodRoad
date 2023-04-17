@@ -6,7 +6,7 @@ import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/widget/for_tile.dart';
+import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:godroad/view/widget/keyword_chip.dart';
 import 'package:godroad/view/widget/main_page_my_challenge_tile.dart';
 import 'package:godroad/view/widget/real_time_tile.dart';
@@ -46,7 +46,7 @@ class ChallengeScreen extends GetView<MainController> {
         ),
         SizedBox(
           height: 300,
-          child: FutureBuilder(
+          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
             future: controller.profile.readmyChallenge(),
             builder: (context, snapshot) {
               if (snapshot.hasData &&
@@ -57,7 +57,7 @@ class ChallengeScreen extends GetView<MainController> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return MainPageMyChallnegeTile(
-                      challenge: snapshot.data![index],
+                      challenge: snapshot.data![index].data(),
                     );
                   },
                 );
@@ -118,16 +118,53 @@ class ChallengeScreen extends GetView<MainController> {
                     clipBehavior: Clip.hardEdge,
                   );
                 },
-                child: Obx(
-                  () => controller.keywords.isEmpty
-                      ? const Text('키워드 선택하기')
-                      : Wrap(
-                          children: controller.keywords
-                              .map((e) => Chip(
-                                    label: Text(e),
-                                  ))
-                              .toList(),
-                        ),
+                child: const Text('모두보기'),
+              )
+            ],
+          ),
+        ),
+        OutlinedButton(
+          onPressed: () {
+            Get.bottomSheet(
+              SizedBox(
+                height: 270,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        '키워드 선택',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                    ),
+                    KeywordChip(
+                      keyword: Keyword.keywords,
+                      onTap: controller.selectKeyword,
+                      isSelected: controller.isSelected,
+                      unSelectedBackgroundColor: MyColor.lightgrey,
+                      unSelectedTextColor: Colors.black54,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomSecondButton(
+                          text: '키워드별 챌린지 검색',
+                          onPressedFunction: () {
+                            controller.readKeywordChallenge();
+                            Get.back();
+                          },
+                          backgroundColor: MyColor.primary2,
+                          borderColor: Colors.transparent,
+                          textStyle: const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                          left: 35,
+                          right: 35,
+                          top: 12,
+                          bottom: 12,
+                          borderCircular: 20),
+                    )
+                  ],
                 ),
               ),
               TextButton(
@@ -152,7 +189,7 @@ class ChallengeScreen extends GetView<MainController> {
                     snapshot.connectionState == ConnectionState.done) {
                   return Obx(
                     () => ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length > 3
                             ? 3
