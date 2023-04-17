@@ -141,14 +141,13 @@ class EditProfilePage extends GetView<ProfileController> {
                             content: '프로필을 수정하시겠습니까?',
                             btn1fn: () {
                               controller.updateProfile();
-                              controller.auth.getProfile();
                               Get.toNamed(AppRoute.my);
                             },
                             btn2fn: () {
                               Get.back();
                             },
-                            firstText: '취소',
-                            secondText: '확인',
+                            firstText: '확인',
+                            secondText: '취소',
                           ));
                         },
                         isEnabled: controller.isUniqueName.value),

@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/model/certification.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/my_color.dart';
+import 'package:godroad/view/page/member_certification_page.dart';
 import 'package:godroad/view/widget/certification_button.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
@@ -222,28 +224,71 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
+              const Text(
                 "팀원 인증 기록",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              // SizedBox(
-              //   height: 30,
-              //   width: Get.width,
-              //   child: ListView.builder(
-              //     shrinkWrap: true,
-              //     scrollDirection: Axis.horizontal,
-              //     itemCount: challenge.authenticationCount,
-              //     itemBuilder: (context, index) => CertificationButton(
-              //       text: (index + 1).toString(),
-              //     ),
-              //   ),
-              // ),
+              FutureBuilder<List>(
+                future: controller.readCurrentChallParticipationUser(challenge),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                        height: 50,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) =>
+                              //   Text(snapshot.data![index].toString())
+                              Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 3.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(()=>MemberCertificationPage(
+                                    userId: snapshot.data![index],
+                                    challenge: challenge));
+                              },
+                              child: FutureBuilder<Rxn<Profile>>(
+                                future: controller.readUploader(challenge),
+                                builder: (context, snapshots) {
+                                  if (snapshots.hasData &&
+                                      snapshots.connectionState ==
+                                          ConnectionState.done) {
+                                    return snapshots.data!.value!.profileUrl !=
+                                            ''
+                                        ? CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: Colors.grey,
+                                            backgroundImage: NetworkImage(
+                                                snapshots
+                                                    .data!.value!.profileUrl
+                                                    .toString()),
+                                          )
+                                        : const CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: MyColor.lightgrey,
+                                            child: Icon(
+                                              Icons.person,
+                                              color: Colors.grey,
+                                            ),
+                                          );
+                                  }
+                                  return const SizedBox();
+                                },
+                              ),
+                            ),
+                          ),
+                        ));
+                  }
+                  return const SizedBox();
+                },
+              )
             ],
           ),
         ),

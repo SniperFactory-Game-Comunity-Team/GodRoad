@@ -8,6 +8,7 @@ import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/model/certification.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:godroad/model/profile.dart';
 import 'package:godroad/model/service/firebase.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,12 +19,15 @@ class CertificationController extends GetxController {
   RxString cerImg = ''.obs;
   RxList<QueryDocumentSnapshot<Certification>> certificationList =
       RxList<QueryDocumentSnapshot<Certification>>();
+  RxList<QueryDocumentSnapshot<Certification>> memberCertificationList =
+      RxList<QueryDocumentSnapshot<Certification>>();
   var contentController = TextEditingController();
   PageController pageController = PageController(viewportFraction: 0.9);
   RxInt currentPageIndex = 0.obs;
   var isUpdate = RxMap<String, RxBool>();
   int cerUpdate = 0;
   int myChallCerCount = 0;
+  Rxn<Profile> uploader = Rxn<Profile>();
 
   setCertification(Challenge challenge) async {
     for (var cerCount = 0;
@@ -67,7 +71,7 @@ class CertificationController extends GetxController {
   }
 
   Future<int> getCerCount(Challenge challenge) async {
-    myChallCerCount= 0;
+    myChallCerCount = 0;
     var cer = await Firebase.colChall
         .doc(challenge.id)
         .collection('certification')
@@ -76,6 +80,7 @@ class CertificationController extends GetxController {
               Certification.fromMap(snapshot.data()!),
           toFirestore: (data, _) => data.toMap(),
         )
+        .where('userId', isEqualTo: auth.user!.uid)
         .where('img', isEqualTo: '')
         .get();
     myChallCerCount = cer.docs.length;
@@ -99,12 +104,13 @@ class CertificationController extends GetxController {
           .doc(challenge.id)
           .collection('certification')
           .doc(auth.user!.uid + index.toString())
-          .update({'count': FieldValue.increment(1)});
+          .update({'count': index});
       profile.readmyChallenge();
       cerImg.value = '';
       contentController.text = '';
-      Get.back();
-      Get.toNamed(AppRoute.attendchallengedetail, arguments: challenge);
+      pageController = PageController(viewportFraction: 0.9);
+      currentPageIndex(0);
+      Get.toNamed(AppRoute.main);
     }
   }
 
@@ -135,5 +141,42 @@ class CertificationController extends GetxController {
         .get();
     certificationList(certification.docs);
     return certificationList;
+  }
+
+  // 챌린지에 참여한 유저 리스트
+  Future<List> readCurrentChallParticipationUser(Challenge challenge) async {
+    var curChallParUser = await Firebase.getChallenge.doc(challenge.id).get();
+    return curChallParUser.data()!.participationUserId;
+  }
+
+  //유저의 인증 리스트
+  Future<RxList<QueryDocumentSnapshot<Certification>>> readMemberCertification(
+      Challenge challenge, String userId) async {
+    var allCertification = await Firebase.colChall
+        .doc(challenge.id)
+        .collection('certification')
+        .withConverter(
+          fromFirestore: (snapshot, _) =>
+              Certification.fromMap(snapshot.data()!),
+          toFirestore: (data, _) => data.toMap(),
+        )
+        .where('userId', isEqualTo: userId)
+        .get();
+    memberCertificationList(allCertification.docs);
+    return memberCertificationList;
+  }
+
+  //유저 아이디로 프로필 가져오기
+  Future<Rxn<Profile>> readUploader(Challenge challenge) async {
+    var profile = await Firebase.getUser.doc(challenge.userId).get();
+    uploader(profile.data());
+    return uploader;
+  }
+  
+  @override
+  void onInit() {
+    super.onInit();
+    pageController = PageController();
+    currentPageIndex(0);
   }
 }
