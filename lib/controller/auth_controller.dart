@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/login_controller.dart';
@@ -6,6 +7,7 @@ import 'package:godroad/controller/signup_controller.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/model/service/firebase.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/login_dialog.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
@@ -42,9 +44,11 @@ class AuthController extends GetxController {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        Get.snackbar('로그인 실패', '등록되지 않은 이메일입니다');
+        Get.dialog(LoginDialog(
+          content: '등록되지 않은 아이디입니다.',
+        ));
       } else if (e.code == 'wrong-password') {
-        Get.snackbar('로그인 실패', '비밀번호가 틀렸습니다.');
+        Get.dialog(LoginDialog(content: '비밀번호가 옳지 않습니다.'));
       } else {
         print(e.code);
       }

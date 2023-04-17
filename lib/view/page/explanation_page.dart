@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/util/my_color.dart';
-import 'package:godroad/view/page/login_page.dart';
 import 'package:godroad/controller/explanation_controller.dart';
 import 'package:godroad/util/routes.dart';
-
+import 'package:godroad/view/widget/custom_button.dart';
 
 class ExplanationPage extends GetView<ExplanationController> {
   const ExplanationPage({super.key});
@@ -39,20 +38,29 @@ class ExplanationPage extends GetView<ExplanationController> {
               ),
             ),
           ),
-          floatingActionButton: controller.currentPageIndex.value ==
-                  controller.pages.length - 1
-              ? ElevatedButton(
-                  style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(Size(300, 30)),
-                    backgroundColor:
-                        MaterialStateProperty.all(MyColor.color900),
-                  ),
-                  onPressed: () {
-                    Get.toNamed(AppRoute.login);
-                  },
-                  child: const Text('로그인하기'),
-                )
-              : null,
+          floatingActionButton:
+              controller.currentPageIndex.value == controller.pages.length - 1
+                  ? Padding(
+                      padding: const EdgeInsets.all(32.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.toNamed(AppRoute.loginDetail);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: MyColor.primary2,
+                          minimumSize: Size.fromHeight(10),
+                          fixedSize: const Size.fromHeight(55),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        child: const Text(
+                          '로그인하기',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    )
+                  : null,
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
         ));
