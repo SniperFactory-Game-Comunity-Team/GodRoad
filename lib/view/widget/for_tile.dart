@@ -26,7 +26,7 @@ class ForTile extends GetView<MainController> {
               ),
               title: Text(
                 challenge.title,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               subtitle: Wrap(
                 children: challenge.keyword
@@ -41,8 +41,8 @@ class ForTile extends GetView<MainController> {
               ),
               trailing: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: MyColor.primary,
-                    fixedSize: Size(70, 20),
+                    backgroundColor: MyColor.primary,
+                    fixedSize: const Size(70, 20),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -51,7 +51,7 @@ class ForTile extends GetView<MainController> {
                   onPressed: () {
                     controller.goDetailChallenge(challenge);
                   },
-                  child: const Text('자세히보기'))),
+                  child: const Text('자세히 보기', style: TextStyle(fontSize: 11),))),
         ));
   }
 }

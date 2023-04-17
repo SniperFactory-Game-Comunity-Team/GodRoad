@@ -5,6 +5,7 @@ import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
+import 'package:godroad/view/widget/mypage_list_tile.dart';
 import 'package:godroad/view/widget/term_of_service_widget.dart';
 
 class MyPage extends GetView<ProfileController> {
@@ -18,6 +19,7 @@ class MyPage extends GetView<ProfileController> {
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
+        title: const Text('마이페이지'),
         leading: IconButton(
           onPressed: () {
             Get.toNamed(AppRoute.main);
@@ -26,137 +28,129 @@ class MyPage extends GetView<ProfileController> {
         ),
       ),
       body: SafeArea(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Obx(
-                  () => controller.auth.userProfile!.profileUrl != ''
-                      ? CircleAvatar(
-                          radius: 55,
-                          backgroundImage: NetworkImage(controller
-                              .auth.userProfile!.profileUrl
-                              .toString()))
-                      : const CircleAvatar(
-                          radius: 55,
-                          backgroundColor: MyColor.lightgrey,
-                          child: Icon(
-                            Icons.person,
-                            color: Colors.grey,
-                            size: 80,
+          child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Column(
+                children: [
+                  Obx(
+                    () => controller.auth.userProfile!.profileUrl != ''
+                        ? CircleAvatar(
+                            radius: 55,
+                            backgroundImage: NetworkImage(controller
+                                .auth.userProfile!.profileUrl
+                                .toString()))
+                        : const CircleAvatar(
+                            radius: 55,
+                            backgroundColor: MyColor.lightgrey,
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.grey,
+                              size: 80,
+                            ),
                           ),
-                        ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  controller.auth.userProfile!.nickname!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
                   ),
-                ),
-                Text(
-                  controller.auth.userProfile!.email,
-                  style: const TextStyle(),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    controller.startEditProfile();
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: MyColor.primary2,
-                    minimumSize: Size.zero,
-                    padding: const EdgeInsets.only(
-                        left: 12, right: 12, top: 5, bottom: 5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    controller.auth.userProfile!.nickname!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  child: const Text(
-                    '프로필 수정',
-                    style: TextStyle(),
+                  Text(
+                    controller.auth.userProfile!.email,
+                    style: const TextStyle(),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      controller.startEditProfile();
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: MyColor.primary2,
+                      minimumSize: Size.zero,
+                      padding: const EdgeInsets.only(
+                          left: 12, right: 12, top: 5, bottom: 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: const Text(
+                      '프로필 수정',
+                      style: TextStyle(),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 12,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
+            const SizedBox(
+              height: 12,
+            ),
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextButton(
-                    onPressed: () {
+                const Divider(
+                  thickness: 0.6,
+                ),
+                MyPageListTile(
+                    buttontext: '참여중인 챌린지',
+                    onTap: () {
                       Get.toNamed(AppRoute.attending);
-                    },
-                    child: const Text(
-                      '참여중인 챌린지',
-                      style: TextStyle(color: Colors.black),
-                    )),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 30),
-                  child: TextButton(
-                    onPressed: () {
+                    }),
+                const Divider(
+                  thickness: 0.6,
+                ),
+                MyPageListTile(
+                    buttontext: '종료된 챌린지',
+                    onTap: () {
                       Get.toNamed(AppRoute.endchallenge);
-                    },
-                    child: const Text('종료된 챌린지',
-                        style: TextStyle(color: Colors.black)),
-                  ),
+                    }),
+                const Divider(
+                  thickness: 0.6,
                 ),
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoute.bookmark);
-                  },
-                  child: const Text(
-                    '북마크 목록',
-                    style: TextStyle(color: Colors.black),
-                  ),
+                MyPageListTile(
+                    buttontext: '북마크 목록',
+                    onTap: () {
+                      Get.toNamed(AppRoute.bookmark);
+                    }),
+                const Divider(
+                  thickness: 0.6,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 30),
-                  child: TextButton(
-                    onPressed: () {
+                MyPageListTile(
+                    buttontext: '관심 키워드 변경',
+                    onTap: () {
                       controller.userKeywordUpdate();
-                    },
-                    child: const Text(
-                      '관심 키워드 변경',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ),
+                    }),
+                const Divider(
+                  thickness: 0.6,
                 ),
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed(AppRoute.createdChallenge);
-                  },
-                  child: const Text('업로드한 게시물들',
-                      style: TextStyle(color: Colors.black)),
+                MyPageListTile(
+                    buttontext: '업로드한 게시물들',
+                    onTap: () {
+                      Get.toNamed(AppRoute.createdChallenge);
+                    }),
+                const Divider(
+                  thickness: 0.6,
                 ),
               ],
             ),
-          ),
-          const SizedBox(
-            width: 18,
-          ),
-          Column(
-            children: [
-              Container(
-                color: MyColor.lightgrey,
+            const SizedBox(
+              height: 30,
+            ),
+            Container(
+              height: 60,
+              color: MyColor.lightgrey,
+              child: Center(
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
                         onPressed: () {
@@ -172,8 +166,9 @@ class MyPage extends GetView<ProfileController> {
                         },
                         child: const Text(
                           '계정 탈퇴',
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(color: Colors.red, fontSize: 12),
                         )),
+                    const SizedBox(width: 10),
                     TextButton(
                         onPressed: () {
                           Get.dialog(CustomDialog(
@@ -188,15 +183,18 @@ class MyPage extends GetView<ProfileController> {
                         },
                         child: const Text(
                           '로그아웃',
-                          style: TextStyle(color: Colors.black),
+                          style: TextStyle(color: Colors.black, fontSize: 12),
                         )),
-                    TermOfServiceButton('이용약관', Colors.blue, 14)
+                    const SizedBox(width: 10),
+                    const TermOfServiceButton('이용약관', Colors.black, 12),
+                    const SizedBox(width: 10),
+                    const TermOfServiceButton('개인정보처리방침', Colors.black, 12)
                   ],
                 ),
-              )
-            ],
-          )
-        ],
+              ),
+            )
+          ],
+        ),
       )),
     );
   }

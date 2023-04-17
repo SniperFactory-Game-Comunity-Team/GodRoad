@@ -21,6 +21,7 @@ class CertificationController extends GetxController {
       RxList<QueryDocumentSnapshot<Certification>>();
   RxList<QueryDocumentSnapshot<Certification>> memberCertificationList =
       RxList<QueryDocumentSnapshot<Certification>>();
+  RxList<Map<String, dynamic>> memberDetail = RxList<Map<String, dynamic>>();
   var contentController = TextEditingController();
   PageController pageController = PageController(viewportFraction: 0.9);
   RxInt currentPageIndex = 0.obs;
@@ -28,6 +29,7 @@ class CertificationController extends GetxController {
   int cerUpdate = 0;
   int myChallCerCount = 0;
   Rxn<Profile> uploader = Rxn<Profile>();
+  Rxn<Profile> member = Rxn<Profile>();
 
   setCertification(Challenge challenge) async {
     for (var cerCount = 0;
@@ -144,9 +146,19 @@ class CertificationController extends GetxController {
   }
 
   // 챌린지에 참여한 유저 리스트
-  Future<List> readCurrentChallParticipationUser(Challenge challenge) async {
+  Future<RxList<Map<String, dynamic>>> readCurrentChallParticipationUser(
+      Challenge challenge) async {
+    memberDetail.clear();
     var curChallParUser = await Firebase.getChallenge.doc(challenge.id).get();
-    return curChallParUser.data()!.participationUserId;
+    List userIdList = curChallParUser.data()!.participationUserId;
+    print(userIdList.length);
+    for (var i = 0; i < userIdList.length; i++) {
+      memberDetail.add({});
+      var profile = await Firebase.getUser.doc(userIdList[i]).get();
+      memberDetail[i]['cer'] = userIdList[i];
+      memberDetail[i]['profile'] = profile.data();
+    }
+    return memberDetail;
   }
 
   //유저의 인증 리스트
@@ -162,6 +174,10 @@ class CertificationController extends GetxController {
         )
         .where('userId', isEqualTo: userId)
         .get();
+    // for (var n in allCertification.docs) {
+    //   var profile = await Firebase.getUser.doc((n.data().userId)).get();
+    //   uploader(profile.data());
+    // }
     memberCertificationList(allCertification.docs);
     return memberCertificationList;
   }
@@ -172,7 +188,13 @@ class CertificationController extends GetxController {
     uploader(profile.data());
     return uploader;
   }
-  
+
+  Future<Rxn<Profile>> readMember(String userId) async {
+    var profile = await Firebase.getUser.doc(userId).get();
+    member(profile.data());
+    return member;
+  }
+
   @override
   void onInit() {
     super.onInit();

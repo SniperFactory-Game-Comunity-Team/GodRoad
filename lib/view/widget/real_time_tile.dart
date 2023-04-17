@@ -119,10 +119,6 @@ class RealTimeTile extends GetView<MainController> {
                         onPressed: () {
                           controller.goDetailChallenge(challenge);
                         },
-                        child: const Text(
-                          "자세히 보기",
-                          style: TextStyle(fontSize: 11),
-                        ),
                         style: ElevatedButton.styleFrom(
                           primary: MyColor.color900,
                           fixedSize: const Size(70, 20),
@@ -130,6 +126,10 @@ class RealTimeTile extends GetView<MainController> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           padding: EdgeInsets.zero,
+                        ),
+                        child: const Text(
+                          "자세히 보기",
+                          style: TextStyle(fontSize: 11),
                         ),
                       ), //북마크와 북마크 수를 묶어주는 로우
                     ],

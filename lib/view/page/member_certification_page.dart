@@ -162,7 +162,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                         height: 20,
                       ),
                       FutureBuilder<Rxn<Profile>>(
-                        future: controller.readUploader(challenge),
+                        future: controller.readMember(userId),
                         builder: (context, snapshots) {
                           if (snapshots.hasData &&
                               snapshots.connectionState ==
@@ -196,14 +196,14 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                 itemCount: challenge.authenticationCount,
                                 itemBuilder: (context, index) {
                                   if (snapshot.data![index].data().img != '') {
-                                    controller.isUpdate[index.toString()] =
-                                        true.obs;
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: [
                                           Column(
                                             children: [
@@ -310,7 +310,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                       const SizedBox(
                         height: 20,
                       ),
-                      FutureBuilder<List>(
+                      FutureBuilder<RxList<Map>>(
                         future: controller
                             .readCurrentChallParticipationUser(challenge),
                         builder: (context, snapshot) {
@@ -324,46 +324,33 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 3.0),
                                     child: GestureDetector(
-                                      onTap: () {
-                                        Get.to(()=>MemberCertificationPage(
-                                            userId: snapshot.data![index],
-                                            challenge: challenge));
-                                      },
-                                      child: FutureBuilder<Rxn<Profile>>(
-                                        future:
-                                            controller.readUploader(challenge),
-                                        builder: (context, snapshots) {
-                                          if (snapshots.hasData &&
-                                              snapshots.connectionState ==
-                                                  ConnectionState.done) {
-                                            return snapshots.data!.value!
-                                                        .profileUrl !=
-                                                    ''
-                                                ? CircleAvatar(
-                                                    radius: 15,
-                                                    backgroundColor:
-                                                        Colors.grey,
-                                                    backgroundImage:
-                                                        NetworkImage(snapshots
-                                                            .data!
-                                                            .value!
-                                                            .profileUrl
-                                                            .toString()),
-                                                  )
-                                                : const CircleAvatar(
-                                                    radius: 15,
-                                                    backgroundColor:
-                                                        MyColor.lightgrey,
-                                                    child: Icon(
-                                                      Icons.person,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  );
-                                          }
-                                          return const SizedBox();
+                                        onTap: () {
+                                          Get.to(() => MemberCertificationPage(
+                                              userId: snapshot
+                                                  .data![index]['profile'].id,
+                                              challenge: challenge));
                                         },
-                                      ),
-                                    ),
+                                        child: snapshot.data![index]['profile']
+                                                    .profileUrl !=
+                                                ''
+                                            ? CircleAvatar(
+                                                radius: 15,
+                                                backgroundColor: Colors.grey,
+                                                backgroundImage: NetworkImage(
+                                                    snapshot
+                                                        .data![index]['profile']
+                                                        .profileUrl
+                                                        .toString()),
+                                              )
+                                            : const CircleAvatar(
+                                                radius: 15,
+                                                backgroundColor:
+                                                    MyColor.lightgrey,
+                                                child: Icon(
+                                                  Icons.person,
+                                                  color: Colors.grey,
+                                                ),
+                                              )),
                                   ),
                                 ));
                           }
