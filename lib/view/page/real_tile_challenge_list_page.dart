@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
@@ -125,21 +126,26 @@ class RealTimeChallengeListPage extends GetView<MainController> {
             FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
               future: controller.readChallenge(),
               builder: (context, snapshot) {
-                if (snapshot.hasData &&
-                    snapshot.connectionState == ConnectionState.done) {
-                  return SizedBox(
-                    height: Get.height * 0.79,
-                    child: Obx(() => ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return RealTimeTile(
-                            challenge: snapshot.data![index].data(),
-                          );
-                        })),
-                  );
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                      height: Get.height * 0.79,
+                      child: Obx(() => ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return RealTimeTile(
+                              challenge: snapshot.data![index].data(),
+                            );
+                          })),
+                    );
+                  }
+                  return const Text('실시간 인기 챌린지가 없습니다');
                 }
-                return const SizedBox();
+                return const SpinKitFadingCircle(
+                  color: MyColor.primary,
+                  size: 30,
+                );
               },
             ),
           ],

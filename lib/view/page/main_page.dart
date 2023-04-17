@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
@@ -184,26 +185,32 @@ class MainPage extends GetView<MainController> {
                 color: MyColor.lightgrey,
                 child: SizedBox(
                   height: 200,
-                  child: FutureBuilder<
-                          RxList<QueryDocumentSnapshot<Challenge>>>(
-                      future: controller.readMyChallenge(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData &&
-                            snapshot.connectionState ==
+                  child:
+                      FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+                          future: controller.readMyChallenge(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
                                 ConnectionState.done) {
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 3,
-                              itemBuilder: (context, index) {
-                                return Obx(
-                                  ()=> ForTile(
-                                    challenge: snapshot.data![index].data(),
-                                  ),
-                                );
-                              });
-                        }
-                        return const SizedBox();
-                      }),
+                              if (snapshot.hasData) {
+                                return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: 3,
+                                    itemBuilder: (context, index) {
+                                      return Obx(
+                                        () => ForTile(
+                                          challenge:
+                                              snapshot.data![index].data(),
+                                        ),
+                                      );
+                                    });
+                              }
+                              return const Text('추천 챌린지가 없습니다');
+                            }
+                            return const SpinKitFadingCircle(
+                              color: MyColor.primary,
+                              size: 30,
+                            );
+                          }),
                 ),
               ),
               Container(

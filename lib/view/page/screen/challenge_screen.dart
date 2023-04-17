@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
@@ -42,20 +43,25 @@ class ChallengeScreen extends GetView<MainController> {
           child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
             future: controller.profile.readmyChallenge(),
             builder: (context, snapshot) {
-              if (snapshot.hasData &&
-                  snapshot.connectionState == ConnectionState.done) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return MainPageMyChallnegeTile(
-                      challenge: snapshot.data![index].data(),
-                    );
-                  },
-                );
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return MainPageMyChallnegeTile(
+                        challenge: snapshot.data![index].data(),
+                      );
+                    },
+                  );
+                }
+                return const Center(child: Text('참여한 챌린지가 없습니다'));
               }
-              return const Center(child: Text('참여한 챌린지가 없습니다'));
+              return const SpinKitFadingCircle(
+                color: MyColor.primary,
+                size: 30,
+              );
             },
           ),
         ),
@@ -153,23 +159,28 @@ class ChallengeScreen extends GetView<MainController> {
           child: FutureBuilder(
               future: controller.readChallenge(),
               builder: (context, snapshot) {
-                if (snapshot.hasData &&
-                    snapshot.connectionState == ConnectionState.done) {
-                  return Obx(
-                    () => ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length > 3
-                            ? 3
-                            : snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return RealTimeTile(
-                            challenge: snapshot.data![index].data(),
-                          );
-                        }),
-                  );
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    return Obx(
+                      () => ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length > 3
+                              ? 3
+                              : snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return RealTimeTile(
+                              challenge: snapshot.data![index].data(),
+                            );
+                          }),
+                    );
+                  }
+                  return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
                 }
-                return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
+                return const SpinKitFadingCircle(
+                  color: MyColor.primary,
+                  size: 30,
+                );
               }),
         ),
         const SizedBox(

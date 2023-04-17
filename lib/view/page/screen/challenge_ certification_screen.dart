@@ -32,7 +32,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
               SizedBox(
                 height: 35,
                 child: FutureBuilder<RxMap<dynamic, dynamic>>(
-                    future: controller.getCerUpdate(challenge),
+                    future: controller.getCerUpdate(challenge, controller.auth.user!.uid),
                     builder: (context, snapshot) {
                       if (snapshot.hasData &&
                           snapshot.connectionState == ConnectionState.done) {
@@ -243,15 +243,14 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) =>
-                              Padding(
+                          itemBuilder: (context, index) => Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 3.0),
                             child: GestureDetector(
                                 onTap: () {
                                   Get.to(() => MemberCertificationPage(
-                                      userId: snapshot
-                                          .data![index]['profile'].id,
+                                      userId:
+                                          snapshot.data![index]['profile'].id,
                                       challenge: challenge));
                                 },
                                 child: snapshot.data![index]['profile']

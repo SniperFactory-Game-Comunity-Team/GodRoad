@@ -61,12 +61,12 @@ class MainController extends GetxController {
 
 
 
-  Future<RxList<QueryDocumentSnapshot<Challenge>>> searchChallenge() async {
+  Future<RxList<QueryDocumentSnapshot<Challenge>>?> searchChallenge() async {
     var challenge = await Firebase.getChallenge
         .where('title', isEqualTo: searchcontroller.text)
         .get();
     searchChallengeList(challenge.docs);
-    return searchChallengeList;
+    return searchChallengeList.isNotEmpty ? searchChallengeList : null;
   }
 
   goDetailChallenge(Challenge challenge) async {

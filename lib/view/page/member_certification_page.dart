@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/model/certification.dart';
@@ -137,7 +138,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                       SizedBox(
                         height: 35,
                         child: FutureBuilder<RxMap<dynamic, dynamic>>(
-                            future: controller.getCerUpdate(challenge),
+                            future: controller.getCerUpdate(challenge, userId),
                             builder: (context, snapshot) {
                               if (snapshot.hasData &&
                                   snapshot.connectionState ==
@@ -186,103 +187,111 @@ class MemberCertificationPage extends GetView<CertificationController> {
                         future: controller.readMemberCertification(
                             challenge, userId),
                         builder: (context, snapshot) {
-                          if (snapshot.hasData &&
-                              snapshot.connectionState ==
-                                  ConnectionState.done) {
-                            return SizedBox(
-                              height: 300,
-                              child: PageView.builder(
-                                controller: controller.pageController,
-                                itemCount: challenge.authenticationCount,
-                                itemBuilder: (context, index) {
-                                  if (snapshot.data![index].data().img != '') {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  child: Container(
-                                                    width: Get.width,
-                                                    height: 180,
-                                                    color: MyColor.lightgrey,
-                                                    child: Image.network(
-                                                      snapshot.data![index]
-                                                          .data()
-                                                          .img,
-                                                      fit: BoxFit.contain,
-                                                    ),
-                                                  )),
-                                              const SizedBox(height: 8),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 25.0),
-                                                child: Center(
-                                                  child: Text(snapshot
-                                                      .data![index]
-                                                      .data()
-                                                      .content),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 0.0),
-                                            child: Text(
-                                              DateFormat('yy.MM.dd')
-                                                  .format(snapshot.data![index]
-                                                      .data()
-                                                      .createAt)
-                                                  .toString(),
-                                              style:
-                                                  const TextStyle(fontSize: 10),
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasData) {
+                              return SizedBox(
+                                height: 300,
+                                child: PageView.builder(
+                                  controller: controller.pageController,
+                                  itemCount: challenge.authenticationCount,
+                                  itemBuilder: (context, index) {
+                                    if (snapshot.data![index].data().img !=
+                                        '') {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                    child: Container(
+                                                      width: Get.width,
+                                                      height: 180,
+                                                      color: MyColor.lightgrey,
+                                                      child: Image.network(
+                                                        snapshot.data![index]
+                                                            .data()
+                                                            .img,
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    )),
+                                                const SizedBox(height: 8),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 25.0),
+                                                  child: Center(
+                                                    child: Text(snapshot
+                                                        .data![index]
+                                                        .data()
+                                                        .content),
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                    );
-                                  } else {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              child: Container(
-                                                width: Get.width,
-                                                height: 180,
-                                                color: MyColor.lightgrey,
-                                                child: const Center(
-                                                    child:
-                                                        Text('인증 내용이 없습니다.')),
-                                              )),
-                                          const SizedBox()
-                                        ],
-                                      ),
-                                    );
-                                  }
-                                },
-                                onPageChanged: (index) {
-                                  controller.currentPageIndex.value = index;
-                                },
-                              ),
-                            );
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 0.0),
+                                              child: Text(
+                                                DateFormat('yy.MM.dd')
+                                                    .format(snapshot
+                                                        .data![index]
+                                                        .data()
+                                                        .createAt)
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                    fontSize: 10),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                child: Container(
+                                                  width: Get.width,
+                                                  height: 180,
+                                                  color: MyColor.lightgrey,
+                                                  child: const Center(
+                                                      child:
+                                                          Text('인증 내용이 없습니다.')),
+                                                )),
+                                            const SizedBox()
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  onPageChanged: (index) {
+                                    controller.currentPageIndex.value = index;
+                                  },
+                                ),
+                              );
+                            }
+                            return const SizedBox();
                           }
-                          return const SizedBox();
+                          return const SpinKitFadingCircle(
+                            color: MyColor.primary,
+                            size: 30,
+                          );
                         },
                       ),
                       const SizedBox(
@@ -323,34 +332,25 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                   itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 3.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          Get.to(() => MemberCertificationPage(
-                                              userId: snapshot
-                                                  .data![index]['profile'].id,
-                                              challenge: challenge));
-                                        },
-                                        child: snapshot.data![index]['profile']
-                                                    .profileUrl !=
-                                                ''
-                                            ? CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.grey,
-                                                backgroundImage: NetworkImage(
-                                                    snapshot
-                                                        .data![index]['profile']
-                                                        .profileUrl
-                                                        .toString()),
-                                              )
-                                            : const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor:
-                                                    MyColor.lightgrey,
-                                                child: Icon(
-                                                  Icons.person,
-                                                  color: Colors.grey,
-                                                ),
-                                              )),
+                                    child: snapshot.data![index]['profile']
+                                                .profileUrl !=
+                                            ''
+                                        ? CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: Colors.grey,
+                                            backgroundImage: NetworkImage(
+                                                snapshot.data![index]['profile']
+                                                    .profileUrl
+                                                    .toString()),
+                                          )
+                                        : const CircleAvatar(
+                                            radius: 15,
+                                            backgroundColor: MyColor.lightgrey,
+                                            child: Icon(
+                                              Icons.person,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
                                   ),
                                 ));
                           }
