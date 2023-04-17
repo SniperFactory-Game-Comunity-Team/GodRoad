@@ -18,7 +18,6 @@ class EditProfilePage extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('프로필 수정'),
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
@@ -123,7 +122,9 @@ class EditProfilePage extends GetView<ProfileController> {
                     backgroundColor: Colors.transparent,
                     borderColor: MyColor.primary2,
                     textStyle: const TextStyle(
-                        color: MyColor.primary2, fontWeight: FontWeight.bold, fontSize: 16),
+                        color: MyColor.primary2,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                     left: 30,
                     right: 30,
                     top: 15,
@@ -138,11 +139,16 @@ class EditProfilePage extends GetView<ProfileController> {
                         onPressedFunction: () {
                           Get.dialog(CustomDialog(
                             content: '프로필을 수정하시겠습니까?',
-                            btnOk: () {
+                            btn1fn: () {
                               controller.updateProfile();
                               controller.auth.getProfile();
                               Get.toNamed(AppRoute.my);
                             },
+                            btn2fn: () {
+                              Get.back();
+                            },
+                            firstText: '취소',
+                            secondText: '확인',
                           ));
                         },
                         isEnabled: controller.isUniqueName.value),

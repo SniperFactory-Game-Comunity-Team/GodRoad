@@ -108,16 +108,10 @@ class MainPage extends GetView<MainController> {
                                   ),
                                 ],
                               ),
-                              Container(
-                                margin: EdgeInsets.only(
-                                  right: 20,
-                                  bottom: 20,
-                                ),
-                                child: SvgPicture.asset(
-                                  'assets/mainpage_image.svg',
-                                  width: 125,
-                                  height: 125,
-                                ),
+                              SvgPicture.asset(
+                                'assets/mainpage_image.svg',
+                                width: 100,
+                                height: 100,
                               ),
                             ],
                           ),
