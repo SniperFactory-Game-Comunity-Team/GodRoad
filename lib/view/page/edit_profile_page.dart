@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
+import 'package:godroad/util/my_color.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_button.dart';
+import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,6 +21,7 @@ class EditProfilePage extends GetView<ProfileController> {
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
+        title: const Text('프로필 수정'),
       ),
       body: Center(
         child: Column(
@@ -48,25 +52,31 @@ class EditProfilePage extends GetView<ProfileController> {
               },
               child: Stack(children: [
                 Obx(
-                  () => CircleAvatar(
-                      radius: 80,
-                      backgroundImage: controller.profileUrl.value != ''
-                          ? NetworkImage(controller.profileUrl.value)
-                          : controller.auth.userProfile!.profileUrl != ''
-                              ? NetworkImage(
-                                  controller.auth.userProfile!.profileUrl!)
-                              : null),
+                  () => controller.profileUrl.value != ''
+                      ? CircleAvatar(
+                          radius: 55,
+                          backgroundImage:
+                              NetworkImage(controller.profileUrl.value))
+                      : const CircleAvatar(
+                          radius: 55,
+                          backgroundColor: MyColor.lightgrey,
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.grey,
+                            size: 80,
+                          ),
+                        ),
                 ),
                 const Positioned(
-                    right: 10,
-                    bottom: 10,
+                    right: 5,
+                    bottom: 6,
                     child: CircleAvatar(
-                      radius: 22,
-                      backgroundColor: Colors.grey,
+                      radius: 15,
+                      backgroundColor: MyColor.darkgrey,
                       child: FaIcon(
                         FontAwesomeIcons.camera,
-                        size: 30,
-                        color: Colors.black,
+                        size: 19,
+                        color: Colors.white,
                       ),
                     ))
               ]),
@@ -96,19 +106,43 @@ class EditProfilePage extends GetView<ProfileController> {
                 ),
               ],
             ),
-            Obx(
-              () => CustomButton(
-                  text: '프로필 수정',
-                  onPressedFunction: () {
-                    Get.dialog(CustomDialog(
-                      content: '프로필을\n 수정하시겠습니까?',
-                      btnOk: () {
-                        controller.updateProfile();
-                        controller.auth.getProfile();
-                      },
-                    ));
-                  },
-                  isEnabled: controller.isUniqueName.value),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CustomSecondButton(
+                    text: '취소하기',
+                    onPressedFunction: () {
+                      Get.back();
+                    },
+                    backgroundColor: Colors.transparent,
+                    borderColor: MyColor.primary2,
+                    textStyle: const TextStyle(
+                        color: MyColor.primary2, fontWeight: FontWeight.bold, fontSize: 16),
+                    left: 30,
+                    right: 30,
+                    top: 15,
+                    bottom: 15,
+                    borderCircular: 15),
+                const SizedBox(width: 30),
+                Obx(
+                  () => SizedBox(
+                    width: 120,
+                    child: CustomButton(
+                        text: '완료',
+                        onPressedFunction: () {
+                          Get.dialog(CustomDialog(
+                            content: '프로필을\n 수정하시겠습니까?',
+                            btnOk: () {
+                              controller.updateProfile();
+                              controller.auth.getProfile();
+                              Get.toNamed(AppRoute.my);
+                            },
+                          ));
+                        },
+                        isEnabled: controller.isUniqueName.value),
+                  ),
+                ),
+              ],
             )
           ],
         ),

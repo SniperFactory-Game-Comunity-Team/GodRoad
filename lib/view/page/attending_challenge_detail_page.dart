@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/screen/challenge_%20certification_screen.dart';
 import 'package:godroad/view/page/screen/challenge_%20information_screen.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
@@ -17,6 +18,12 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.toNamed(AppRoute.main);
+          },
+          icon: Icon(Icons.navigate_before),
+        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,

@@ -7,13 +7,16 @@ class KeywordChip extends StatelessWidget {
       {super.key,
       required this.keyword,
       required this.onTap,
-      required this.isSelected});
+      required this.isSelected, required this.unSelectedBackgroundColor, required this.unSelectedTextColor});
   final List keyword;
   final Function onTap;
   final RxMap isSelected;
+  final Color unSelectedBackgroundColor;
+  final Color unSelectedTextColor;
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      spacing: 7,
       children: keyword
           .map((e) => GestureDetector(
                 onTap: () {
@@ -22,10 +25,10 @@ class KeywordChip extends StatelessWidget {
                 child: Obx(
                   () => Chip(
                     backgroundColor: isSelected[e] == null
-                        ? MyColor.color200
+                        ? unSelectedBackgroundColor
                         : isSelected[e]
                             ? MyColor.primary2
-                            : MyColor.color200,
+                            : unSelectedBackgroundColor,
                     label: SizedBox(
                       width: 60,
                       child: Center(
@@ -33,10 +36,10 @@ class KeywordChip extends StatelessWidget {
                           e,
                           style: TextStyle(
                             color: isSelected[e] == null
-                                ? MyColor.primary2
+                                ? unSelectedTextColor
                                 : isSelected[e]
                                     ? Colors.white
-                                    : MyColor.primary2,
+                                    : unSelectedTextColor,
                           ),
                         ),
                       ),

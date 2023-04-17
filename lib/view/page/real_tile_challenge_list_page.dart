@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/keyword.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:godroad/view/widget/keyword_chip.dart';
 import 'package:godroad/view/widget/real_time_tile.dart';
 
@@ -58,18 +60,39 @@ class RealTimeChallengeListPage extends GetView<MainController> {
               onPressed: () {
                 Get.bottomSheet(
                   SizedBox(
-                    height: Get.height * 0.3,
+                    height: 270,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            '키워드 선택',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 15),
+                          ),
+                        ),
                         KeywordChip(
-                            keyword: Keyword.keywords,
-                            onTap: controller.selectKeyword,
-                            isSelected: controller.isSelected),
-                        ElevatedButton(
-                            onPressed: () {
-                              controller.startReadKeyword();
+                          keyword: Keyword.keywords,
+                          onTap: controller.selectKeyword,
+                          isSelected: controller.isSelected,
+                          unSelectedBackgroundColor: MyColor.lightgrey,
+                          unSelectedTextColor: Colors.black54,
+                        ),
+                        CustomSecondButton(
+                            text: '키워드별 챌린지 검색',
+                            onPressedFunction: () {
+                              controller.readKeywordChallenge();
+                              Get.back();
                             },
-                            child: const Text('키워드별 챌린지 보기'))
+                            backgroundColor: MyColor.primary2,
+                            borderColor: Colors.transparent,
+                            textStyle: const TextStyle(color: Colors.white),
+                            left: 35,
+                            right: 35,
+                            top: 12,
+                            bottom: 12,
+                            borderCircular: 25)
                       ],
                     ),
                   ),
@@ -103,7 +126,7 @@ class RealTimeChallengeListPage extends GetView<MainController> {
                   return SizedBox(
                     height: Get.height * 0.8,
                     child: Obx(() => ListView.builder(
-                      shrinkWrap: true,
+                        shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           return RealTimeTile(

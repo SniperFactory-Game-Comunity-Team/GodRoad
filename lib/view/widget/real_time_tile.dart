@@ -52,7 +52,7 @@ class RealTimeTile extends GetView<MainController> {
                           height: 5,
                         ),
                         Text(
-                          challenge.content,
+                          challenge.subtitle,
                           style: const TextStyle(fontSize: 12),
                         ),
                         SizedBox(
