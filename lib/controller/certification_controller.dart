@@ -23,8 +23,6 @@ class CertificationController extends GetxController {
       RxList<QueryDocumentSnapshot<Certification>>();
   RxList<Map<String, dynamic>> memberDetail = RxList<Map<String, dynamic>>();
   var contentController = TextEditingController();
-  PageController pageController = PageController(viewportFraction: 0.9);
-  RxInt currentPageIndex = 0.obs;
   var isUpdate = RxMap<String, RxBool>();
   int cerUpdate = 0;
   int myChallCerCount = 0;
@@ -110,8 +108,6 @@ class CertificationController extends GetxController {
       profile.readmyChallenge();
       cerImg.value = '';
       contentController.text = '';
-      pageController = PageController(viewportFraction: 0.9);
-      currentPageIndex(0);
       Get.toNamed(AppRoute.main);
     }
   }
@@ -188,12 +184,5 @@ class CertificationController extends GetxController {
     var profile = await Firebase.getUser.doc(userId).get();
     member(profile.data());
     return member;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    pageController = PageController();
-    currentPageIndex(0);
   }
 }

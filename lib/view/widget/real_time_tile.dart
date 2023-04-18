@@ -86,7 +86,7 @@ class RealTimeTile extends GetView<MainController> {
                             style: TextStyle(color: Colors.black, fontSize: 12),
                           ),
                           Text(
-                            ' D-${challenge.applyEndDay.day - DateTime.now().day}',
+                            ' D${int.parse(DateTime.now().difference(challenge.applyEndDay).inDays.toString()) - 1}',
                             style: const TextStyle(
                                 color: MyColor.primary,
                                 fontSize: 12,
