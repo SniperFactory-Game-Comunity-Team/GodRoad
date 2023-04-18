@@ -8,6 +8,7 @@ import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/custom_second_button.dart';
+import 'package:godroad/view/widget/custom_second_dialog.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -371,14 +372,14 @@ class UpdateChallengeDetailPage
                           controller.updateChallenge(challenge);
                           controller.profile.readCreatedChallenge();
 
-                          Get.dialog(CustomDialog(
+                          Get.dialog(CustomSecondDialog(
                             imageRoute: SvgPicture.asset(
                                 'assets/dialogsvg/modifychallenge.svg'),
                             content: '수정이 완료되었습니다!',
-                            btn1fn: () {
+                            btnfn: () {
                               Get.toNamed(AppRoute.createdChallenge);
                             },
-                            firstText: '확인',
+                            dialogText: '확인',
                           ));
                         },
                         style: ElevatedButton.styleFrom(

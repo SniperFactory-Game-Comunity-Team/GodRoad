@@ -8,6 +8,7 @@ import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/custom_second_button.dart';
+import 'package:godroad/view/widget/custom_second_dialog.dart';
 import 'package:intl/intl.dart';
 
 class ChallengeDetailPage extends GetView<ChallengeDetailController> {
@@ -49,7 +50,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                           challenge.title,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 18.0,
+                            fontSize: 20.0,
                           ),
                         ),
                         const SizedBox(
@@ -70,15 +71,15 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "챌린지 기간 ${DateFormat('yy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.endDay)}",
+                          "챌린지 기간 ${DateFormat('yyyy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.endDay)}",
                           style: const TextStyle(
-                            fontSize: 10.0,
+                            fontSize: 12.0,
                           ),
                         ),
                         Text(
-                          "모집기간 ${DateFormat('yy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.applyEndDay)}",
+                          "모집기간 ${DateFormat('yyyy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.applyEndDay)}",
                           style: const TextStyle(
-                            fontSize: 10.0,
+                            fontSize: 12.0,
                           ),
                         ),
                       ],
@@ -187,7 +188,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       width: 500,
                       height: 150,
                       decoration: BoxDecoration(
-                          color: MyColor.lightgrey,
+                          color: Colors.black26,
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
                               image: NetworkImage(
@@ -282,16 +283,15 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                           onPressedFunction: () {
                             controller.isApply(!controller.isApply.value);
                             controller.applyChallenge(challenge);
-
-                            Get.dialog(CustomDialog(
+                            Get.dialog(CustomSecondDialog(
                               imageRoute: SvgPicture.asset(
                                   'assets/dialogsvg/applychallenge.svg'),
                               content: '챌린지 신청이 완료되었습니다!',
-                              btn1fn: () {
+                              btnfn: () {
                                 Get.toNamed(AppRoute.attendchallengedetail,
                                     arguments: challenge);
                               },
-                              firstText: '확인',
+                              dialogText: '확인',
                             ));
                           },
                           backgroundColor: MyColor.primary2,
