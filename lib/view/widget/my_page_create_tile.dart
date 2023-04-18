@@ -20,9 +20,15 @@ class MyPageCreateTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(challenge.title,
+              SizedBox(
+                width: Get.size.width * 0.7,
+                child: Text(
+                  challenge.title,
                   style: const TextStyle(
-                      fontSize: 17, fontWeight: FontWeight.bold)),
+                      fontSize: 17, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               Row(
                 children: [
                   const Icon(
@@ -31,7 +37,6 @@ class MyPageCreateTile extends StatelessWidget {
                   ),
                   SizedBox(
                       width: 25, child: Text(challenge.bookmark.toString())),
-                
                 ],
               ),
             ],
@@ -45,7 +50,6 @@ class MyPageCreateTile extends StatelessWidget {
                       fontSize: 10,
                       color: MyColor.primary2,
                       fontWeight: FontWeight.bold)),
-                      
             ],
           ),
           const SizedBox(height: 5),

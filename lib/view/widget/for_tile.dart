@@ -23,9 +23,14 @@ class ForTile extends GetView<MainController> {
                     ? challenge.mainPicture
                     : 'https://picsum.photos/100/100'),
               ),
-              title: Text(
-                challenge.title,
-                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              title: SizedBox(
+                width: Get.size.width * 0.6,
+                child: Text(
+                  challenge.title,
+                  style: const TextStyle(
+                      fontSize: 14, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               subtitle: Wrap(
                 children: challenge.keyword
@@ -50,7 +55,10 @@ class ForTile extends GetView<MainController> {
                   onPressed: () {
                     controller.goDetailChallenge(challenge);
                   },
-                  child: const Text('자세히 보기', style: TextStyle(fontSize: 11),))),
+                  child: const Text(
+                    '자세히 보기',
+                    style: TextStyle(fontSize: 11),
+                  ))),
         ));
   }
 }
