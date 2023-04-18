@@ -28,13 +28,16 @@ class ChallengeScreen extends GetView<MainController> {
             children: [
               const Text(
                 '나의 챌린지',
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               TextButton(
                 onPressed: () {
                   Get.toNamed(AppRoute.attending);
                 },
-                child: const Text('모두보기'),
+                child: const Text(
+                  '모두보기',
+                  style: TextStyle(color: Colors.grey),
+                ),
               )
             ],
           ),
