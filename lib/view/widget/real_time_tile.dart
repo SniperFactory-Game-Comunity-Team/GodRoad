@@ -44,9 +44,14 @@ class RealTimeTile extends GetView<MainController> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          challenge.title,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        SizedBox(
+                          width: 150,
+                          height: 18,
+                          child: Text(
+                            challenge.title,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         const SizedBox(
                           height: 5,

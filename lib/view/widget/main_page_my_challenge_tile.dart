@@ -64,14 +64,14 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0, bottom: 8),
               child: SizedBox(
-                  width: 150,
-                  height: 35,
+                  width: Get.size.width * 0.36,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         challenge.title,
                         style: const TextStyle(fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         challenge.subtitle,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../util/my_color.dart';
+
 class PermissionPage extends StatelessWidget {
   const PermissionPage({super.key});
   static String route = '/permission';
@@ -25,7 +27,7 @@ class PermissionPage extends StatelessWidget {
               const Text(
                 '여러분들의 다양한 컨텐츠 접근을 위해 안전하게 권한 설정을 하고 있습니다.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: MyColor.primary2),
               ),
               const SizedBox(height: 35),
               Row(
@@ -43,7 +45,7 @@ class PermissionPage extends StatelessWidget {
                 children: const [
                   Icon(
                     Icons.photo_camera,
-                    color: Colors.blue,
+                    color: MyColor.primary2,
                   ),
                   Text('사용자의 카메라 권한을 필요로 합니다.'),
                 ],
@@ -55,7 +57,7 @@ class PermissionPage extends StatelessWidget {
                 children: const [
                   Icon(
                     Icons.image,
-                    color: Colors.blue,
+                    color: MyColor.primary2,
                   ),
                   Text('사용자의 갤러리 권한을 필요로 합니다.'),
                 ],
@@ -66,6 +68,7 @@ class PermissionPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColor.primary2,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16))),
                 child: const Text('확인'),
