@@ -52,6 +52,7 @@ class CertificationController extends GetxController {
   }
 
   Future<RxMap<String, RxBool>> getCerUpdate(Challenge challenge, String userId) async {
+    isUpdate.clear();
     var cer = await Firebase.colChall
         .doc(challenge.id)
         .collection('certification')
