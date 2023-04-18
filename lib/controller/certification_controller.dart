@@ -112,12 +112,12 @@ class CertificationController extends GetxController {
     }
   }
 
-  certificationPictureUpload(ImageSource source) async {
+  certificationPictureUpload(ImageSource source, int index) async {
     var res = await ImagePicker().pickImage(source: source);
     if (res != null) {
       Get.back();
       var ref = FirebaseStorage.instance
-          .ref('certificationPicture/${auth.user!.uid}');
+          .ref('certificationPicture/${auth.user!.uid}$index');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);

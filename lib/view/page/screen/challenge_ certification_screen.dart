@@ -157,12 +157,14 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                                               fisrtFunction: () {
                                                 controller
                                                     .certificationPictureUpload(
-                                                        ImageSource.camera);
+                                                        ImageSource.camera,
+                                                        index);
                                               },
                                               secondFunction: () {
                                                 controller
                                                     .certificationPictureUpload(
-                                                        ImageSource.gallery);
+                                                        ImageSource.gallery,
+                                                        index);
                                               },
                                             ),
                                             shape: const RoundedRectangleBorder(
