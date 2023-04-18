@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
@@ -18,6 +19,7 @@ class ChallengeScreen extends GetView<MainController> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.all(12.0),
@@ -39,23 +41,29 @@ class ChallengeScreen extends GetView<MainController> {
         ),
         SizedBox(
           height: 300,
-          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>>(
+          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
             future: controller.profile.readmyChallenge(),
             builder: (context, snapshot) {
-              if (snapshot.hasData &&
-                  snapshot.connectionState == ConnectionState.done) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.length,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return MainPageMyChallnegeTile(
-                      challenge: snapshot.data![index].data(),
-                    );
-                  },
-                );
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  return ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return MainPageMyChallnegeTile(
+                        challenge: snapshot.data![index].data(),
+                      );
+                    },
+                  );
+                }
+                return const Center(child: Text('참여 중인 챌린지가 없습니다'));
               }
-              return const Center(child: Text('참여한 챌린지가 없습니다'));
+              return const SpinKitFadingCircle(
+                color: MyColor.primary,
+                size: 30,
+              );
             },
           ),
         ),
@@ -148,28 +156,63 @@ class ChallengeScreen extends GetView<MainController> {
             ],
           ),
         ),
+        Obx(
+          () => controller.keywords.isEmpty
+              ? const SizedBox()
+              : Wrap(
+                  spacing: 7,
+                  children: controller.keywords
+                      .map((e) => Chip(
+                            visualDensity: const VisualDensity(
+                                horizontal: 0, vertical: -2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              side: const BorderSide(
+                                color: MyColor.primary,
+                                width: 1.0,
+                              ),
+                            ),
+                            backgroundColor: Colors.transparent,
+                            label: SizedBox(
+                              width: 55,
+                              child: Center(
+                                child: Text(
+                                  e,
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                              ),
+                            ),
+                          ))
+                      .toList(),
+                ),
+        ),
         SizedBox(
           height: 400,
           child: FutureBuilder(
               future: controller.readChallenge(),
               builder: (context, snapshot) {
-                if (snapshot.hasData &&
-                    snapshot.connectionState == ConnectionState.done) {
-                  return Obx(
-                    () => ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length > 3
-                            ? 3
-                            : snapshot.data!.length,
-                        itemBuilder: (context, index) {
-                          return RealTimeTile(
-                            challenge: snapshot.data![index].data(),
-                          );
-                        }),
-                  );
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasData) {
+                    return Obx(
+                      () => ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length > 3
+                              ? 3
+                              : snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return RealTimeTile(
+                              challenge: snapshot.data![index].data(),
+                            );
+                          }),
+                    );
+                  }
+                  return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
                 }
-                return const Center(child: Text('실시간 인기 챌린지가 없습니다'));
+                return const SpinKitFadingCircle(
+                  color: MyColor.primary,
+                  size: 30,
+                );
               }),
         ),
         const SizedBox(

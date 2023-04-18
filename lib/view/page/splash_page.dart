@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SplashPage extends StatefulWidget {
@@ -11,10 +9,10 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      // 3초 후에 로그인화면으로 이동
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/login');
     });
   }

@@ -59,7 +59,7 @@ class KeywordSelectPage extends GetView<ProfileController> {
             onPressed: () {
               Get.toNamed(AppRoute.signupComplete);
             },
-            label: Text('선택완료')),
+            label: const Text('선택완료')),
       ),
     );
   }

@@ -37,12 +37,14 @@ class KeywordUpdatePage extends GetView<ProfileController> {
               const SizedBox(
                 height: 20,
               ),
-              KeywordChip(
-                  keyword: Keyword.keywords,
-                  isSelected: controller.isSelected,
-                  onTap: controller.addUserKeyword,
-                  unSelectedBackgroundColor: MyColor.color200,
-                            unSelectedTextColor: MyColor.primary2,),
+              Center(
+                child: KeywordChip(
+                    keyword: Keyword.keywords,
+                    isSelected: controller.isSelected,
+                    onTap: controller.addUserKeyword,
+                    unSelectedBackgroundColor: MyColor.color200,
+                              unSelectedTextColor: MyColor.primary2,),
+              ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

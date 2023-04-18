@@ -29,6 +29,7 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

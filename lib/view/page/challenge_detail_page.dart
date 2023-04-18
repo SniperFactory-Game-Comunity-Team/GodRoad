@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
@@ -26,6 +25,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
         foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

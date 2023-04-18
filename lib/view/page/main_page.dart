@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
@@ -23,7 +24,7 @@ class MainPage extends GetView<MainController> {
         foregroundColor: Colors.black,
         elevation: 0,
         leading: Container(
-          margin: EdgeInsets.only(left: 20),
+          margin: const EdgeInsets.only(left: 20),
           child: SvgPicture.asset(
             'assets/logo.svg',
             width: 100,
@@ -65,10 +66,12 @@ class MainPage extends GetView<MainController> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '${controller.auth.userProfile!.nickname}님, 반가워요!',
-                            style: const TextStyle(fontSize: 20.0),
-                          ),
+                          Obx(() => controller.auth.userProfile != null
+                              ? Text(
+                                  '${controller.auth.userProfile!.nickname}님, 반가워요!',
+                                  style: const TextStyle(fontSize: 20.0),
+                                )
+                              : const SizedBox()),
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -160,13 +163,15 @@ class MainPage extends GetView<MainController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        '${controller.auth.userProfile!.nickname}님을 위한 챌린지',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
+                      Obx(() => controller.auth.userProfile != null
+                          ? Text(
+                              '${controller.auth.userProfile!.nickname}님을 위한 챌린지',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            )
+                          : const SizedBox()),
                       TextButton(
                         onPressed: () {},
                         style: ButtonStyle(
@@ -180,31 +185,36 @@ class MainPage extends GetView<MainController> {
                 ),
               ),
               Container(
+                width: Get.width,
                 height: 300,
                 color: MyColor.lightgrey,
-                child: SizedBox(
-                  height: 200,
-                  child: FutureBuilder<
-                          RxList<QueryDocumentSnapshot<Challenge>>>(
-                      future: controller.readMyChallenge(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData &&
-                            snapshot.connectionState ==
-                                ConnectionState.done) {
-                          return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: 3,
-                              itemBuilder: (context, index) {
-                                return Obx(
-                                  ()=> ForTile(
-                                    challenge: snapshot.data![index].data(),
-                                  ),
-                                );
-                              });
+                child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
+                    future: controller.readMyChallenge(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState ==
+                          ConnectionState.done) {
+                        if (snapshot.hasData) {
+                          return Obx(
+                            () => ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.length < 3
+                                    ? snapshot.data!.length
+                                    : 3,
+                                itemBuilder: (context, index) {
+                                  return ForTile(
+                                    challenge:
+                                        snapshot.data![index].data(),
+                                  );
+                                }),
+                          );
                         }
-                        return const SizedBox();
-                      }),
-                ),
+                        return Center(child: const Text('추천 챌린지가 없습니다'));
+                      }
+                      return const SpinKitFadingCircle(
+                        color: MyColor.primary,
+                        size: 30,
+                      );
+                    }),
               ),
               Container(
                 height: 60,

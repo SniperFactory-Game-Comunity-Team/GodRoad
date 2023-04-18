@@ -21,14 +21,14 @@ class PageViewBar extends StatelessWidget {
             onPressed: onPressedFirst,
             child: Text(
               firstCat,
-              style: TextStyle(color: Colors.black),
+              style: const TextStyle(color: Colors.black),
             )),
         const SizedBox(
           width: 110,
         ),
         TextButton(
             onPressed: onPressedSecond,
-            child: Text(secondCat, style: TextStyle(color: Colors.black))),
+            child: Text(secondCat, style: const TextStyle(color: Colors.black))),
       ],
     );
   }

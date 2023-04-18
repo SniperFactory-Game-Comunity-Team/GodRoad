@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
-import 'package:godroad/util/routes.dart';
 
 class ForTile extends GetView<MainController> {
   const ForTile({

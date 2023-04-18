@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/controller/explanation_controller.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/widget/custom_button.dart';
 
 class ExplanationPage extends GetView<ExplanationController> {
   const ExplanationPage({super.key});
   static String route = '/explanation';
+
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
@@ -48,7 +48,7 @@ class ExplanationPage extends GetView<ExplanationController> {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: MyColor.primary2,
-                          minimumSize: Size.fromHeight(10),
+                          minimumSize: const Size.fromHeight(10),
                           fixedSize: const Size.fromHeight(55),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),

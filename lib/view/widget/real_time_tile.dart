@@ -55,9 +55,7 @@ class RealTimeTile extends GetView<MainController> {
                           challenge.subtitle,
                           style: const TextStyle(fontSize: 12),
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         Wrap(
                           children: challenge.keyword
                               .map((e) => Text(
@@ -120,7 +118,7 @@ class RealTimeTile extends GetView<MainController> {
                           controller.goDetailChallenge(challenge);
                         },
                         style: ElevatedButton.styleFrom(
-                          primary: MyColor.color900,
+                          backgroundColor: MyColor.color900,
                           fixedSize: const Size(70, 20),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),

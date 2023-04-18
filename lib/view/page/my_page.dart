@@ -29,6 +29,7 @@ class MyPage extends GetView<ProfileController> {
       ),
       body: SafeArea(
           child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +144,7 @@ class MyPage extends GetView<ProfileController> {
               ],
             ),
             const SizedBox(
-              height: 30,
+              height: 100,
             ),
             Container(
               height: 60,

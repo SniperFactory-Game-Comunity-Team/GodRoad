@@ -31,28 +31,36 @@ class MyPageCreateTile extends StatelessWidget {
                   ),
                   SizedBox(
                       width: 25, child: Text(challenge.bookmark.toString())),
+                
                 ],
               ),
             ],
           ),
           Row(
             children: [
-              const Text('참여자 수', style: TextStyle(fontSize: 10)),
+              const Text('참여자 수 ', style: TextStyle(fontSize: 10)),
               Text(challenge.participationUserId.length.toString(),
-                  style: const TextStyle(fontSize: 10)),
+                  style: const TextStyle(
+                      height: 1.6,
+                      fontSize: 10,
+                      color: MyColor.primary2,
+                      fontWeight: FontWeight.bold)),
+                      
             ],
           ),
+          const SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Wrap(
+                spacing: 3,
                 children: challenge.keyword
                     .map((e) => GestureDetector(
                           onTap: () {},
                           child: Chip(
                             padding: EdgeInsets.zero,
                             visualDensity: const VisualDensity(
-                                horizontal: 0.0, vertical: -4),
+                                horizontal: -4, vertical: -4),
                             backgroundColor: MyColor.lightgrey,
                             label: Text(
                               e,

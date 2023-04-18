@@ -15,9 +15,10 @@ class EndChallengePage extends GetView<ProfileController> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.grey,
-          title: Text('종료된 챌린지'),
+          title: const Text('종료된 챌린지'),
         ),
         body: SingleChildScrollView(
+           physics: const BouncingScrollPhysics(),
           child: Column(
             children: [
               PageViewBar(

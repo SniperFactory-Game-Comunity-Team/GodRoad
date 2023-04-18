@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:godroad/util/my_color.dart';
 
 class CustomButton extends StatelessWidget {

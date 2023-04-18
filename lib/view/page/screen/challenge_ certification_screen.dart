@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/model/certification.dart';
 import 'package:godroad/model/challenge.dart';
-import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/page/member_certification_page.dart';
 import 'package:godroad/view/widget/certification_button.dart';
@@ -32,12 +31,14 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
               SizedBox(
                 height: 35,
                 child: FutureBuilder<RxMap<dynamic, dynamic>>(
-                    future: controller.getCerUpdate(challenge),
+                    future: controller.getCerUpdate(
+                        challenge, controller.auth.user!.uid),
                     builder: (context, snapshot) {
                       if (snapshot.hasData &&
                           snapshot.connectionState == ConnectionState.done) {
                         return ListView.builder(
                             shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             itemCount: challenge.authenticationCount,
                             itemBuilder: (context, index) {
@@ -72,6 +73,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                     return SizedBox(
                       height: 300,
                       child: PageView.builder(
+                        physics: const BouncingScrollPhysics(),
                         controller: controller.pageController,
                         itemCount: challenge.authenticationCount,
                         itemBuilder: (context, index) {
@@ -242,16 +244,16 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                         height: 50,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
+                          physics: const BouncingScrollPhysics(),
                           itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) =>
-                              Padding(
+                          itemBuilder: (context, index) => Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 3.0),
                             child: GestureDetector(
                                 onTap: () {
                                   Get.to(() => MemberCertificationPage(
-                                      userId: snapshot
-                                          .data![index]['profile'].id,
+                                      userId:
+                                          snapshot.data![index]['profile'].id,
                                       challenge: challenge));
                                 },
                                 child: snapshot.data![index]['profile']
