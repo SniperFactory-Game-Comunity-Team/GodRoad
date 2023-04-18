@@ -65,14 +65,23 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
               padding: const EdgeInsets.only(top: 8.0, bottom: 8),
               child: SizedBox(
                   width: Get.size.width * 0.36,
-                  child: Text(
-                    challenge.title,
-                    style: const TextStyle(fontSize: 12),
-                    overflow: TextOverflow.ellipsis,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        challenge.title,
+                        style: const TextStyle(fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        challenge.subtitle,
+                        style: const TextStyle(fontSize: 10),
+                      ),
+                    ],
                   )),
             ),
             Text(
-              '챌린지가 끝나기까지 D- ${challenge.endDay.day - DateTime.now().day}',
+              '챌린지가 끝나기까지 D${int.parse(DateTime.now().difference(challenge.endDay).inDays.toString()) - 1}',
               style: const TextStyle(fontSize: 12, color: Colors.grey),
             )
           ],

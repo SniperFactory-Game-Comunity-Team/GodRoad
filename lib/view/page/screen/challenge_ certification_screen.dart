@@ -20,6 +20,8 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
   @override
   Widget build(BuildContext context) {
     Challenge challenge = Get.arguments;
+    PageController pageController = PageController(viewportFraction: 0.9);
+    RxInt currentPageIndex = 0.obs;
     return Column(
       children: [
         Padding(
@@ -43,10 +45,13 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                             itemCount: challenge.authenticationCount,
                             itemBuilder: (context, index) {
                               return CertificationButton(
-                                  text: (index + 1).toString(),
-                                  index: index,
-                                  isUpdate: snapshot.data![index.toString()] ??
-                                      false.obs);
+                                text: (index + 1).toString(),
+                                index: index,
+                                isUpdate: snapshot.data![index.toString()] ??
+                                    false.obs,
+                                currentPageIndex: currentPageIndex,
+                                pageController: pageController,
+                              );
                             });
                       }
                       return const SizedBox();
@@ -74,7 +79,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                       height: 300,
                       child: PageView.builder(
                         physics: const BouncingScrollPhysics(),
-                        controller: controller.pageController,
+                        controller: pageController,
                         itemCount: challenge.authenticationCount,
                         itemBuilder: (context, index) {
                           if (snapshot.data![index].data().img != '') {
@@ -203,7 +208,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                           }
                         },
                         onPageChanged: (index) {
-                          controller.currentPageIndex.value = index;
+                          currentPageIndex.value = index;
                         },
                       ),
                     );
@@ -289,8 +294,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              controller.updateCertification(
-                  challenge, controller.currentPageIndex.value);
+              controller.updateCertification(challenge, currentPageIndex.value);
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.only(

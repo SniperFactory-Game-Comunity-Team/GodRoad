@@ -18,6 +18,8 @@ class MemberCertificationPage extends GetView<CertificationController> {
   final String userId;
   @override
   Widget build(BuildContext context) {
+    PageController pageController = PageController(viewportFraction: 0.9);
+    RxInt currentPageIndex = 0.obs;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -150,11 +152,14 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                     itemCount: challenge.authenticationCount,
                                     itemBuilder: (context, index) {
                                       return CertificationButton(
-                                          text: (index + 1).toString(),
-                                          index: index,
-                                          isUpdate: snapshot
-                                                  .data![index.toString()] ??
-                                              false.obs);
+                                        text: (index + 1).toString(),
+                                        index: index,
+                                        isUpdate:
+                                            snapshot.data![index.toString()] ??
+                                                false.obs,
+                                        currentPageIndex: currentPageIndex,
+                                        pageController: pageController,
+                                      );
                                     });
                               }
                               return const SizedBox();
@@ -195,7 +200,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                 height: 300,
                                 child: PageView.builder(
                                   physics: const BouncingScrollPhysics(),
-                                  controller: controller.pageController,
+                                  controller: pageController,
                                   itemCount: challenge.authenticationCount,
                                   itemBuilder: (context, index) {
                                     if (snapshot.data![index].data().img !=
@@ -283,7 +288,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                     }
                                   },
                                   onPageChanged: (index) {
-                                    controller.currentPageIndex.value = index;
+                                    currentPageIndex.value = index;
                                   },
                                 ),
                               );

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/util/my_color.dart';
 
-class CertificationButton extends GetView<CertificationController> {
+class CertificationButton extends StatelessWidget {
   const CertificationButton({
     Key? key,
+    required this.currentPageIndex,
+    required this.pageController,
     required this.isUpdate,
     required this.text,
     required this.index,
@@ -13,21 +14,23 @@ class CertificationButton extends GetView<CertificationController> {
   final String text;
   final int index;
   final RxBool isUpdate;
+  final RxInt currentPageIndex;
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => GestureDetector(
         onTap: () {
-          controller.currentPageIndex(index);
-          controller.pageController.animateToPage(
+          currentPageIndex(index);
+          pageController.animateToPage(
             index,
             curve: Curves.easeIn,
             duration: const Duration(milliseconds: 500),
           );
         },
         child: CircleAvatar(
-          backgroundColor: index == controller.currentPageIndex.value
+          backgroundColor: index == currentPageIndex.value
               ? MyColor.primary
               : Colors.transparent,
           child: Padding(
