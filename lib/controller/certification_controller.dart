@@ -151,7 +151,6 @@ class CertificationController extends GetxController {
     memberDetail.clear();
     var curChallParUser = await Firebase.getChallenge.doc(challenge.id).get();
     List userIdList = curChallParUser.data()!.participationUserId;
-    print(userIdList.length);
     for (var i = 0; i < userIdList.length; i++) {
       memberDetail.add({});
       var profile = await Firebase.getUser.doc(userIdList[i]).get();
@@ -174,10 +173,6 @@ class CertificationController extends GetxController {
         )
         .where('userId', isEqualTo: userId)
         .get();
-    // for (var n in allCertification.docs) {
-    //   var profile = await Firebase.getUser.doc((n.data().userId)).get();
-    //   uploader(profile.data());
-    // }
     memberCertificationList(allCertification.docs);
     return memberCertificationList;
   }
