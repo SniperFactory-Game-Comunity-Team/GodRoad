@@ -62,7 +62,7 @@ class ChallengeInformationScreen extends StatelessWidget {
                     width: 500,
                     height: 200,
                     decoration: BoxDecoration(
-                        color: Colors.black26,
+                        color: MyColor.lightgrey,
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
                             image: NetworkImage(

@@ -49,7 +49,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                           challenge.title,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                           ),
                         ),
                         const SizedBox(
@@ -70,15 +70,15 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "챌린지 기간 ${DateFormat('yyyy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.endDay)}",
+                          "챌린지 기간 ${DateFormat('yy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.endDay)}",
                           style: const TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 10.0,
                           ),
                         ),
                         Text(
-                          "모집기간 ${DateFormat('yyyy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.applyEndDay)}",
+                          "모집기간 ${DateFormat('yy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.applyEndDay)}",
                           style: const TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 10.0,
                           ),
                         ),
                       ],
@@ -187,7 +187,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       width: 500,
                       height: 150,
                       decoration: BoxDecoration(
-                          color: Colors.black26,
+                          color: MyColor.lightgrey,
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
                               image: NetworkImage(
