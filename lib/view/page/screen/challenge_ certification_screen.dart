@@ -256,7 +256,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                           itemBuilder: (context, index) => Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 3.0),
-                            child: GestureDetector(
+                            child: InkWell(
                                 onTap: () {
                                   Get.to(() => MemberCertificationPage(
                                       userId:
@@ -267,14 +267,14 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                                             .profileUrl !=
                                         ''
                                     ? CircleAvatar(
-                                        radius: 15,
+                                        radius: 16,
                                         backgroundColor: Colors.grey,
                                         backgroundImage: NetworkImage(snapshot
                                             .data![index]['profile'].profileUrl
                                             .toString()),
                                       )
                                     : const CircleAvatar(
-                                        radius: 15,
+                                        radius: 16,
                                         backgroundColor: MyColor.lightgrey,
                                         child: Icon(
                                           Icons.person,

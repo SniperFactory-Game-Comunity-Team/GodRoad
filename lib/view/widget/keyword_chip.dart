@@ -32,7 +32,7 @@ class KeywordChip extends StatelessWidget {
                             ? MyColor.primary2
                             : unSelectedBackgroundColor,
                     label: SizedBox(
-                      width: 60,
+                      width: 65,
                       child: Center(
                         child: Text(
                           e,
@@ -42,6 +42,7 @@ class KeywordChip extends StatelessWidget {
                                 : isSelected[e]
                                     ? Colors.white
                                     : unSelectedTextColor,
+                                    fontSize: 12
                           ),
                         ),
                       ),
