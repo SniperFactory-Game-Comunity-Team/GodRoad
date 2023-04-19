@@ -14,6 +14,7 @@ class Challenge {
   List participationUserId;
   List bookmarkUserId;
   List successUserId;
+  bool isApplyEnd;
   bool isEnd;
   int authenticationCount;
   int bookmark;
@@ -36,6 +37,7 @@ class Challenge {
     required this.participationUserId,
     required this.bookmarkUserId,
     required this.successUserId,
+    required this.isApplyEnd,
     required this.isEnd,
     required this.authenticationCount,
     required this.bookmark,
@@ -80,6 +82,7 @@ class Challenge {
       participationUserId: List.from((map['participationUserId'] as List)),
       bookmarkUserId: List.from((map['bookmarkUserId'] as List)),
       successUserId: List.from((map['successUserId'] as List)),
+      isApplyEnd: map['isApplyEnd'] as bool,
       isEnd: map['isEnd'] as bool,
       bookmark: map['bookmark'] as int,
       authenticationCount: map['authenticationCount'] as int,

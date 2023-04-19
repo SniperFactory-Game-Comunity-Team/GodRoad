@@ -105,6 +105,7 @@ class ChallengeUploadController extends GetxController {
         'bookmarkUserId': [],
         'successUserId': [],
         'isEnd': false,
+        'isApplyEnd': false,
         'authenticationCount': int.parse(countController.text),
         'bookmark': 0,
         'createAt': Timestamp.now(),

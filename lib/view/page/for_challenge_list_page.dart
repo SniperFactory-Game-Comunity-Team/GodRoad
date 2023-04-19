@@ -53,6 +53,7 @@ class ForChallengeListPage extends GetView<MainController> {
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
                 future: controller.readMyChallenge(),
