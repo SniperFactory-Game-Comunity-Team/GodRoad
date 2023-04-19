@@ -298,8 +298,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              controller.updateCertification(
-                  challenge, controller.currentPageIndex.value);
+              controller.updateCertification(challenge, currentPageIndex.value);
               Get.dialog(CustomSecondDialog(
                 imageRoute: SvgPicture.asset(
                     'assets/dialogsvg/certificationcomplete.svg'),
