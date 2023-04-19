@@ -248,7 +248,8 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
               FutureBuilder<RxList<Map>>(
                 future: controller.readCurrentChallParticipationUser(challenge),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData &&
+                      snapshot.connectionState == ConnectionState.done) {
                     return SizedBox(
                         height: 50,
                         child: ListView.builder(
@@ -298,8 +299,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              controller.updateCertification(
-                  challenge, controller.currentPageIndex.value);
+              controller.updateCertification(challenge, currentPageIndex.value);
               Get.dialog(CustomSecondDialog(
                 imageRoute: SvgPicture.asset(
                     'assets/dialogsvg/certificationcomplete.svg'),

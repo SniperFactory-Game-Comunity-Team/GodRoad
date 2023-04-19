@@ -70,7 +70,8 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
                     children: [
                       Text(
                         challenge.title,
-                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 12, fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
@@ -81,7 +82,13 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
                   )),
             ),
             Text(
-              '챌린지가 끝나기까지 D${int.parse(DateTime.now().difference(challenge.endDay).inDays.toString()) - 1}',
+              int.parse(DateTime.now()
+                          .difference(challenge.endDay)
+                          .inDays
+                          .toString()) ==
+                      0
+                  ? '챌린지가 끝나기까지 D-day'
+                  : '챌린지가 끝나기까지 D${int.parse(DateTime.now().difference(challenge.endDay).inDays.toString()) - 1}',
               style: const TextStyle(fontSize: 12, color: Colors.grey),
             )
           ],

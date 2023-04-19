@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ class BookmarkPage extends GetView<ProfileController> {
           title: const Text('북마크한 챌린지'),
         ),
         body: SafeArea(
-          child: FutureBuilder<RxList<Challenge>?>(
+          child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
               future: controller.readmyBookmark(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
@@ -33,7 +34,7 @@ class BookmarkPage extends GetView<ProfileController> {
                         itemBuilder: (context, index) {
                           return MainPageChallengeListTile(
                             buttontext: '참여하기',
-                            challenge: snapshot.data![index],
+                            challenge: snapshot.data![index].data(),
                             onPressed: () {
                               Get.toNamed(AppRoute.challengedetail,
                                   arguments: snapshot.data![index]);

@@ -36,7 +36,13 @@ class MainPageChallengeListTile extends GetView<CertificationController> {
               Row(
                 children: [
                   Text(
-                    'D${int.parse(DateTime.now().difference(challenge.endDay).inDays.toString()) - 1}',
+                    int.parse(DateTime.now()
+                                .difference(challenge.endDay)
+                                .inDays
+                                .toString()) ==
+                            0
+                        ? 'D-day'
+                        : 'D${int.parse(DateTime.now().difference(challenge.endDay).inDays.toString()) - 1}',
                     style: const TextStyle(
                       color: MyColor.primary,
                       fontWeight: FontWeight.bold,

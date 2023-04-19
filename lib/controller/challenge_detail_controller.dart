@@ -37,16 +37,18 @@ class ChallengeDetailController extends GetxController {
   //북마크
   bookMarkCheck(String challengeId) async {
     if (isBookmark.value) {
-      await Firebase.colChall
-          .doc(challengeId)
-          .update({'bookmark': FieldValue.increment(1)});
+      await Firebase.colChall.doc(challengeId).update({
+        'bookmark': FieldValue.increment(1),
+        'bookmarkUserId': FieldValue.arrayUnion([auth.user!.uid])
+      });
       await Firebase.colUser.doc(auth.user!.uid).update({
         'myBookmark': FieldValue.arrayUnion([challengeId])
       });
     } else {
-      await Firebase.colChall
-          .doc(challengeId)
-          .update({'bookmark': FieldValue.increment(-1)});
+      await Firebase.colChall.doc(challengeId).update({
+        'bookmark': FieldValue.increment(-1),
+        'bookmarkUserId': FieldValue.arrayRemove([auth.user!.uid])
+      });
       await Firebase.colUser.doc(auth.user!.uid).update({
         'myBookmark': FieldValue.arrayRemove([challengeId])
       });
@@ -57,7 +59,8 @@ class ChallengeDetailController extends GetxController {
   applyChallenge(Challenge challenge) async {
     if (isApply.value) {
       await Firebase.colChall.doc(challenge.id).update({
-        'participationUserId': FieldValue.arrayUnion([auth.user!.uid])
+        'participationUserId': FieldValue.arrayUnion([auth.user!.uid]),
+        'bookmarkUserId': FieldValue.arrayRemove([auth.user!.uid])
       });
       await Firebase.colUser.doc(auth.user!.uid).update({
         'myChallenge': FieldValue.arrayUnion([challenge.id])

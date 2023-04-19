@@ -267,17 +267,8 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
                   Obx(
                     () => CustomButton(
                         text: '등록하기',
-                        onPressedFunction: () async {
-                          await controller.uploadChallenge();
-                          Get.dialog(CustomDialog(
-                            imageRoute: SvgPicture.asset(
-                                'assets/dialogsvg/applicationchallenge.svg'),
-                            content: '챌린지 등록이 완료되었습니다!',
-                            btn2fn: () {
-                              Get.toNamed(AppRoute.main);
-                            },
-                            secondText: '확인',
-                          ));
+                        onPressedFunction: () {
+                          controller.uploadChallenge();
                         },
                         isEnabled: controller.isUpload.value),
                   )
