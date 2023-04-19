@@ -22,6 +22,8 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
   @override
   Widget build(BuildContext context) {
     Challenge challenge = Get.arguments;
+    PageController pageController = PageController(viewportFraction: 0.9);
+    RxInt currentPageIndex = 0.obs;
     return Column(
       children: [
         Padding(
@@ -45,10 +47,13 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                             itemCount: challenge.authenticationCount,
                             itemBuilder: (context, index) {
                               return CertificationButton(
-                                  text: (index + 1).toString(),
-                                  index: index,
-                                  isUpdate: snapshot.data![index.toString()] ??
-                                      false.obs);
+                                text: (index + 1).toString(),
+                                index: index,
+                                isUpdate: snapshot.data![index.toString()] ??
+                                    false.obs,
+                                currentPageIndex: currentPageIndex,
+                                pageController: pageController,
+                              );
                             });
                       }
                       return const SizedBox();
@@ -76,7 +81,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                       height: 300,
                       child: PageView.builder(
                         physics: const BouncingScrollPhysics(),
-                        controller: controller.pageController,
+                        controller: pageController,
                         itemCount: challenge.authenticationCount,
                         itemBuilder: (context, index) {
                           if (snapshot.data![index].data().img != '') {
@@ -154,12 +159,14 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                                               fisrtFunction: () {
                                                 controller
                                                     .certificationPictureUpload(
-                                                        ImageSource.camera);
+                                                        ImageSource.camera,
+                                                        index);
                                               },
                                               secondFunction: () {
                                                 controller
                                                     .certificationPictureUpload(
-                                                        ImageSource.gallery);
+                                                        ImageSource.gallery,
+                                                        index);
                                               },
                                             ),
                                             shape: const RoundedRectangleBorder(
@@ -205,7 +212,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                           }
                         },
                         onPageChanged: (index) {
-                          controller.currentPageIndex.value = index;
+                          currentPageIndex.value = index;
                         },
                       ),
                     );
@@ -251,7 +258,7 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                           itemBuilder: (context, index) => Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 3.0),
-                            child: GestureDetector(
+                            child: InkWell(
                                 onTap: () {
                                   Get.to(() => MemberCertificationPage(
                                       userId:
@@ -262,14 +269,14 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
                                             .profileUrl !=
                                         ''
                                     ? CircleAvatar(
-                                        radius: 15,
+                                        radius: 16,
                                         backgroundColor: Colors.grey,
                                         backgroundImage: NetworkImage(snapshot
                                             .data![index]['profile'].profileUrl
                                             .toString()),
                                       )
                                     : const CircleAvatar(
-                                        radius: 15,
+                                        radius: 16,
                                         backgroundColor: MyColor.lightgrey,
                                         child: Icon(
                                           Icons.person,

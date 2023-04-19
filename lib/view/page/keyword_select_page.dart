@@ -16,7 +16,7 @@ class KeywordSelectPage extends GetView<ProfileController> {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(36.0),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -36,7 +36,7 @@ class KeywordSelectPage extends GetView<ProfileController> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: const EdgeInsets.symmetric(vertical:36.0),
                 child: Center(
                   child: KeywordChip(
                       keyword: Keyword.keywords,

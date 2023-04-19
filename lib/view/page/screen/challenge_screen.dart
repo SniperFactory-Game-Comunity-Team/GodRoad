@@ -162,31 +162,35 @@ class ChallengeScreen extends GetView<MainController> {
         Obx(
           () => controller.keywords.isEmpty
               ? const SizedBox()
-              : Wrap(
-                  spacing: 7,
-                  children: controller.keywords
-                      .map((e) => Chip(
-                            visualDensity: const VisualDensity(
-                                horizontal: 0, vertical: -2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              side: const BorderSide(
-                                color: MyColor.primary,
-                                width: 1.0,
-                              ),
-                            ),
-                            backgroundColor: Colors.transparent,
-                            label: SizedBox(
-                              width: 55,
-                              child: Center(
-                                child: Text(
-                                  e,
-                                  style: const TextStyle(fontSize: 12),
+              : SizedBox(
+                  height: 30,
+                  child: ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    children: controller.keywords
+                        .map((e) => Chip(
+                              visualDensity: const VisualDensity(
+                                  horizontal: 0, vertical: -4),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                side: const BorderSide(
+                                  color: MyColor.primary,
+                                  width: 1.0,
                                 ),
                               ),
-                            ),
-                          ))
-                      .toList(),
+                              backgroundColor: Colors.transparent,
+                              label: SizedBox(
+                                width: 55,
+                                child: Center(
+                                  child: Text(
+                                    e,
+                                    style: const TextStyle(fontSize: 12),
+                                  ),
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
                 ),
         ),
         SizedBox(

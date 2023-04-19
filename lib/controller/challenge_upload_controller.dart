@@ -105,6 +105,42 @@ class ChallengeUploadController extends GetxController {
         'startDay': challStartDay.value,
         'endDay': challEndDay.value,
       });
+
+      titleController.text = '';
+      subtitleController.text = '';
+      contentController.text = '';
+      testimonyContentController.text = '';
+      countController.text = '';
+      mPicture.value = '';
+      tPicture.value = '';
+      isSelected.value = {};
+      isUpload(false);
+      keywords.clear();
+      authenticationCount.value = 0;
+      selectedIndex.value = 0;
+      applyStartDay.value = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      );
+      applyEndDay.value = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      );
+      applyFocusedDay.value = DateTime.now();
+      challStartDay.value = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      );
+      challEndDay.value = DateTime(
+        DateTime.now().year,
+        DateTime.now().month,
+        DateTime.now().day,
+      );
+      challFocusedDay.value = DateTime.now();
+
       main.readChallenge();
       main.readMyChallenge();
     }
@@ -115,7 +151,7 @@ class ChallengeUploadController extends GetxController {
     var res = await picker.pickImage(source: source);
     if (res != null) {
       Get.back();
-      var ref = FirebaseStorage.instance.ref('mainPicture/${auth.user!.uid}');
+      var ref = FirebaseStorage.instance.ref('mainPicture/${auth.user!.uid}$saveId');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);
@@ -128,7 +164,7 @@ class ChallengeUploadController extends GetxController {
     if (res != null) {
       Get.back();
       var ref =
-          FirebaseStorage.instance.ref('testimonyPicture/${auth.user!.uid}');
+          FirebaseStorage.instance.ref('testimonyPicture/${auth.user!.uid}$saveId');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);

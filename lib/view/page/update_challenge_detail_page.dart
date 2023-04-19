@@ -113,11 +113,15 @@ class UpdateChallengeDetailPage
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          challenge.title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
+                        SizedBox(
+                          width: Get.size.width * 0.35,
+                          child: Text(
+                            challenge.title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                            ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(
@@ -138,25 +142,19 @@ class UpdateChallengeDetailPage
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "챌린지 기간 ${DateFormat('yyyy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.endDay)}",
+                          "챌린지 기간 ${DateFormat('yy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.endDay)}",
                           style: const TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 10.0,
                           ),
                         ),
                         Text(
-                          "모집기간 ${DateFormat('yyyy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.applyEndDay)}",
+                          "모집기간 ${DateFormat('yy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.applyEndDay)}",
                           style: const TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 10.0,
                           ),
                         ),
                         const SizedBox(
                           height: 5,
-                        ),
-                        Text(
-                          "모집마감 D-${challenge.applyEndDay.day - DateTime.now().day}",
-                          style: const TextStyle(
-                            fontSize: 15.0,
-                          ),
                         ),
                       ],
                     ),

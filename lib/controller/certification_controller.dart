@@ -23,8 +23,6 @@ class CertificationController extends GetxController {
       RxList<QueryDocumentSnapshot<Certification>>();
   RxList<Map<String, dynamic>> memberDetail = RxList<Map<String, dynamic>>();
   var contentController = TextEditingController();
-  PageController pageController = PageController(viewportFraction: 0.9);
-  RxInt currentPageIndex = 0.obs;
   var isUpdate = RxMap<String, RxBool>();
   int cerUpdate = 0;
   int myChallCerCount = 0;
@@ -53,7 +51,9 @@ class CertificationController extends GetxController {
     }
   }
 
-  Future<RxMap<String, RxBool>> getCerUpdate(Challenge challenge, String userId) async {
+  Future<RxMap<String, RxBool>> getCerUpdate(
+      Challenge challenge, String userId) async {
+    isUpdate.clear();
     var cer = await Firebase.colChall
         .doc(challenge.id)
         .collection('certification')
@@ -89,7 +89,7 @@ class CertificationController extends GetxController {
     return myChallCerCount;
   }
 
-  updateCertification(Challenge challenge, int index) {
+  updateCertification(Challenge challenge, int index) async {
     if (cerImg.value == '') {
       Get.snackbar('인증 실패', '인증사진을 올려주세요');
     } else {
@@ -107,21 +107,34 @@ class CertificationController extends GetxController {
           .collection('certification')
           .doc(auth.user!.uid + index.toString())
           .update({'count': index});
+      var certification = await Firebase.colChall
+          .doc(challenge.id)
+          .collection('certification')
+          .withConverter(
+            fromFirestore: (snapshot, _) =>
+                Certification.fromMap(snapshot.data()!),
+            toFirestore: (data, _) => data.toMap(),
+          )
+          .where('userId', isEqualTo: auth.user!.uid)
+          .get();
       profile.readmyChallenge();
-      cerImg.value = '';
-      contentController.text = '';
-      pageController = PageController(viewportFraction: 0.9);
-      currentPageIndex(0);
-      Get.toNamed(AppRoute.main);
+      if (certification.docs.length == index + 1) {
+        //다이얼 로그 띄위기
+        Get.snackbar('챌린지 성공!', '축하합니다! 모든 인증을 완료하셨습니다.');
+      } else { //다이얼 로그 확인 onpressed 안에 넣을 구문들 아래와 같음
+        cerImg.value = '';
+        contentController.text = '';
+        Get.toNamed(AppRoute.main);
+      }
     }
   }
 
-  certificationPictureUpload(ImageSource source) async {
+  certificationPictureUpload(ImageSource source, int index) async {
     var res = await ImagePicker().pickImage(source: source);
     if (res != null) {
       Get.back();
       var ref = FirebaseStorage.instance
-          .ref('certificationPicture/${auth.user!.uid}');
+          .ref('certificationPicture/${auth.user!.uid}$index');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);
@@ -151,7 +164,6 @@ class CertificationController extends GetxController {
     memberDetail.clear();
     var curChallParUser = await Firebase.getChallenge.doc(challenge.id).get();
     List userIdList = curChallParUser.data()!.participationUserId;
-    print(userIdList.length);
     for (var i = 0; i < userIdList.length; i++) {
       memberDetail.add({});
       var profile = await Firebase.getUser.doc(userIdList[i]).get();
@@ -174,10 +186,6 @@ class CertificationController extends GetxController {
         )
         .where('userId', isEqualTo: userId)
         .get();
-    // for (var n in allCertification.docs) {
-    //   var profile = await Firebase.getUser.doc((n.data().userId)).get();
-    //   uploader(profile.data());
-    // }
     memberCertificationList(allCertification.docs);
     return memberCertificationList;
   }
@@ -193,12 +201,5 @@ class CertificationController extends GetxController {
     var profile = await Firebase.getUser.doc(userId).get();
     member(profile.data());
     return member;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    pageController = PageController();
-    currentPageIndex(0);
   }
 }

@@ -24,13 +24,19 @@ class MainPageChallengeListTile extends GetView<CertificationController> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(challenge.title,
+              SizedBox(
+                width: Get.size.width * 0.65,
+                child: Text(
+                  challenge.title,
                   style: const TextStyle(
-                      fontSize: 17, fontWeight: FontWeight.bold)),
+                      fontSize: 17, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               Row(
                 children: [
                   Text(
-                    'D-${challenge.endDay.day - DateTime.now().day}',
+                    'D${int.parse(DateTime.now().difference(challenge.endDay).inDays.toString()) - 1}',
                     style: const TextStyle(
                       color: MyColor.primary,
                       fontWeight: FontWeight.bold,

@@ -75,7 +75,7 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(Get.width * 0.05),
+              padding: const EdgeInsets.all(15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [

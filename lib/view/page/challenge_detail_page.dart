@@ -46,11 +46,14 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          challenge.title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
+                        SizedBox(
+                          width: Get.size.width * 0.35,
+                          child: Text(
+                            challenge.title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                            ),
                           ),
                         ),
                         const SizedBox(
