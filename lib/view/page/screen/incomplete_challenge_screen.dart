@@ -27,9 +27,13 @@ class InCompleteChallengeScreen extends GetView<EndChallengeController> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
                       if (!snapshot.data![index]
-                          .data()
-                          .successUserId
-                          .contains(controller.auth.user!.uid)) {
+                              .data()
+                              .successUserId
+                              .contains(controller.auth.user!.uid) &&
+                          snapshot.data![index]
+                              .data()
+                              .participationUserId
+                              .contains(controller.auth.user!.uid)) {
                         return MyPageChallengeIncompleteListTile(
                           buttontext: '기록보기',
                           challenge: snapshot.data![index].data(),
