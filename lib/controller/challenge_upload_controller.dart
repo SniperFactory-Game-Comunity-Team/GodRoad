@@ -151,7 +151,7 @@ class ChallengeUploadController extends GetxController {
     var res = await picker.pickImage(source: source);
     if (res != null) {
       Get.back();
-      var ref = FirebaseStorage.instance.ref('mainPicture/${auth.user!.uid}');
+      var ref = FirebaseStorage.instance.ref('mainPicture/${auth.user!.uid}$saveId');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);
@@ -164,7 +164,7 @@ class ChallengeUploadController extends GetxController {
     if (res != null) {
       Get.back();
       var ref =
-          FirebaseStorage.instance.ref('testimonyPicture/${auth.user!.uid}');
+          FirebaseStorage.instance.ref('testimonyPicture/${auth.user!.uid}$saveId');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);

@@ -20,6 +20,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
   Widget build(BuildContext context) {
     PageController pageController = PageController(viewportFraction: 0.9);
     RxInt currentPageIndex = 0.obs;
+    var nickname;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -174,6 +175,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
                           if (snapshots.hasData &&
                               snapshots.connectionState ==
                                   ConnectionState.done) {
+                            nickname = snapshots.data!.value!.nickname;
                             return Text(
                               '${snapshots.data!.value!.nickname}님의 인증',
                               style: const TextStyle(
@@ -340,25 +342,38 @@ class MemberCertificationPage extends GetView<CertificationController> {
                                   itemBuilder: (context, index) => Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 3.0),
-                                    child: snapshot.data![index]['profile']
-                                                .profileUrl !=
-                                            ''
-                                        ? CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.grey,
-                                            backgroundImage: NetworkImage(
-                                                snapshot.data![index]['profile']
-                                                    .profileUrl
-                                                    .toString()),
-                                          )
-                                        : const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: MyColor.lightgrey,
-                                            child: Icon(
-                                              Icons.person,
-                                              color: Colors.grey,
-                                            ),
-                                          ),
+                                    child: CircleAvatar(
+                                      backgroundColor: snapshot
+                                                  .data![index]['profile']
+                                                  .nickname ==
+                                              nickname
+                                          ? MyColor.primary
+                                          : Colors.transparent,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(1),
+                                        child: snapshot.data![index]['profile']
+                                                    .profileUrl !=
+                                                ''
+                                            ? CircleAvatar(
+                                                radius: 16,
+                                                backgroundColor: Colors.grey,
+                                                backgroundImage: NetworkImage(
+                                                    snapshot
+                                                        .data![index]['profile']
+                                                        .profileUrl
+                                                        .toString()),
+                                              )
+                                            : const CircleAvatar(
+                                                radius: 16,
+                                                backgroundColor:
+                                                    MyColor.lightgrey,
+                                                child: Icon(
+                                                  Icons.person,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                      ),
+                                    ),
                                   ),
                                 ));
                           }

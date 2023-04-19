@@ -70,7 +70,7 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
                     children: [
                       Text(
                         challenge.title,
-                        style: const TextStyle(fontSize: 12),
+                        style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
