@@ -24,8 +24,11 @@ class MainController extends GetxController {
   bool isAttending = false;
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readChallenge() async {
-    var challenge =
-        await Firebase.getChallenge.orderBy('createAt', descending: true).get();
+    var challenge = await Firebase.getChallenge
+        .orderBy('bookmark', descending: true)
+        .orderBy('createAt', descending: true)
+        .get();
+
     challengeList(challenge.docs);
     return challengeList.isNotEmpty ? challengeList : null;
   }
@@ -33,6 +36,7 @@ class MainController extends GetxController {
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readMyChallenge() async {
     var challenge = await Firebase.getChallenge
         .where('keyword', arrayContainsAny: auth.userProfile!.keyword)
+        .orderBy('bookmark', descending: true)
         .orderBy('createAt', descending: true)
         .get();
     challengeMyList(challenge.docs);

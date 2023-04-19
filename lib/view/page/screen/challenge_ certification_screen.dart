@@ -248,7 +248,8 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
               FutureBuilder<RxList<Map>>(
                 future: controller.readCurrentChallParticipationUser(challenge),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData &&
+                      snapshot.connectionState == ConnectionState.done) {
                     return SizedBox(
                         height: 50,
                         child: ListView.builder(

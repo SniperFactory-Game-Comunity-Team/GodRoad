@@ -21,8 +21,10 @@ class ProfileController extends GetxController {
   RxInt selectedIndex = 0.obs;
   RxList<QueryDocumentSnapshot<Challenge>> createdChallenge =
       RxList<QueryDocumentSnapshot<Challenge>>();
-  RxList<QueryDocumentSnapshot<Challenge>>  myChallenge = RxList<QueryDocumentSnapshot<Challenge>>();
-  RxList<Challenge> bookmarkChallenge = RxList<Challenge>();
+  RxList<QueryDocumentSnapshot<Challenge>> myChallenge =
+      RxList<QueryDocumentSnapshot<Challenge>>();
+  RxList<QueryDocumentSnapshot<Challenge>> bookmarkChallenge =
+      RxList<QueryDocumentSnapshot<Challenge>>();
 
   Future<bool> isDuplicateUniqueName(String nickname) async {
     QuerySnapshot query =
@@ -115,28 +117,20 @@ class ProfileController extends GetxController {
 
   //내가 참여중인 챌린지
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readmyChallenge() async {
-    var profile = await Firebase.getUser.doc(auth.user!.uid).get();
-    for (var myChall in profile.data()!.myChallenge) {
-      var challenge = await Firebase.getChallenge
-          .where('participationUserId', arrayContainsAny: [auth.user!.uid])
-          .orderBy('createAt', descending: true)
-          .get();
-      myChallenge(challenge.docs);
-    }
-    return myChallenge.isNotEmpty ? myChallenge: null;
+    var challenge = await Firebase.getChallenge
+        .where('participationUserId', arrayContainsAny: [auth.user!.uid])
+        .orderBy('createAt', descending: true)
+        .get();
+    myChallenge(challenge.docs);
+    return myChallenge.isNotEmpty ? myChallenge : null;
   }
-
-  Future<RxList<Challenge>?> readmyBookmark() async {
-    bookmarkChallenge.clear();
-    var profile = await Firebase.getUser.doc(auth.user!.uid).get();
-    for (var myBookmark in profile.data()!.myBookmark) {
-      var bookmark =
-          await Firebase.getChallenge.doc(myBookmark.toString()).get();
-      if (bookmark.data() != null &&
-          !bookmark.data()!.participationUserId.contains(auth.user!.uid)) {
-        bookmarkChallenge.add(bookmark.data() as Challenge);
-      }
-    }
+  //내가 북마크한 챌린지 참여한 챌린지 제외
+  Future<RxList<QueryDocumentSnapshot<Challenge>>?> readmyBookmark() async {
+    var challenge = await Firebase.getChallenge
+        .where('bookmarkUserId', arrayContainsAny: [auth.user!.uid])
+        .orderBy('createAt', descending: true)
+        .get();
+    bookmarkChallenge(challenge.docs);
     return bookmarkChallenge.isNotEmpty ? bookmarkChallenge : null;
   }
 }

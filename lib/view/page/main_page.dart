@@ -132,7 +132,7 @@ class MainPage extends GetView<MainController> {
                                 fillColor: Colors.grey[200],
                                 hintText: '찾으시는 챌린지가 있으신가요?',
                                 border: InputBorder.none,
-                                hintStyle: TextStyle(fontSize: 13.0),
+                                hintStyle: const TextStyle(fontSize: 13.0),
                                 suffixIcon: IconButton(
                                     onPressed: () {
                                       Get.toNamed(AppRoute.searchChallenge);
@@ -147,7 +147,7 @@ class MainPage extends GetView<MainController> {
                               ),
                             ),
                           ),
-                          ChallengeScreen(),
+                          const ChallengeScreen(),
                         ],
                       );
                     }
@@ -191,8 +191,7 @@ class MainPage extends GetView<MainController> {
                 child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
                     future: controller.readMyChallenge(),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState ==
-                          ConnectionState.done) {
+                      if (snapshot.connectionState == ConnectionState.done) {
                         if (snapshot.hasData) {
                           return Obx(
                             () => ListView.builder(
@@ -202,13 +201,12 @@ class MainPage extends GetView<MainController> {
                                     : 3,
                                 itemBuilder: (context, index) {
                                   return ForTile(
-                                    challenge:
-                                        snapshot.data![index].data(),
+                                    challenge: snapshot.data![index].data(),
                                   );
                                 }),
                           );
                         }
-                        return Center(child: const Text('추천 챌린지가 없습니다'));
+                        return const Center(child: Text('추천 챌린지가 없습니다'));
                       }
                       return const SpinKitFadingCircle(
                         color: MyColor.primary,

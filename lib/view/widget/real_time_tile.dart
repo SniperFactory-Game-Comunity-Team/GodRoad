@@ -45,7 +45,7 @@ class RealTimeTile extends GetView<MainController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: 150,
+                          width: Get.width * 0.25,
                           height: 18,
                           child: Text(
                             challenge.title,
@@ -85,13 +85,20 @@ class RealTimeTile extends GetView<MainController> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            '모집마감',
+                            '모집마감 ',
                             style: TextStyle(color: Colors.black, fontSize: 12),
                           ),
                           Text(
-                            ' D${int.parse(DateTime.now().difference(challenge.applyEndDay).inDays.toString()) - 1}',
+                            int.parse(DateTime.now()
+                                        .difference(challenge.applyEndDay)
+                                        .inDays
+                                        .toString()) ==
+                                    0
+                                ? 'D-day'
+                                : 'D${int.parse(DateTime.now().difference(challenge.applyEndDay).inDays.toString()) - 1}',
                             style: const TextStyle(
                                 color: MyColor.primary,
                                 fontSize: 12,

@@ -3,10 +3,13 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/service/firebase.dart';
+import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -97,6 +100,8 @@ class ChallengeUploadController extends GetxController {
         'testimonyContent': testimonyContentController.text,
         'keyword': keywords,
         'participationUserId': [],
+        'bookmarkUserId': [],
+        'isEnd': false,
         'authenticationCount': int.parse(countController.text),
         'bookmark': 0,
         'createAt': Timestamp.now(),
@@ -140,7 +145,15 @@ class ChallengeUploadController extends GetxController {
         DateTime.now().day,
       );
       challFocusedDay.value = DateTime.now();
-
+      Get.dialog(CustomDialog(
+        imageRoute:
+            SvgPicture.asset('assets/dialogsvg/applicationchallenge.svg'),
+        content: '챌린지 등록이 완료되었습니다!',
+        btn2fn: () {
+          Get.toNamed(AppRoute.main);
+        },
+        secondText: '확인',
+      ));
       main.readChallenge();
       main.readMyChallenge();
     }
@@ -151,7 +164,8 @@ class ChallengeUploadController extends GetxController {
     var res = await picker.pickImage(source: source);
     if (res != null) {
       Get.back();
-      var ref = FirebaseStorage.instance.ref('mainPicture/${auth.user!.uid}$saveId');
+      var ref =
+          FirebaseStorage.instance.ref('mainPicture/${auth.user!.uid}$saveId');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);
@@ -163,8 +177,8 @@ class ChallengeUploadController extends GetxController {
     var res = await picker.pickImage(source: source);
     if (res != null) {
       Get.back();
-      var ref =
-          FirebaseStorage.instance.ref('testimonyPicture/${auth.user!.uid}$saveId');
+      var ref = FirebaseStorage.instance
+          .ref('testimonyPicture/${auth.user!.uid}$saveId');
       TaskSnapshot snapshot = await ref.putFile(File(res.path));
       var downloadUrl = await snapshot.ref.getDownloadURL();
       await auth.user!.updatePhotoURL(downloadUrl);
