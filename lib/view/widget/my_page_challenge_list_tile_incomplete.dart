@@ -4,7 +4,8 @@ import 'package:godroad/controller/end_challenge_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
 
-class MyPageChallengeIncompleteListTile extends GetView<EndChallengeController> {
+class MyPageChallengeIncompleteListTile
+    extends GetView<EndChallengeController> {
   const MyPageChallengeIncompleteListTile(
       {super.key,
       required this.buttontext,
@@ -41,31 +42,31 @@ class MyPageChallengeIncompleteListTile extends GetView<EndChallengeController> 
             padding: const EdgeInsets.only(left: 8.0),
             child: Row(
               children: [
-               const Text('총 인증 수', style: TextStyle(fontSize: 10)),
-              const SizedBox(width: 3),
-              Text(challenge.authenticationCount.toString(),
-                  style: const TextStyle(
-                      fontSize: 10,
-                      height: 1.6,
-                      color: MyColor.primary2,
-                      fontWeight: FontWeight.bold)),
-              const SizedBox(width: 8),
-              const Text('남은 인증 수', style: TextStyle(fontSize: 10)),
-              const SizedBox(width: 3),
-              FutureBuilder(
-                  future: controller.getCerCount(challenge),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.connectionState == ConnectionState.done) {
-                      return Text('${controller.myEndChallCerCount}',
-                          style: const TextStyle(
-                              fontSize: 10,
-                              height: 1.6,
-                              color: MyColor.primary2,
-                              fontWeight: FontWeight.bold));
-                    }
-                    return const Text('');
-                  }),
+                const Text('총 인증 수', style: TextStyle(fontSize: 10)),
+                const SizedBox(width: 3),
+                Text(challenge.authenticationCount.toString(),
+                    style: const TextStyle(
+                        fontSize: 10,
+                        height: 1.6,
+                        color: MyColor.primary2,
+                        fontWeight: FontWeight.bold)),
+                const SizedBox(width: 8),
+                const Text('남은 인증 수', style: TextStyle(fontSize: 10)),
+                const SizedBox(width: 3),
+                FutureBuilder(
+                    future: controller.getCerCount(challenge),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData &&
+                          snapshot.connectionState == ConnectionState.done) {
+                        return Text('${controller.myEndChallCerCount}',
+                            style: const TextStyle(
+                                fontSize: 10,
+                                height: 1.6,
+                                color: MyColor.primary2,
+                                fontWeight: FontWeight.bold));
+                      }
+                      return const Text('');
+                    }),
               ],
             ),
           ),
@@ -75,15 +76,15 @@ class MyPageChallengeIncompleteListTile extends GetView<EndChallengeController> 
               Wrap(
                 children: challenge.keyword
                     .map((e) => Chip(
-                      padding: EdgeInsets.zero,
-                      visualDensity: const VisualDensity(
-                          horizontal: 0.0, vertical: -4),
-                      backgroundColor: MyColor.lightgrey,
-                      label: Text(
-                        e,
-                        style: const TextStyle(fontSize: 10),
-                      ),
-                    ))
+                          padding: EdgeInsets.zero,
+                          visualDensity: const VisualDensity(
+                              horizontal: 0.0, vertical: -4),
+                          backgroundColor: MyColor.lightgrey,
+                          label: Text(
+                            e,
+                            style: const TextStyle(fontSize: 10),
+                          ),
+                        ))
                     .toList(),
               ),
               ElevatedButton(
@@ -103,7 +104,12 @@ class MyPageChallengeIncompleteListTile extends GetView<EndChallengeController> 
                 ),
               ),
             ],
-          )
+          ),
+          const Divider(
+            indent: 20,
+            endIndent: 20,
+            thickness: 1,
+          ),
         ],
       ),
     );

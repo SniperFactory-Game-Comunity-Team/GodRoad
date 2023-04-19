@@ -85,7 +85,12 @@ class MyPageChallengeCompleteListTile extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
+          const Divider(
+            indent: 20,
+            endIndent: 20,
+            thickness: 1,
+          ),
         ],
       ),
     );

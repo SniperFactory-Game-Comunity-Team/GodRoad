@@ -22,7 +22,7 @@ class CompleteChallengeScreen extends GetView<EndChallengeController> {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 return Obx(
-                  () => ListView.separated(
+                  () => ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -35,11 +35,6 @@ class CompleteChallengeScreen extends GetView<EndChallengeController> {
                         },
                       );
                     },
-                    separatorBuilder: (context, index) => const Divider(
-                      indent: 20,
-                      endIndent: 20,
-                      thickness: 1,
-                    ),
                   ),
                 );
               }
