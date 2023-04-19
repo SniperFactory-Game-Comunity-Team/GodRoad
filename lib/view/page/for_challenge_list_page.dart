@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/main_controller.dart';
-import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/widget/custom_second_button.dart';
-import 'package:godroad/view/widget/keyword_chip.dart';
 import '../../model/challenge.dart';
 import '../widget/for_tile.dart';
 
@@ -51,16 +48,15 @@ class ForChallengeListPage extends GetView<MainController> {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
-                future: controller.readMyChallenge(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData) {
-                      return Obx(
+        child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
+            future: controller.readMyChallenge(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(
                         () => ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data!.length < 3
@@ -71,17 +67,17 @@ class ForChallengeListPage extends GetView<MainController> {
                                 challenge: snapshot.data![index].data(),
                               );
                             }),
-                      );
-                    }
-                    return const Center(child: Text('추천 챌린지가 없습니다'));
-                  }
-                  return const SpinKitFadingCircle(
-                    color: MyColor.primary,
-                    size: 30,
+                      ),
+                    ],
                   );
-                }),
-          ],
-        ),
+                }
+                return const Center(child: Text('추천 챌린지가 없습니다'));
+              }
+              return const SpinKitFadingCircle(
+                color: MyColor.primary,
+                size: 30,
+              );
+            }),
       ),
     );
   }

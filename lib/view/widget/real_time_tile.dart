@@ -99,7 +99,7 @@ class RealTimeTile extends GetView<MainController> {
                             int.parse(DateTime.now()
                                         .difference(challenge.applyEndDay)
                                         .inDays
-                                        .toString()) ==
+                                        .toString()) >=
                                     0
                                 ? 'D-day'
                                 : 'D${int.parse(DateTime.now().difference(challenge.applyEndDay).inDays.toString()) - 1}',
