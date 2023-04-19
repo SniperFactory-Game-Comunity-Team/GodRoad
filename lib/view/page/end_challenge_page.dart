@@ -15,7 +15,8 @@ class EndChallengePage extends GetView<ProfileController> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
           title: const Text('종료된 챌린지'),
         ),
         body: SingleChildScrollView(

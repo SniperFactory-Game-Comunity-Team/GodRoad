@@ -8,7 +8,6 @@ class CompleteChallengeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('complete'),
         SizedBox(
           height: 500,
           child: ListView.separated(

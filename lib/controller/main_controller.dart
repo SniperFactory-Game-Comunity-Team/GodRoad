@@ -93,7 +93,7 @@ class MainController extends GetxController {
         'isEnd': int.parse(DateTime.now()
                 .difference(challenge.docs[i].data().applyEndDay)
                 .inDays
-                .toString()) ==
+                .toString()) >
             0
       });
     }
