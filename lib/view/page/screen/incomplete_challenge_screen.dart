@@ -9,7 +9,6 @@ class InCompleteChallengeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('incomplete'),
         SizedBox(
           height: 600,
           child: ListView.separated(
