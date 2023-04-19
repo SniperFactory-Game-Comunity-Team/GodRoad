@@ -22,7 +22,7 @@ class InCompleteChallengeScreen extends GetView<EndChallengeController> {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 return Obx(
-                  () => ListView.separated(
+                  () => ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -45,11 +45,6 @@ class InCompleteChallengeScreen extends GetView<EndChallengeController> {
                       }
                       return const SizedBox();
                     },
-                    separatorBuilder: (context, index) => const Divider(
-                      indent: 20,
-                      endIndent: 20,
-                      thickness: 1,
-                    ),
                   ),
                 );
               }
