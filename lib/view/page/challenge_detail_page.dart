@@ -47,7 +47,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: Get.size.width * 0.35,
+                          width: Get.size.width * 0.27,
                           child: Text(
                             challenge.title,
                             style: const TextStyle(
@@ -59,10 +59,13 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          challenge.subtitle,
-                          style: const TextStyle(
-                            fontSize: 13.0,
+                        SizedBox(
+                          width: Get.size.width * 0.27,
+                          child: Text(
+                            challenge.subtitle,
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                            ),
                           ),
                         ),
                       ],

@@ -69,10 +69,13 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          challenge.subtitle,
-                          style: const TextStyle(
-                            fontSize: 13.0,
+                        SizedBox(
+                          width: Get.size.width * 0.35,
+                          child: Text(
+                            challenge.subtitle,
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                            ),
                           ),
                         ),
                       ],
