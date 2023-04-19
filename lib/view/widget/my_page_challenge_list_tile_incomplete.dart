@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/widget/custom_button.dart';
 
 class MyPageChallengeIncompleteListTile extends StatelessWidget {
   const MyPageChallengeIncompleteListTile(
-      {super.key, required this.buttontext});
+      {super.key,
+      required this.buttontext,
+      required this.challenge,
+      this.onPressed});
   final String buttontext;
+  final Challenge challenge;
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
+import 'package:godroad/view/widget/custom_second_button.dart';
 
 class MyPageCreateTile extends StatelessWidget {
   const MyPageCreateTile(
