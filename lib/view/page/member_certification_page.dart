@@ -58,20 +58,26 @@ class MemberCertificationPage extends GetView<CertificationController> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          challenge.title,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.0,
+                        SizedBox(
+                          width: Get.size.width * 0.35,
+                          child: Text(
+                            challenge.title,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.0,
+                            ),
                           ),
                         ),
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          challenge.subtitle,
-                          style: const TextStyle(
-                            fontSize: 13.0,
+                        SizedBox(
+                          width: Get.size.width * 0.35,
+                          child: Text(
+                            challenge.subtitle,
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                            ),
                           ),
                         ),
                       ],

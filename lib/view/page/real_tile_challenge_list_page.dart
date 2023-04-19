@@ -139,7 +139,7 @@ class RealTimeChallengeListPage extends GetView<MainController> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     return Obx(() => SizedBox(
-                          height: Get.size.height * 0.81,
+                          height: Get.size.height * 0.8,
                           child: ListView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
