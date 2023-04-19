@@ -39,11 +39,12 @@ class KeywordUpdatePage extends GetView<ProfileController> {
               ),
               Center(
                 child: KeywordChip(
-                    keyword: Keyword.keywords,
-                    isSelected: controller.isSelected,
-                    onTap: controller.addUserKeyword,
-                    unSelectedBackgroundColor: MyColor.color200,
-                              unSelectedTextColor: MyColor.primary2,),
+                  keyword: Keyword.keywords,
+                  isSelected: controller.isSelected,
+                  onTap: controller.addUserKeyword,
+                  unSelectedBackgroundColor: MyColor.color200,
+                  unSelectedTextColor: MyColor.primary2,
+                ),
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,7 +65,7 @@ class KeywordUpdatePage extends GetView<ProfileController> {
                       ),
                     ),
                     child: const Text(
-                      "취소허가",
+                      "취소",
                       style: TextStyle(
                           color: MyColor.primary2, fontWeight: FontWeight.bold),
                     ),

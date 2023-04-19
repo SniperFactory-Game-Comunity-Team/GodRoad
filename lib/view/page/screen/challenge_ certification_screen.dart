@@ -300,16 +300,6 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
           child: ElevatedButton(
             onPressed: () {
               controller.updateCertification(challenge, currentPageIndex.value);
-              Get.dialog(CustomSecondDialog(
-                imageRoute: SvgPicture.asset(
-                    'assets/dialogsvg/certificationcomplete.svg'),
-                content: '인증이 완료되었습니다!',
-                btnfn: () {
-                  Get.toNamed(AppRoute.attendchallengedetail,
-                      arguments: challenge);
-                },
-                dialogText: '확인',
-              ));
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.only(

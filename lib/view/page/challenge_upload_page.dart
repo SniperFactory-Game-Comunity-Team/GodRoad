@@ -273,7 +273,7 @@ class ChallengeUploadPage extends GetView<ChallengeUploadController> {
                           Get.dialog(CustomSecondDialog(
                             imageRoute: SvgPicture.asset(
                                 'assets/dialogsvg/applicationchallenge.svg'),
-                            content: '챌린지 등록이 완료되었습니다',
+                            content: '챌린지 등록이 완료되었습니다!',
                             btnfn: () {
                               Get.toNamed(AppRoute.main);
                             },

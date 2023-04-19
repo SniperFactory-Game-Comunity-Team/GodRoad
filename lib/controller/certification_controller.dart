@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/controller/profile_controller.dart';
@@ -11,6 +12,7 @@ import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/model/service/firebase.dart';
 import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/custom_second_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 
 class CertificationController extends GetxController {
@@ -119,12 +121,28 @@ class CertificationController extends GetxController {
           .get();
       profile.readmyChallenge();
       if (certification.docs.length == index + 1) {
-        //다이얼 로그 띄위기
-        Get.snackbar('챌린지 성공!', '축하합니다! 모든 인증을 완료하셨습니다.');
-      } else { //다이얼 로그 확인 onpressed 안에 넣을 구문들 아래와 같음
-        cerImg.value = '';
-        contentController.text = '';
-        Get.toNamed(AppRoute.main);
+        Get.dialog(CustomSecondDialog(
+          imageRoute: SvgPicture.asset('assets/dialogsvg/successchallenge.svg'),
+          content: '챌리에 성공했습니다!',
+          btnfn: () {
+            cerImg.value = '';
+            contentController.text = '';
+            Get.toNamed(AppRoute.main);
+          },
+          dialogText: '확인',
+        ));
+      } else {
+        Get.dialog(CustomSecondDialog(
+          imageRoute:
+              SvgPicture.asset('assets/dialogsvg/certificationcomplete.svg'),
+          content: '인증이 완료되었습니다!',
+          btnfn: () {
+            Get.toNamed(AppRoute.main);
+            cerImg.value = '';
+            contentController.text = '';
+          },
+          dialogText: '확인',
+        ));
       }
     }
   }
