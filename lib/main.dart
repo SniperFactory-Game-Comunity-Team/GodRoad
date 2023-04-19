@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       theme: ThemeData(
-        fontFamily: 'pretendard',
+        fontFamily: 'neo',
       ),
       debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {

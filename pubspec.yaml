@@ -78,6 +78,9 @@ flutter:
     - assets/mainpage_image.svg
 
   fonts:
+    - family: neo
+      fonts:
+        - asset: assets/fonts/neo.ttf
     - family: pretendard
       fonts:
         - asset: assets/fonts/PretendardVariable.ttf    

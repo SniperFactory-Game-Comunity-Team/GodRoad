@@ -83,7 +83,7 @@ class ChallengeScreen extends GetView<MainController> {
                 ),
               ),
               const SizedBox(
-                width: 50,
+                width: 44,
               ),
               TextButton(
                 onPressed: () {
