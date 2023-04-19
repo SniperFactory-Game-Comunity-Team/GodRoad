@@ -7,8 +7,10 @@ import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/model/certification.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
+import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/member_certification_page.dart';
 import 'package:godroad/view/widget/certification_button.dart';
+import 'package:godroad/view/widget/custom_second_dialog.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -296,7 +298,18 @@ class ChallengeCertificationScreen extends GetView<CertificationController> {
         Center(
           child: ElevatedButton(
             onPressed: () {
-              controller.updateCertification(challenge, currentPageIndex.value);
+              controller.updateCertification(
+                  challenge, controller.currentPageIndex.value);
+              Get.dialog(CustomSecondDialog(
+                imageRoute: SvgPicture.asset(
+                    'assets/dialogsvg/certificationcomplete.svg'),
+                content: '인증이 완료되었습니다!',
+                btnfn: () {
+                  Get.toNamed(AppRoute.attendchallengedetail,
+                      arguments: challenge);
+                },
+                dialogText: '확인',
+              ));
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.only(

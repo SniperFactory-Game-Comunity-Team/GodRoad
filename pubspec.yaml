@@ -76,6 +76,14 @@ flutter:
     - assets/upload_picture.svg
     - assets/my_keyword.svg
     - assets/mainpage_image.svg
+
+  fonts:
+    - family: neo
+      fonts:
+        - asset: assets/fonts/neo.ttf
+    - family: pretendard
+      fonts:
+        - asset: assets/fonts/PretendardVariable.ttf    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

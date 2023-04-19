@@ -104,11 +104,30 @@ class RealTimeChallengeListPage extends GetView<MainController> {
               },
               child: Obx(
                 () => controller.keywords.isEmpty
-                    ? const Text('키워드 선택하기')
+                    ? const SizedBox()
                     : Wrap(
+                        spacing: 7,
                         children: controller.keywords
                             .map((e) => Chip(
-                                  label: Text(e),
+                                  visualDensity: const VisualDensity(
+                                      horizontal: 0, vertical: -2),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    side: const BorderSide(
+                                      color: MyColor.primary,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  backgroundColor: Colors.transparent,
+                                  label: SizedBox(
+                                    width: 55,
+                                    child: Center(
+                                      child: Text(
+                                        e,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                                  ),
                                 ))
                             .toList(),
                       ),
