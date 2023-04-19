@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -49,12 +48,16 @@ class RealTimeChallengeListPage extends GetView<MainController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextButton(
-              style: ButtonStyle(
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(MyColor.color900),
-              ),
               onPressed: () {
                 Get.bottomSheet(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                    ),
+                  ),
+                  backgroundColor: Colors.white,
+                  clipBehavior: Clip.hardEdge,
                   SizedBox(
                     height: 270,
                     child: Column(
@@ -75,42 +78,48 @@ class RealTimeChallengeListPage extends GetView<MainController> {
                           unSelectedBackgroundColor: MyColor.lightgrey,
                           unSelectedTextColor: Colors.black54,
                         ),
-                        CustomSecondButton(
-                            text: '키워드별 챌린지 검색',
-                            onPressedFunction: () {
-                              controller.readKeywordChallenge();
-                              Get.back();
-                            },
-                            backgroundColor: MyColor.primary2,
-                            borderColor: Colors.transparent,
-                            textStyle: const TextStyle(color: Colors.white),
-                            left: 35,
-                            right: 35,
-                            top: 12,
-                            bottom: 12,
-                            borderCircular: 25)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomSecondButton(
+                              text: '키워드별 챌린지 검색',
+                              onPressedFunction: () {
+                                controller.readKeywordChallenge();
+                                Get.back();
+                              },
+                              backgroundColor: MyColor.primary2,
+                              borderColor: Colors.transparent,
+                              textStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                              left: 35,
+                              right: 35,
+                              top: 12,
+                              bottom: 12,
+                              borderCircular: 20),
+                        )
                       ],
                     ),
                   ),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                    ),
-                  ),
-                  backgroundColor: Colors.white,
-                  clipBehavior: Clip.hardEdge,
                 );
               },
-              child: Obx(
-                () => controller.keywords.isEmpty
-                    ? const SizedBox()
-                    : Wrap(
-                        spacing: 7,
+              style: ButtonStyle(
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(MyColor.primary2),
+              ),
+              child: const Text('키워드 선택'),
+            ),
+            Obx(
+              () => controller.keywords.isEmpty
+                  ? const SizedBox()
+                  : SizedBox(
+                      height: 30,
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
                         children: controller.keywords
                             .map((e) => Chip(
                                   visualDensity: const VisualDensity(
-                                      horizontal: 0, vertical: -2),
+                                      horizontal: 0, vertical: -4),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                     side: const BorderSide(
@@ -131,22 +140,23 @@ class RealTimeChallengeListPage extends GetView<MainController> {
                                 ))
                             .toList(),
                       ),
-              ),
+                    ),
             ),
-            FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
+            FutureBuilder(
               future: controller.readChallenge(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasData) {
                     return Obx(() => SizedBox(
-                          height: Get.size.height * 0.81,
+                          height: Get.size.height * 0.75,
                           child: ListView.builder(
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
+                                var dataList = snapshot.data!.toSet().toList();
                                 return RealTimeTile(
-                                  challenge: snapshot.data![index].data(),
+                                  challenge: dataList[index].data(),
                                 );
                               }),
                         ));

@@ -135,10 +135,13 @@ class UpdateChallengeDetailPage
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          challenge.subtitle,
-                          style: const TextStyle(
-                            fontSize: 13.0,
+                        SizedBox(
+                          width: Get.size.width * 0.35,
+                          child: Text(
+                            challenge.subtitle,
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                            ),
                           ),
                         ),
                       ],
@@ -179,15 +182,23 @@ class UpdateChallengeDetailPage
                         snapshot.connectionState == ConnectionState.done) {
                       return Row(
                         children: [
-                          CircleAvatar(
-                            radius: 15,
-                            backgroundColor: Colors.grey,
-                            backgroundImage: NetworkImage(
-                              snapshot.data!.value!.profileUrl != ''
-                                  ? snapshot.data!.value!.profileUrl.toString()
-                                  : 'https://picsum.photos/100/100',
-                            ),
-                          ),
+                          snapshot.data!.value!.profileUrl != ''
+                              ? CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey,
+                                  backgroundImage: NetworkImage(
+                                    snapshot.data!.value!.profileUrl.toString(),
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: MyColor.lightgrey,
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Colors.grey,
+                                    size: 20,
+                                  ),
+                                ),
                           const SizedBox(
                             width: 5,
                           ),

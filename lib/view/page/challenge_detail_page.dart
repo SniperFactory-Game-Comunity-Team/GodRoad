@@ -47,7 +47,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          width: Get.size.width * 0.35,
+                          width: Get.size.width * 0.27,
                           child: Text(
                             challenge.title,
                             style: const TextStyle(
@@ -59,10 +59,13 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          challenge.subtitle,
-                          style: const TextStyle(
-                            fontSize: 13.0,
+                        SizedBox(
+                          width: Get.size.width * 0.27,
+                          child: Text(
+                            challenge.subtitle,
+                            style: const TextStyle(
+                              fontSize: 13.0,
+                            ),
                           ),
                         ),
                       ],
@@ -74,15 +77,15 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          "챌린지 기간 ${DateFormat('yyyy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.endDay)}",
+                          "챌린지 기간 ${DateFormat('yy.MM.dd').format(challenge.startDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.endDay)}",
                           style: const TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 10.0,
                           ),
                         ),
                         Text(
-                          "모집기간 ${DateFormat('yyyy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yyyy.MM.dd').format(challenge.applyEndDay)}",
+                          "모집기간 ${DateFormat('yy.MM.dd').format(challenge.applyStartDay)} ~ ${DateFormat('yy.MM.dd').format(challenge.applyEndDay)}",
                           style: const TextStyle(
-                            fontSize: 12.0,
+                            fontSize: 10.0,
                           ),
                         ),
                       ],
@@ -128,7 +131,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                               ),
                               Text(
                                 //'계정 생성 날짜? 챌린지 업로드 날짜?',
-                                DateFormat('yyy.M.d. h:mm')
+                                DateFormat('yyyy.M.d. h:mm')
                                     .format(challenge.createAt),
                                 style: const TextStyle(fontSize: 10),
                               ),
