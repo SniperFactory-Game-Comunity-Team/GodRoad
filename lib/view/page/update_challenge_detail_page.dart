@@ -129,7 +129,6 @@ class UpdateChallengeDetailPage
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
                             ),
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const SizedBox(

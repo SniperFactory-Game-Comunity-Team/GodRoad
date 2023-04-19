@@ -173,7 +173,9 @@ class MainPage extends GetView<MainController> {
                             )
                           : const SizedBox()),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.toNamed(AppRoute.forchallengelist);
+                        },
                         style: ButtonStyle(
                           foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.black54),

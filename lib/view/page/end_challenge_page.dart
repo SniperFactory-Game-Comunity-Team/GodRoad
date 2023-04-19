@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
-import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/page/screen/complete_challenge_screen.dart';
 import 'package:godroad/view/page/screen/incomplete_challenge_screen.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
@@ -42,7 +41,7 @@ class EndChallengePage extends GetView<ProfileController> {
                       child: Container(
                         width: 205,
                         height: 5,
-                        color: MyColor.primary,
+                        color: Colors.grey,
                       ),
                     ))
               ]),

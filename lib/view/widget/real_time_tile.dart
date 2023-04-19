@@ -56,9 +56,13 @@ class RealTimeTile extends GetView<MainController> {
                         const SizedBox(
                           height: 5,
                         ),
-                        Text(
-                          challenge.subtitle,
-                          style: const TextStyle(fontSize: 12),
+                        SizedBox(
+                          width: Get.size.width * 0.25,
+                          child: Text(
+                            challenge.subtitle,
+                            style: const TextStyle(fontSize: 12),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Wrap(
