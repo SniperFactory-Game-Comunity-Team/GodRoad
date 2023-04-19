@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/widget/custom_button.dart';
 
-class MyPageChallengeListTile extends StatelessWidget {
-  const MyPageChallengeListTile({super.key, required this.buttontext});
+class MyPageChallengeIncompleteListTile extends StatelessWidget {
+  const MyPageChallengeIncompleteListTile(
+      {super.key, required this.buttontext});
   final String buttontext;
 
   @override
@@ -11,7 +13,7 @@ class MyPageChallengeListTile extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: SizedBox(
         width: 400,
-        height: 130,
+        height: 120,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -24,10 +26,6 @@ class MyPageChallengeListTile extends StatelessWidget {
                     '대학생 서포터즈 모집',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
-                  Text(
-                    'D-12',
-                    style: TextStyle(color: Colors.greenAccent),
-                  )
                 ],
               ),
             ),
@@ -39,15 +37,21 @@ class MyPageChallengeListTile extends StatelessWidget {
                     '총 인증 수 ',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                   ),
-                  Text('15 '),
+                  Text(
+                    '15',
+                    style: TextStyle(color: MyColor.primary2),
+                  ),
                   SizedBox(
                     width: 10,
                   ),
                   Text(
-                    '남은 인증 수 ',
+                    '부족한 인증 수 ',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
                   ),
-                  Text('4')
+                  Text(
+                    '15',
+                    style: TextStyle(color: MyColor.primary2),
+                  ),
                 ],
               ),
             ),
