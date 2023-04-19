@@ -101,6 +101,7 @@ class ChallengeUploadController extends GetxController {
         'keyword': keywords,
         'participationUserId': [],
         'bookmarkUserId': [],
+        'successUserId': [],
         'isEnd': false,
         'authenticationCount': int.parse(countController.text),
         'bookmark': 0,

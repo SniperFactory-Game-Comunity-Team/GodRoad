@@ -121,6 +121,10 @@ class CertificationController extends GetxController {
           .get();
       profile.readmyChallenge();
       if (certification.docs.length == index + 1) {
+        //챌린지에 성공한 유저 아이디 저장
+        Firebase.colChall.doc(challenge.id).update({
+          'successUserId': FieldValue.arrayUnion([auth.user!.uid])
+        });
         Get.dialog(CustomSecondDialog(
           imageRoute: SvgPicture.asset('assets/dialogsvg/successchallenge.svg'),
           content: '챌리에 성공했습니다!',

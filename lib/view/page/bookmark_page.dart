@@ -37,7 +37,7 @@ class BookmarkPage extends GetView<ProfileController> {
                             challenge: snapshot.data![index].data(),
                             onPressed: () {
                               Get.toNamed(AppRoute.challengedetail,
-                                  arguments: snapshot.data![index]);
+                                  arguments: snapshot.data![index].data());
                             },
                           );
                         },

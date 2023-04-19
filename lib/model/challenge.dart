@@ -13,6 +13,7 @@ class Challenge {
   List keyword;
   List participationUserId;
   List bookmarkUserId;
+  List successUserId;
   bool isEnd;
   int authenticationCount;
   int bookmark;
@@ -34,6 +35,7 @@ class Challenge {
     required this.keyword,
     required this.participationUserId,
     required this.bookmarkUserId,
+    required this.successUserId,
     required this.isEnd,
     required this.authenticationCount,
     required this.bookmark,
@@ -77,6 +79,7 @@ class Challenge {
       keyword: List.from((map['keyword'] as List)),
       participationUserId: List.from((map['participationUserId'] as List)),
       bookmarkUserId: List.from((map['bookmarkUserId'] as List)),
+      successUserId: List.from((map['successUserId'] as List)),
       isEnd: map['isEnd'] as bool,
       bookmark: map['bookmark'] as int,
       authenticationCount: map['authenticationCount'] as int,
