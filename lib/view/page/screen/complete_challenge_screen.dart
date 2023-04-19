@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:godroad/view/widget/my_page_challenge_list_tile_complete.dart';
 
 class CompleteChallengeScreen extends StatelessWidget {
@@ -9,7 +10,7 @@ class CompleteChallengeScreen extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 500,
+          height: Get.size.height * 0.8,
           child: ListView.separated(
               shrinkWrap: true,
               itemBuilder: (context, index) {

@@ -5,6 +5,8 @@ import 'package:godroad/view/page/screen/complete_challenge_screen.dart';
 import 'package:godroad/view/page/screen/incomplete_challenge_screen.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
 
+import '../../util/my_color.dart';
+
 class EndChallengePage extends GetView<ProfileController> {
   static String route = '/endchallenge';
   const EndChallengePage({super.key});
@@ -35,14 +37,14 @@ class EndChallengePage extends GetView<ProfileController> {
                 Container(
                   width: 410,
                   height: 5,
-                  color: Colors.grey.shade300,
+                  color: MyColor.lightgrey,
                 ),
                 Obx(() => Positioned(
                       left: controller.selectedIndex.value == 0 ? 0 : 205,
                       child: Container(
                         width: 205,
                         height: 5,
-                        color: Colors.grey,
+                        color: MyColor.primary,
                       ),
                     ))
               ]),
