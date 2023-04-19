@@ -78,7 +78,7 @@ class ChallengeUploadController extends GetxController {
 
   uploadChallenge() async {
     if (int.parse(
-            DateTime.now().difference(challEndDay.value).inDays.toString()) ==
+            DateTime.now().difference(challEndDay.value).inDays.toString()) >
         0) {
       Get.snackbar('업로드 실패', '챌린지 기간을 설정해주세요');
     } else if (mPicture.value == '') {

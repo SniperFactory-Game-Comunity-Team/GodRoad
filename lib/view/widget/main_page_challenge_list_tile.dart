@@ -86,19 +86,16 @@ class MainPageChallengeListTile extends GetView<CertificationController> {
             children: [
               Wrap(
                 children: challenge.keyword
-                    .map((e) => GestureDetector(
-                          onTap: () {},
-                          child: Chip(
-                            padding: EdgeInsets.zero,
-                            visualDensity: const VisualDensity(
-                                horizontal: 0.0, vertical: -4),
-                            backgroundColor: MyColor.lightgrey,
-                            label: Text(
-                              e,
-                              style: const TextStyle(fontSize: 10),
-                            ),
-                          ),
-                        ))
+                    .map((e) => Chip(
+                      padding: EdgeInsets.zero,
+                      visualDensity: const VisualDensity(
+                          horizontal: 0.0, vertical: -4),
+                      backgroundColor: MyColor.lightgrey,
+                      label: Text(
+                        e,
+                        style: const TextStyle(fontSize: 10),
+                      ),
+                    ))
                     .toList(),
               ),
               ElevatedButton(

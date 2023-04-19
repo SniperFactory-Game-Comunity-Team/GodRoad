@@ -59,6 +59,12 @@ class Challenge {
       'testimonyPicture': testimonyPicture,
       'testimonyContent': testimonyContent,
       'keyword': keyword,
+      'participationUserId': participationUserId,
+      'bookmarkUserId': bookmarkUserId,
+      'successUserId': successUserId,
+      'isApplyEnd': isApplyEnd,
+      'isEnd': isEnd,
+      'authenticationCount': authenticationCount,
       'bookmark': bookmark,
       'createAt': createAt,
       'applyStartDay': applyStartDay,
@@ -84,8 +90,8 @@ class Challenge {
       successUserId: List.from((map['successUserId'] as List)),
       isApplyEnd: map['isApplyEnd'] as bool,
       isEnd: map['isEnd'] as bool,
-      bookmark: map['bookmark'] as int,
       authenticationCount: map['authenticationCount'] as int,
+      bookmark: map['bookmark'] as int,
       createAt: DateTime.fromMicrosecondsSinceEpoch(
           map['createAt'].microsecondsSinceEpoch),
       applyStartDay: DateTime.fromMicrosecondsSinceEpoch(

@@ -92,8 +92,12 @@ class CertificationController extends GetxController {
   }
 
   updateCertification(Challenge challenge, int index) async {
-    if (cerImg.value == '') {
-      Get.snackbar('인증 실패', '인증사진을 올려주세요');
+    var chall = await Firebase.getChallenge.doc(challenge.id).get();
+    if(chall.data()!.isEnd){
+      Get.snackbar('종료된 챌린지', '종료된 챌린지는 인증을 할 수 없습니다');
+    }
+    else if (cerImg.value == '') {
+      Get.snackbar('인증 실패', '인증 사진을 올려주세요');
     } else {
       Firebase.colChall
           .doc(challenge.id)

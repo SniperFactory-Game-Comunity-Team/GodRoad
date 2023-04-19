@@ -5,6 +5,7 @@ import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/controller/certification_controller.dart';
 import 'package:godroad/controller/challenge_detail_controller.dart';
 import 'package:godroad/controller/challenge_upload_controller.dart';
+import 'package:godroad/controller/end_challenge_controller.dart';
 import 'package:godroad/controller/explanation_controller.dart';
 import 'package:godroad/controller/login_controller.dart';
 import 'package:godroad/controller/main_controller.dart';
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => UpdateChallengeDetailController(), fenix: true);
         Get.lazyPut(() => CertificationController(), fenix: true);
         Get.lazyPut(() => PermissionController(), fenix: true);
+        Get.lazyPut(() => EndChallengeController(), fenix: true);
       }),
       getPages: AppPages.pages,
       initialRoute: AppRoute.loading,
