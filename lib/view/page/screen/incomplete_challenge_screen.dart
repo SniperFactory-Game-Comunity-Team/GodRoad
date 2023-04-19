@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/end_challenge_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
-import 'package:godroad/view/widget/my_page_challenge_list_tile_incomplete.dart';
+import 'package:godroad/view/widget/my_page_challenge_list_tile_complete.dart';
 
 class InCompleteChallengeScreen extends GetView<EndChallengeController> {
   const InCompleteChallengeScreen({super.key});

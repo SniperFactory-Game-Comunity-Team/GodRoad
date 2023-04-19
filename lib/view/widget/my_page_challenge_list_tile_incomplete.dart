@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:godroad/model/challenge.dart';
+import 'package:get/get.dart';
 import 'package:godroad/util/my_color.dart';
-import 'package:godroad/view/widget/custom_button.dart';
 
 class MyPageChallengeIncompleteListTile extends StatelessWidget {
   const MyPageChallengeIncompleteListTile(
@@ -18,8 +18,8 @@ class MyPageChallengeIncompleteListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SizedBox(
-        width: 400,
-        height: 120,
+        width: Get.size.width,
+        height: Get.size.height * 0.14,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -28,36 +28,37 @@ class MyPageChallengeIncompleteListTile extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
-                  Text(
-                    '대학생 서포터즈 모집',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  SizedBox(
+                    child: Text(
+                      '대학생 서포터즈 모집',
+                      style: const TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.bold),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 8.0),
               child: Row(
-                children: const [
-                  Text(
-                    '총 인증 수 ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                  Text(
-                    '15',
-                    style: TextStyle(color: MyColor.primary2),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '부족한 인증 수 ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                  ),
-                  Text(
-                    '15',
-                    style: TextStyle(color: MyColor.primary2),
-                  ),
+                children: [
+                  const Text('총 인증 수', style: TextStyle(fontSize: 10)),
+                  const SizedBox(width: 3),
+                  const Text('15',
+                      style: TextStyle(
+                          fontSize: 10,
+                          height: 1.6,
+                          color: MyColor.primary2,
+                          fontWeight: FontWeight.bold)),
+                  const SizedBox(width: 8),
+                  const Text('부족한 인증 수', style: TextStyle(fontSize: 10)),
+                  const Text('15',
+                      style: TextStyle(
+                          fontSize: 10,
+                          height: 1.6,
+                          color: MyColor.primary2,
+                          fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
@@ -86,8 +87,22 @@ class MyPageChallengeIncompleteListTile extends StatelessWidget {
                     )),
                   ],
                 ),
-                CustomButton(
-                    text: buttontext, onPressedFunction: () {}, isEnabled: true)
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size.zero,
+                    padding: const EdgeInsets.only(
+                        left: 12, right: 12, top: 5, bottom: 5),
+                    backgroundColor: MyColor.primary2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    '기록보기',
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ),
               ],
             )
           ],

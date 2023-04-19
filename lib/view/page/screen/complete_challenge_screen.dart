@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:get/get.dart';
 import 'package:godroad/controller/end_challenge_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
+import 'package:get/get.dart';
 import 'package:godroad/view/widget/my_page_challenge_list_tile_complete.dart';
 
 class CompleteChallengeScreen extends GetView<EndChallengeController> {
@@ -12,6 +12,7 @@ class CompleteChallengeScreen extends GetView<EndChallengeController> {
 
   @override
   Widget build(BuildContext context) {
+
     return FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
         future: controller.readEndSuccessChallenge(),
         builder: (context, snapshot) {

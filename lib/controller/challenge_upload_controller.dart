@@ -13,6 +13,8 @@ import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../view/widget/custom_second_dialog.dart';
+
 class ChallengeUploadController extends GetxController {
   var auth = Get.find<AuthController>();
   var main = Get.find<MainController>();
@@ -149,14 +151,14 @@ class ChallengeUploadController extends GetxController {
         DateTime.now().day,
       );
       challFocusedDay.value = DateTime.now();
-      Get.dialog(CustomDialog(
+      Get.dialog(CustomSecondDialog(
         imageRoute:
             SvgPicture.asset('assets/dialogsvg/applicationchallenge.svg'),
         content: '챌린지 등록이 완료되었습니다!',
-        btn2fn: () {
+        btnfn: () {
           Get.toNamed(AppRoute.main);
         },
-        secondText: '확인',
+        dialogText: '확인',
       ));
       main.readChallenge();
       main.readMyChallenge();
