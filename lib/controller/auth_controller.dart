@@ -44,11 +44,9 @@ class AuthController extends GetxController {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        Get.dialog(LoginDialog(
-          content: '등록되지 않은 아이디입니다.',
-        ));
+        Get.dialog(const LoginDialog(content: '등록되지 않은 아이디입니다.'));
       } else if (e.code == 'wrong-password') {
-        Get.dialog(LoginDialog(content: '비밀번호가 옳지 않습니다.'));
+        Get.dialog(const LoginDialog(content: '비밀번호가 옳지 않습니다.'));
       } else {
         print(e.code);
       }

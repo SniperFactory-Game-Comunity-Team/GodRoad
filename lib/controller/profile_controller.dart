@@ -118,12 +118,14 @@ class ProfileController extends GetxController {
   //내가 참여중인 챌린지
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readmyChallenge() async {
     var challenge = await Firebase.getChallenge
+        .where('isEnd', isEqualTo: false)
         .where('participationUserId', arrayContainsAny: [auth.user!.uid])
         .orderBy('createAt', descending: true)
         .get();
     myChallenge(challenge.docs);
     return myChallenge.isNotEmpty ? myChallenge : null;
   }
+
   //내가 북마크한 챌린지 참여한 챌린지 제외
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readmyBookmark() async {
     var challenge = await Firebase.getChallenge

@@ -25,16 +25,17 @@ class MainController extends GetxController {
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readChallenge() async {
     var challenge = await Firebase.getChallenge
+        .where('isEnd', isEqualTo: false)
         .orderBy('bookmark', descending: true)
         .orderBy('createAt', descending: true)
         .get();
-
     challengeList(challenge.docs);
     return challengeList.isNotEmpty ? challengeList : null;
   }
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readMyChallenge() async {
     var challenge = await Firebase.getChallenge
+        .where('isEnd', isEqualTo: false)
         .where('keyword', arrayContainsAny: auth.userProfile!.keyword)
         .orderBy('bookmark', descending: true)
         .orderBy('createAt', descending: true)
@@ -56,6 +57,7 @@ class MainController extends GetxController {
   Future<RxList<QueryDocumentSnapshot<Challenge>>?>
       readKeywordChallenge() async {
     var challenge = await Firebase.getChallenge
+        .where('isEnd', isEqualTo: false)
         .where('keyword',
             arrayContainsAny:
                 keywords.isEmpty ? Keyword.keywords as List : keywords)
@@ -82,5 +84,24 @@ class MainController extends GetxController {
     isAttending
         ? Get.toNamed(AppRoute.attendchallengedetail, arguments: challenge)
         : Get.toNamed(AppRoute.challengedetail, arguments: challenge);
+  }
+
+  Future updateChallengeIsEnd() async {
+    var challenge = await Firebase.getChallenge.get();
+    for (var i = 0; i < challenge.docs.length; i++) {
+      Firebase.colChall.doc(challenge.docs[i].data().id).update({
+        'isEnd': int.parse(DateTime.now()
+                .difference(challenge.docs[i].data().applyEndDay)
+                .inDays
+                .toString()) ==
+            0
+      });
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    updateChallengeIsEnd();
   }
 }
