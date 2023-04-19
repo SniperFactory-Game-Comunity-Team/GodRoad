@@ -65,14 +65,22 @@ class UpdateChallengeDetailPage
                   child: Stack(
                     children: [
                       Obx(
-                        () => Image.network(
-                          controller.mainPic.value != ''
-                              ? controller.mainPic.value
-                              : 'https://picsum.photos/100/100',
-                          width: Get.width,
-                          height: 300,
-                          fit: BoxFit.cover,
-                        ),
+                        () => controller.mainPic.value != ''
+                            ? Image.network(
+                                controller.mainPic.value,
+                                width: Get.width,
+                                height: 300,
+                                fit: BoxFit.cover,
+                              )
+                            : CircleAvatar(
+                                radius: 55,
+                                backgroundColor: MyColor.lightgrey,
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.grey,
+                                  size: 80,
+                                ),
+                              ),
                       ),
                       Positioned(
                         top: 140,
