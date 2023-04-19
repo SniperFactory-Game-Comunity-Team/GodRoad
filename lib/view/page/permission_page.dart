@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../controller/permission_controller.dart';
 import '../../util/my_color.dart';
+import '../../util/routes.dart';
 
-class PermissionPage extends StatelessWidget {
+class PermissionPage extends GetView<PermissionController> {
   const PermissionPage({super.key});
   static String route = '/permission';
 
@@ -29,7 +32,7 @@ class PermissionPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: MyColor.primary2),
               ),
-              const SizedBox(height: 35),
+              const SizedBox(height: 60),
               Row(
                 children: const [
                   Text(
@@ -66,7 +69,10 @@ class PermissionPage extends StatelessWidget {
                 height: 200,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await controller.permission();
+                  Get.toNamed(AppRoute.explanation);
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: MyColor.primary2,
                     shape: RoundedRectangleBorder(
