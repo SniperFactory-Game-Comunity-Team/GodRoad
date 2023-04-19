@@ -5,45 +5,59 @@ import 'package:get/get.dart';
 import 'package:godroad/controller/end_challenge_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
-import 'package:godroad/view/widget/my_page_challenge_list_tile_complete.dart';
+import 'package:godroad/util/routes.dart';
+import 'package:godroad/view/widget/my_page_challenge_list_tile_incomplete.dart';
 
 class InCompleteChallengeScreen extends GetView<EndChallengeController> {
   const InCompleteChallengeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-      return FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
-        future: controller.readEndSuccessChallenge(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasData) {
-              return Obx(
-                () => ListView.separated(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return MyPageChallengeIncompleteListTile(
-                      buttontext: '기록보기',
-                      challenge: snapshot.data![index].data(),
-                      onPressed: () {},
-                    );
-                  },
-                  separatorBuilder: (context, index) => const Divider(
-                    indent: 20,
-                    endIndent: 20,
-                    thickness: 1,
+    return SizedBox(
+      width: Get.width,
+      height: Get.height * 0.7,
+      child: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
+          future: controller.readEndChallenge(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                return Obx(
+                  () => ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      if (!snapshot.data![index]
+                          .data()
+                          .successUserId
+                          .contains(controller.auth.user!.uid)) {
+                        return MyPageChallengeIncompleteListTile(
+                          buttontext: '기록보기',
+                          challenge: snapshot.data![index].data(),
+                          onPressed: () {
+                            Get.toNamed(AppRoute.attendchallengedetail,
+                                arguments: snapshot.data![index].data());
+                          },
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                    separatorBuilder: (context, index) => const Divider(
+                      indent: 20,
+                      endIndent: 20,
+                      thickness: 1,
+                    ),
                   ),
-                ),
+                );
+              }
+              return const Center(
+                child: Text('미완료된 챌린지가 없습니다'),
               );
             }
-            return const Center(
-              child: Text('성공한 챌린지가 없습니다'),
+            return const SpinKitFadingCircle(
+              color: MyColor.primary,
+              size: 30,
             );
-          }
-          return const SpinKitFadingCircle(
-            color: MyColor.primary,
-            size: 30,
-          );
-        });
+          }),
+    );
   }
 }
