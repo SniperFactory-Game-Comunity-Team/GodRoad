@@ -25,7 +25,7 @@ class MainController extends GetxController {
 
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readChallenge() async {
     var challenge = await Firebase.getChallenge
-        .where('isEnd', isEqualTo: false)
+        .where('isApplyEnd', isEqualTo: false)
         .orderBy('bookmark', descending: true)
         .orderBy('createAt', descending: true)
         .get();
@@ -57,7 +57,7 @@ class MainController extends GetxController {
   Future<RxList<QueryDocumentSnapshot<Challenge>>?>
       readKeywordChallenge() async {
     var challenge = await Firebase.getChallenge
-        .where('isEnd', isEqualTo: false)
+        .where('isApplyEnd', isEqualTo: false)
         .where('keyword',
             arrayContainsAny:
                 keywords.isEmpty ? Keyword.keywords as List : keywords)
@@ -90,8 +90,13 @@ class MainController extends GetxController {
     var challenge = await Firebase.getChallenge.get();
     for (var i = 0; i < challenge.docs.length; i++) {
       Firebase.colChall.doc(challenge.docs[i].data().id).update({
-        'isEnd': int.parse(DateTime.now()
+        'isApplyEnd': int.parse(DateTime.now()
                 .difference(challenge.docs[i].data().applyEndDay)
+                .inDays
+                .toString()) >
+            0,
+        'isEnd': int.parse(DateTime.now()
+                .difference(challenge.docs[i].data().endDay)
                 .inDays
                 .toString()) >
             0
