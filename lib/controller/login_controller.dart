@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
@@ -16,7 +15,7 @@ class LoginController extends GetxController {
   }
 
   emailLogin() {
-    Get.toNamed(AppRoute.loginDetail);
+    Get.offAndToNamed(AppRoute.loginDetail);
   }
 
   checkEmtpy() =>

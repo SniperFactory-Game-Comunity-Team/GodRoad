@@ -19,6 +19,7 @@ class MainPage extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
