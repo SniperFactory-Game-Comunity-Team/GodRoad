@@ -40,7 +40,8 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
                   content: '챌린지 참여 취소하시겠습니까?',
                   btn1fn: () {
                     controller.deleteAttendingChallenge(challenge);
-                    Get.toNamed(AppRoute.main);
+                    Get.back();
+                    Get.toNamed(AppRoute.challengedetail, arguments: challenge);
                   },
                   btn2fn: () {
                     Get.back();
