@@ -12,7 +12,6 @@ import 'package:godroad/model/service/firebase.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/login_dialog.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class AuthController extends GetxController {
   Rxn<Profile> _userProfile = Rxn<Profile>();
@@ -22,6 +21,8 @@ class AuthController extends GetxController {
   User? get user => _user.value;
 
   userDelete() async {
+    Get.find<LoginController>().formKey = GlobalKey<FormState>();
+    Get.find<SignUpController>().formKey = GlobalKey<FormState>();
     await user?.delete();
     Firebase.getUser.doc(_user.value!.uid).delete();
     var challenge = await Firebase.getChallenge.get();
@@ -32,15 +33,13 @@ class AuthController extends GetxController {
         'successUserId': FieldValue.arrayRemove([_user.value!.uid]),
       });
     }
-    Get.find<LoginController>().formKey = GlobalKey<FormState>();
-    Get.find<SignUpController>().formKey = GlobalKey<FormState>();
   }
 
   signOut() async {
-    await instance.signOut();
-    await GoogleSignIn().signOut();
     Get.find<LoginController>().formKey = GlobalKey<FormState>();
     Get.find<SignUpController>().formKey = GlobalKey<FormState>();
+    await instance.signOut();
+    await GoogleSignIn().signOut();
   }
 
   signUp(String email, String pw) {

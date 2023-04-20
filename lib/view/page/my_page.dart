@@ -22,7 +22,7 @@ class MyPage extends GetView<ProfileController> {
         title: const Text('마이페이지'),
         leading: IconButton(
           onPressed: () {
-            Get.toNamed(AppRoute.main);
+            Get.offAndToNamed(AppRoute.main);
           },
           icon: const Icon(Icons.navigate_before),
         ),

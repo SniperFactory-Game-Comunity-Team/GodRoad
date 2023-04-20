@@ -19,7 +19,7 @@ class LoginController extends GetxController {
   }
 
   checkEmtpy() =>
-      (formKey.currentState!=null && formKey.currentState!.validate()) ? islogin(true) : islogin(false);
+      (formKey.currentState!.validate()) ? islogin(true) : islogin(false);
 
   login() {
     if (formKey.currentState!.validate()) {

@@ -198,33 +198,34 @@ class MainPage extends GetView<MainController> {
                   height: 300,
                   color: MyColor.lightgrey,
                   child:
-                      FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
-                          future: controller.readMyChallenge(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              if (snapshot.hasData) {
-                                return Obx(
-                                  () => ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: snapshot.data!.length < 3
-                                          ? snapshot.data!.length
-                                          : 3,
-                                      itemBuilder: (context, index) {
-                                        return ForTile(
-                                          challenge:
-                                              snapshot.data![index].data(),
-                                        );
-                                      }),
-                                );
+                     Obx(
+                                  () => FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
+                            future: controller.readMyChallenge(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                if (snapshot.hasData) {
+                                  return ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: snapshot.data!.length < 3
+                                            ? snapshot.data!.length
+                                            : 3,
+                                        itemBuilder: (context, index) {
+                                          return ForTile(
+                                            challenge:
+                                                snapshot.data![index].data(),
+                                          );
+                                        }
+                                  );
+                                }
+                                return const Center(child: Text('추천 챌린지가 없습니다'));
                               }
-                              return const Center(child: Text('추천 챌린지가 없습니다'));
-                            }
-                            return const SpinKitFadingCircle(
-                              color: MyColor.primary,
-                              size: 30,
-                            );
-                          }),
+                              return const SpinKitFadingCircle(
+                                color: MyColor.primary,
+                                size: 30,
+                              );
+                            }),
+                      ),
                 ),
                 Container(
                   height: 60,
@@ -240,7 +241,10 @@ class MainPage extends GetView<MainController> {
                                 imageRoute: SvgPicture.asset(
                                     'assets/dialogsvg/logoutaccount.svg'),
                                 content: '로그아웃 하시겠습니까?',
-                                btn1fn: controller.auth.signOut,
+                                btn1fn: (){
+                                  Get.back();
+                                  controller.auth.signOut();
+                                },
                                 btn2fn: Get.back,
                                 firstText: '확인',
                                 secondText: '취소',
