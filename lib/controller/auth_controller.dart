@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -20,6 +21,14 @@ class AuthController extends GetxController {
   userDelete() async {
     await user?.delete();
     Firebase.getUser.doc(_user.value!.uid).delete();
+    var challenge = await Firebase.getChallenge.get();
+    for (var i = 0; i < challenge.docs.length; i++) {
+      Firebase.colChall.doc(challenge.docs[i].data().id).update({
+        'participationUserId': FieldValue.arrayRemove([_user.value!.uid]),
+        'bookmarkUserId': FieldValue.arrayRemove([_user.value!.uid]),
+        'successUserId': FieldValue.arrayRemove([_user.value!.uid]),
+      });
+    }
     Get.find<LoginController>().formKey = GlobalKey<FormState>();
     Get.find<SignUpController>().formKey = GlobalKey<FormState>();
   }

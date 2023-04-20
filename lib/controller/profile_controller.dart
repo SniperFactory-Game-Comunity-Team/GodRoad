@@ -47,8 +47,6 @@ class ProfileController extends GetxController {
       'nickname': nameController.text,
       'email': auth.user!.email,
       'profileUrl': profileUrl.value,
-      'myBookmark': [],
-      'myChallenge': [],
       'keyword': []
       //'createdAt': Timestamp.now()
     });

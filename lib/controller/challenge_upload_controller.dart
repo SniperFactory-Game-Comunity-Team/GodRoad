@@ -9,7 +9,6 @@ import 'package:godroad/controller/auth_controller.dart';
 import 'package:godroad/controller/main_controller.dart';
 import 'package:godroad/model/service/firebase.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

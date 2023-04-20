@@ -31,6 +31,26 @@ class UpdateChallengeDetailPage
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.dialog(CustomDialog(
+                  imageRoute:
+                      SvgPicture.asset('assets/dialogsvg/withdrawaccount.svg'),
+                  content: '챌린지를 삭제하시겠습니까?',
+                  btn1fn: () {
+                    controller.deleteChallenge(challenge);
+                    Get.toNamed(AppRoute.main);
+                  },
+                  btn2fn: () {
+                    Get.back();
+                  },
+                  firstText: '확인',
+                  secondText: '취소',
+                ));
+              },
+              icon: const Icon(Icons.more_vert))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -73,7 +93,7 @@ class UpdateChallengeDetailPage
                                 height: 300,
                                 fit: BoxFit.cover,
                               )
-                            : CircleAvatar(
+                            : const CircleAvatar(
                                 radius: 55,
                                 backgroundColor: MyColor.lightgrey,
                                 child: Icon(
@@ -189,7 +209,7 @@ class UpdateChallengeDetailPage
                                     snapshot.data!.value!.profileUrl.toString(),
                                   ),
                                 )
-                              : CircleAvatar(
+                              : const CircleAvatar(
                                   radius: 15,
                                   backgroundColor: MyColor.lightgrey,
                                   child: Icon(
