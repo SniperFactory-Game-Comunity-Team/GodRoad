@@ -29,7 +29,7 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
                     image: DecorationImage(
                       image: NetworkImage(challenge.mainPicture != ''
                           ? challenge.mainPicture
-                          : 'https://picsum.photos/150/150'),
+                          : 'https://picsum.photos/150/150'), fit: BoxFit.cover
                     ),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/challenge_detail_controller.dart';
 import 'package:godroad/model/challenge.dart';
@@ -7,6 +8,7 @@ import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/page/screen/challenge_%20certification_screen.dart';
 import 'package:godroad/view/page/screen/challenge_%20information_screen.dart';
+import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
 import 'package:intl/intl.dart';
 
@@ -29,6 +31,26 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.dialog(CustomDialog(
+                  imageRoute:
+                      SvgPicture.asset('assets/dialogsvg/withdrawaccount.svg'),
+                  content: '챌린지 참여 취소하시겠습니까?',
+                  btn1fn: () {
+                    controller.deleteAttendingChallenge(challenge);
+                    Get.toNamed(AppRoute.main);
+                  },
+                  btn2fn: () {
+                    Get.back();
+                  },
+                  firstText: '확인',
+                  secondText: '취소',
+                ));
+              },
+              icon: const Icon(Icons.more_vert))
+        ],
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),

@@ -16,6 +16,12 @@ class ChallengeDetailController extends GetxController {
   Rxn<Profile> profileBookmark = Rxn<Profile>();
   Rxn<Challenge> detailChallenge = Rxn<Challenge>();
 
+  deleteAttendingChallenge(Challenge challenge) {
+    Firebase.colChall.doc(challenge.id).update({
+      'participationUserId': FieldValue.arrayRemove([auth.user!.uid])
+    });
+  }
+
   Future<Rxn<Profile>> readUploader(Challenge challenge) async {
     var profile = await Firebase.getUser.doc(challenge.userId).get();
     uploader(profile.data());
