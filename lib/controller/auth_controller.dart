@@ -12,6 +12,7 @@ import 'package:godroad/model/service/firebase.dart';
 import 'package:godroad/util/routes.dart';
 import 'package:godroad/view/widget/login_dialog.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AuthController extends GetxController {
   Rxn<Profile> _userProfile = Rxn<Profile>();
@@ -100,7 +101,7 @@ class AuthController extends GetxController {
       if (value != null) {
         getProfile();
       } else {
-        Get.toNamed(AppRoute.permission);
+        Get.offAllNamed(AppRoute.loginDetail);
       }
     });
   }

@@ -17,6 +17,7 @@ class LoginDetailPage extends GetView<LoginController> {
       onChanged: () => controller.checkEmtpy(),
       key: controller.formKey,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {

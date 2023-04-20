@@ -30,6 +30,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(PermissionController());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      PermissionController.to.permissionCheck();
+    });
     return GetMaterialApp(
       theme: ThemeData(
         fontFamily: 'neo',
@@ -46,7 +50,6 @@ class MyApp extends StatelessWidget {
         Get.lazyPut(() => ChallengeDetailController(), fenix: true);
         Get.lazyPut(() => UpdateChallengeDetailController(), fenix: true);
         Get.lazyPut(() => CertificationController(), fenix: true);
-        Get.lazyPut(() => PermissionController(), fenix: true);
         Get.lazyPut(() => EndChallengeController(), fenix: true);
       }),
       getPages: AppPages.pages,

@@ -12,6 +12,7 @@ class ExplanationPage extends GetView<ExplanationController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
+          resizeToAvoidBottomInset: false,
           body: Center(
             child: SizedBox(
               height: 600,
