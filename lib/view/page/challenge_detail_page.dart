@@ -6,7 +6,6 @@ import 'package:godroad/model/challenge.dart';
 import 'package:godroad/model/profile.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/widget/custom_dialog.dart';
 import 'package:godroad/view/widget/custom_second_button.dart';
 import 'package:godroad/view/widget/custom_second_dialog.dart';
 import 'package:intl/intl.dart';
