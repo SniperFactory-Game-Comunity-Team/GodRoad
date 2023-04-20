@@ -161,8 +161,9 @@ class EditProfilePage extends GetView<ProfileController> {
                             Get.dialog(CustomDialog(
                               content: '프로필을 수정하시겠습니까?',
                               btn1fn: () {
+                                Get.back();
                                 controller.updateProfile();
-                                Get.offAndToNamed(AppRoute.my);
+                                Get.offAndToNamed(AppRoute.main);
                               },
                               btn2fn: () {
                                 Get.back();

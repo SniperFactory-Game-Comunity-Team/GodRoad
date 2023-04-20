@@ -59,10 +59,12 @@ class MyPage extends GetView<ProfileController> {
                     const SizedBox(
                       height: 8,
                     ),
-                    Text(
-                      controller.auth.userProfile!.nickname!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    Obx(
+                      () => Text(
+                        controller.auth.userProfile!.nickname!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Text(
