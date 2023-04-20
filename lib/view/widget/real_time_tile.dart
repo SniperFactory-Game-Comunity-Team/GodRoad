@@ -31,6 +31,7 @@ class RealTimeTile extends GetView<MainController> {
                         image: NetworkImage(challenge.mainPicture != ''
                             ? challenge.mainPicture
                             : 'https://picsum.photos/100/100'),
+                        fit: BoxFit.cover,
                         width: 100,
                         height: 100,
                       )),
@@ -65,13 +66,17 @@ class RealTimeTile extends GetView<MainController> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Wrap(
-                          children: challenge.keyword
-                              .map((e) => Text(
-                                    e,
-                                    style: const TextStyle(fontSize: 12),
-                                  ))
-                              .toList(),
+                        SizedBox(
+                          width: Get.width * 0.3,
+                          child: Wrap(
+                            children: challenge.keyword
+                                .map((e) => Text(
+                                      e,
+                                      style: const TextStyle(fontSize: 12),
+                                      overflow: TextOverflow.ellipsis,
+                                    ))
+                                .toList(),
+                          ),
                         ),
                       ],
                     ), //타이틀과 설명을 묶어주는 컴럼

@@ -29,8 +29,9 @@ class ChallengeDetailController extends GetxController {
   }
 
   Future<RxBool> readBookmark(Challenge challenge) async {
-    var profile = await Firebase.getUser.doc(auth.user!.uid).get();
-    isBookmark(profile.data()!.myBookmark.contains(challenge.id));
+    var chall = await Firebase.getChallenge.doc(challenge.id).get();
+    chall.data()!.bookmarkUserId.contains(auth.user!.uid);
+    isBookmark(chall.data()!.bookmarkUserId.contains(auth.user!.uid));
     return isBookmark;
   }
 
@@ -41,16 +42,10 @@ class ChallengeDetailController extends GetxController {
         'bookmark': FieldValue.increment(1),
         'bookmarkUserId': FieldValue.arrayUnion([auth.user!.uid])
       });
-      await Firebase.colUser.doc(auth.user!.uid).update({
-        'myBookmark': FieldValue.arrayUnion([challengeId])
-      });
     } else {
       await Firebase.colChall.doc(challengeId).update({
         'bookmark': FieldValue.increment(-1),
         'bookmarkUserId': FieldValue.arrayRemove([auth.user!.uid])
-      });
-      await Firebase.colUser.doc(auth.user!.uid).update({
-        'myBookmark': FieldValue.arrayRemove([challengeId])
       });
     }
   }
@@ -62,16 +57,10 @@ class ChallengeDetailController extends GetxController {
         'participationUserId': FieldValue.arrayUnion([auth.user!.uid]),
         'bookmarkUserId': FieldValue.arrayRemove([auth.user!.uid])
       });
-      await Firebase.colUser.doc(auth.user!.uid).update({
-        'myChallenge': FieldValue.arrayUnion([challenge.id])
-      });
       cer.setCertification(challenge);
     } else {
       await Firebase.colChall.doc(challenge.id).update({
         'participationUserId': FieldValue.arrayRemove([auth.user!.uid])
-      });
-      await Firebase.colUser.doc(auth.user!.uid).update({
-        'myChallenge': FieldValue.arrayRemove([challenge.id])
       });
     }
   }
