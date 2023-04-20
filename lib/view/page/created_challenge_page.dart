@@ -22,7 +22,7 @@ class CreatedChallengePage extends GetView<ProfileController> {
           title: const Text('내가 올린 게시물'),
           leading: IconButton(
               onPressed: () {
-                Get.toNamed(AppRoute.my);
+                Get.offAndToNamed(AppRoute.my);
               },
               icon: const Icon(Icons.arrow_back)),
         ),

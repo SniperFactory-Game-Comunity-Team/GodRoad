@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +59,7 @@ class AuthController extends GetxController {
       } else if (e.code == 'wrong-password') {
         Get.dialog(const LoginDialog(content: '비밀번호가 옳지 않습니다.'));
       } else {
-        print(e.code);
+        log(e.code);
       }
     }
   }

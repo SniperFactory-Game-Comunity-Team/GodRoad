@@ -40,7 +40,7 @@ class UpdateChallengeDetailPage
                   content: '챌린지를 삭제하시겠습니까?',
                   btn1fn: () {
                     controller.deleteChallenge(challenge);
-                    Get.toNamed(AppRoute.main);
+                    Get.offAndToNamed(AppRoute.main);
                   },
                   btn2fn: () {
                     Get.back();
@@ -383,7 +383,8 @@ class UpdateChallengeDetailPage
                                   'assets/dialogsvg/modifycancel.svg'),
                               content: '게시글 수정을\n취소하시겠습니까?',
                               btn1fn: () {
-                                Get.toNamed(AppRoute.createdChallenge);
+                                Get.back();
+                                Get.offAndToNamed(AppRoute.createdChallenge);
                               },
                               btn2fn: () {
                                 Get.back();
@@ -407,13 +408,13 @@ class UpdateChallengeDetailPage
                         onPressed: () {
                           controller.updateChallenge(challenge);
                           controller.profile.readCreatedChallenge();
-
                           Get.dialog(CustomSecondDialog(
                             imageRoute: SvgPicture.asset(
                                 'assets/dialogsvg/modifychallenge.svg'),
                             content: '수정이 완료되었습니다!',
                             btnfn: () {
-                              Get.toNamed(AppRoute.createdChallenge);
+                              Get.back();
+                              Get.offAndToNamed(AppRoute.createdChallenge);
                             },
                             dialogText: '확인',
                           ));

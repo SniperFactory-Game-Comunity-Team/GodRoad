@@ -36,7 +36,7 @@ class SignUpCompletePage extends GetView<ProfileController> {
             onPressed: () async {
               await controller.setProfile();
               await controller.userKeywordUpload();
-              Get.toNamed(AppRoute.main);
+              Get.offAndToNamed(AppRoute.main);
             },
             label: const Text('시작하기'),
           ),

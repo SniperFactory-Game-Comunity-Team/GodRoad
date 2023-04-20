@@ -134,7 +134,7 @@ class ProfilePage extends GetView<ProfileController> {
                   child: CustomButton(
                       text: '확인',
                       onPressedFunction: () {
-                        Get.toNamed(AppRoute.keywordSelect);
+                        Get.offAndToNamed(AppRoute.keywordSelect);
                       },
                       isEnabled: controller.isUniqueName.value),
                 ),
