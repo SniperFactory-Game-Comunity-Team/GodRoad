@@ -16,11 +16,11 @@ class LoginController extends GetxController {
   }
 
   emailLogin() {
-    Get.toNamed(AppRoute.loginDetail);
+    Get.offAndToNamed(AppRoute.loginDetail);
   }
 
   checkEmtpy() =>
-      (formKey.currentState!.validate()) ? islogin(true) : islogin(false);
+      (formKey.currentState!=null && formKey.currentState!.validate()) ? islogin(true) : islogin(false);
 
   login() {
     if (formKey.currentState!.validate()) {

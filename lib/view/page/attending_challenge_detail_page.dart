@@ -41,7 +41,7 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
                   btn1fn: () {
                     controller.deleteAttendingChallenge(challenge);
                     Get.back();
-                    Get.toNamed(AppRoute.challengedetail, arguments: challenge);
+                    Get.offAndToNamed(AppRoute.challengedetail, arguments: challenge);
                   },
                   btn2fn: () {
                     Get.back();

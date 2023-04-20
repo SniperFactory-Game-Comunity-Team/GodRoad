@@ -7,14 +7,10 @@ import 'package:godroad/util/keyword.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/view/widget/calendar.dart';
 import 'package:godroad/view/widget/custom_button.dart';
-import 'package:godroad/view/widget/custom_dialog.dart';
-import 'package:godroad/view/widget/custom_second_dialog.dart';
 import 'package:godroad/view/widget/keyword_chip.dart';
 import 'package:godroad/view/widget/my_bottom_sheet.dart';
 import 'package:godroad/view/widget/page_view_bar.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../util/routes.dart';
 
 class ChallengeUploadPage extends GetView<ChallengeUploadController> {
   const ChallengeUploadPage({super.key});

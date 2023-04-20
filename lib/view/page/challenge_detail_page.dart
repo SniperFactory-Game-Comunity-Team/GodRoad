@@ -293,7 +293,9 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                                   'assets/dialogsvg/applychallenge.svg'),
                               content: '챌린지 신청이 완료되었습니다!',
                               btnfn: () {
-                                Get.toNamed(AppRoute.attendchallengedetail,
+                                Get.back();
+                                Get.offAndToNamed(
+                                    AppRoute.attendchallengedetail,
                                     arguments: challenge);
                               },
                               dialogText: '확인',

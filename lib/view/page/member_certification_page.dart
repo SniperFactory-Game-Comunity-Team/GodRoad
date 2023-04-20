@@ -26,7 +26,7 @@ class MemberCertificationPage extends GetView<CertificationController> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Get.toNamed(AppRoute.main);
+            Get.offAndToNamed(AppRoute.main);
           },
           icon: const Icon(Icons.navigate_before),
         ),

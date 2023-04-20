@@ -27,10 +27,8 @@ class MainPageMyChallnegeTile extends GetView<CertificationController> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                      image: NetworkImage(challenge.mainPicture != ''
-                          ? challenge.mainPicture
-                          : 'https://picsum.photos/150/150'), fit: BoxFit.cover
-                    ),
+                        image: NetworkImage(challenge.mainPicture),
+                        fit: BoxFit.cover),
                   ),
                 ),
                 Positioned(

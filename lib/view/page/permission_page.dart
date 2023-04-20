@@ -71,7 +71,7 @@ class PermissionPage extends GetView<PermissionController> {
               ElevatedButton(
                 onPressed: () async {
                   await controller.permission();
-                  Get.toNamed(AppRoute.explanation);
+                  Get.offAndToNamed(AppRoute.explanation);
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: MyColor.primary2,

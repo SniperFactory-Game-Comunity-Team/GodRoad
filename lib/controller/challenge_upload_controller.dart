@@ -155,7 +155,8 @@ class ChallengeUploadController extends GetxController {
             SvgPicture.asset('assets/dialogsvg/applicationchallenge.svg'),
         content: '챌린지 등록이 완료되었습니다!',
         btnfn: () {
-          Get.toNamed(AppRoute.main);
+          Get.back();
+          Get.offAndToNamed(AppRoute.main);
         },
         dialogText: '확인',
       ));

@@ -93,10 +93,9 @@ class CertificationController extends GetxController {
 
   updateCertification(Challenge challenge, int index) async {
     var chall = await Firebase.getChallenge.doc(challenge.id).get();
-    if(chall.data()!.isEnd){
+    if (chall.data()!.isEnd) {
       Get.snackbar('종료된 챌린지', '종료된 챌린지는 인증을 할 수 없습니다');
-    }
-    else if (cerImg.value == '') {
+    } else if (cerImg.value == '') {
       Get.snackbar('인증 실패', '인증 사진을 올려주세요');
     } else {
       Firebase.colChall
@@ -135,7 +134,7 @@ class CertificationController extends GetxController {
           btnfn: () {
             cerImg.value = '';
             contentController.text = '';
-            Get.toNamed(AppRoute.main);
+            Get.offAndToNamed(AppRoute.main);
           },
           dialogText: '확인',
         ));
@@ -145,7 +144,7 @@ class CertificationController extends GetxController {
               SvgPicture.asset('assets/dialogsvg/certificationcomplete.svg'),
           content: '인증이 완료되었습니다!',
           btnfn: () {
-            Get.toNamed(AppRoute.main);
+            Get.offAndToNamed(AppRoute.main);
             cerImg.value = '';
             contentController.text = '';
           },
@@ -187,15 +186,17 @@ class CertificationController extends GetxController {
   // 챌린지에 참여한 유저 리스트
   Future<RxList<Map<String, dynamic>>> readCurrentChallParticipationUser(
       Challenge challenge) async {
-    memberDetail.clear();
     var curChallParUser = await Firebase.getChallenge.doc(challenge.id).get();
     List userIdList = curChallParUser.data()!.participationUserId;
-    for (var i = 0; i < userIdList.length; i++) {
+    memberDetail.clear();
+    var i = 0;
+    await Future.forEach(userIdList, (element) async {
       memberDetail.add({});
       var profile = await Firebase.getUser.doc(userIdList[i]).get();
       memberDetail[i]['cer'] = userIdList[i];
       memberDetail[i]['profile'] = profile.data();
-    }
+      i++;
+    });
     return memberDetail;
   }
 

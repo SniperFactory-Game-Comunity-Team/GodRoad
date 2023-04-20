@@ -76,7 +76,7 @@ class KeywordUpdatePage extends GetView<ProfileController> {
                   ElevatedButton(
                     onPressed: () {
                       controller.userKeywordUpload();
-                      Get.toNamed(AppRoute.my);
+                      Get.offAndToNamed(AppRoute.my);
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.only(
