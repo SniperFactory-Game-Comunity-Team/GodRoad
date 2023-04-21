@@ -12,22 +12,13 @@ class SignupPage extends GetView<SignUpController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 15,
-          ),
-        ),
         title: const Text(
           '회원가입',
           style: TextStyle(
               color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
         ),
         elevation: 0,
+        foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
       ),
       body: Form(

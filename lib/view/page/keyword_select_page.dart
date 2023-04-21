@@ -57,7 +57,7 @@ class KeywordSelectPage extends GetView<ProfileController> {
             backgroundColor: MyColor.primary2,
             elevation: 0,
             onPressed: () {
-              Get.offAndToNamed(AppRoute.signupComplete);
+              Get.toNamed(AppRoute.signupComplete);
             },
             label: const Text('선택완료')),
       ),
