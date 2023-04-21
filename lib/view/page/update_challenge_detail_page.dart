@@ -39,6 +39,7 @@ class UpdateChallengeDetailPage
                       SvgPicture.asset('assets/dialogsvg/withdrawaccount.svg'),
                   content: '챌린지를 삭제하시겠습니까?',
                   btn1fn: () {
+                    Get.back();
                     controller.deleteChallenge(challenge);
                     Get.offAndToNamed(AppRoute.main);
                   },

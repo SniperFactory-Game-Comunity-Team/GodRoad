@@ -20,6 +20,11 @@ class MyPage extends GetView<ProfileController> {
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         title: const Text('마이페이지'),
+        leading: IconButton(
+            onPressed: () {
+              Get.offAndToNamed(AppRoute.main);
+            },
+            icon: const Icon(Icons.navigate_before)),
       ),
       body: SafeArea(
           child: SizedBox(
