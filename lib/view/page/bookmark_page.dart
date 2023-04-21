@@ -6,7 +6,7 @@ import 'package:godroad/controller/profile_controller.dart';
 import 'package:godroad/model/challenge.dart';
 import 'package:godroad/util/my_color.dart';
 import 'package:godroad/util/routes.dart';
-import 'package:godroad/view/widget/main_page_challenge_list_tile.dart';
+import 'package:godroad/view/widget/bookmark_tile.dart';
 
 class BookmarkPage extends GetView<ProfileController> {
   const BookmarkPage({super.key});
@@ -32,7 +32,7 @@ class BookmarkPage extends GetView<ProfileController> {
                         physics: const BouncingScrollPhysics(),
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
-                          return MainPageChallengeListTile(
+                          return BookmarkTile(
                             buttontext: '참여하기',
                             challenge: snapshot.data![index].data(),
                             onPressed: () {
