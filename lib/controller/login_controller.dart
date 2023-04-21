@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/auth_controller.dart';
-import 'package:godroad/util/routes.dart';
 
 class LoginController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -12,10 +11,6 @@ class LoginController extends GetxController {
 
   gooleLogin() {
     auth.signInWithGoogle();
-  }
-
-  emailLogin() {
-    Get.offAndToNamed(AppRoute.loginDetail);
   }
 
   checkEmtpy() =>

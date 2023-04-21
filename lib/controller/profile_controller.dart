@@ -48,7 +48,6 @@ class ProfileController extends GetxController {
       'email': auth.user!.email,
       'profileUrl': profileUrl.value,
       'keyword': []
-      //'createdAt': Timestamp.now()
     });
   }
 

@@ -41,7 +41,6 @@ class ChallengeDetailController extends GetxController {
     return isBookmark;
   }
 
-  //북마크
   bookMarkCheck(String challengeId) async {
     if (isBookmark.value) {
       await Firebase.colChall.doc(challengeId).update({
@@ -56,7 +55,6 @@ class ChallengeDetailController extends GetxController {
     }
   }
 
-  //챌린지 신청
   applyChallenge(Challenge challenge) async {
     if (isApply.value) {
       await Firebase.colChall.doc(challenge.id).update({
