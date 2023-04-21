@@ -20,6 +20,11 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.offAndToNamed(AppRoute.main);
+            },
+            icon: const Icon(Icons.navigate_before)),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
@@ -286,7 +291,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                       CustomSecondButton(
                           text: '참여하기',
                           onPressedFunction: () {
-                            controller.isApply(!controller.isApply.value);
+                            controller.isApply(true);
                             controller.applyChallenge(challenge);
                             Get.dialog(CustomSecondDialog(
                               imageRoute: SvgPicture.asset(
@@ -294,8 +299,7 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                               content: '챌린지 신청이 완료되었습니다!',
                               btnfn: () {
                                 Get.back();
-                                Get.offAndToNamed(
-                                    AppRoute.attendchallengedetail,
+                                Get.toNamed(AppRoute.attendchallengedetail,
                                     arguments: challenge);
                               },
                               dialogText: '확인',

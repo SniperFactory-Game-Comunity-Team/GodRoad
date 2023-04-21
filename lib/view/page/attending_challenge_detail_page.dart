@@ -22,6 +22,11 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Get.offAndToNamed(AppRoute.main);
+            },
+            icon: const Icon(Icons.navigate_before)),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
@@ -35,7 +40,7 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
                   btn1fn: () {
                     controller.deleteAttendingChallenge(challenge);
                     Get.back();
-                    Get.offAndToNamed(AppRoute.challengedetail, arguments: challenge);
+                    Get.offAndToNamed(AppRoute.main);
                   },
                   btn2fn: () {
                     Get.back();
