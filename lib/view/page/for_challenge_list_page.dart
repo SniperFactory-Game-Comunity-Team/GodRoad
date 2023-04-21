@@ -53,20 +53,19 @@ class ForChallengeListPage extends GetView<MainController> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Obx(
-                        () => ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data!.length,
-                            itemBuilder: (context, index) {
-                              return ForTile(
-                                challenge: snapshot.data![index].data(),
-                              );
-                            }),
-                      ),
-                    ],
+                  return SizedBox(
+                    height: Get.height * 0.9,
+                    child: Obx(
+                      () => ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            return ForTile(
+                              challenge: snapshot.data![index].data(),
+                            );
+                          }),
+                    ),
                   );
                 }
                 return const Center(child: Text('추천 챌린지가 없습니다'));
