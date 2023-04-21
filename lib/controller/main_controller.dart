@@ -36,7 +36,10 @@ class MainController extends GetxController {
   Future<RxList<QueryDocumentSnapshot<Challenge>>?> readMyChallenge() async {
     var challenge = await Firebase.getChallenge
         .where('isEnd', isEqualTo: false)
-        .where('keyword', arrayContainsAny: auth.userProfile!.keyword)
+        .where('keyword',
+            arrayContainsAny: auth.userProfile!.keyword.isNotEmpty
+                ? auth.userProfile!.keyword
+                : Keyword.keywords)
         .orderBy('bookmark', descending: true)
         .orderBy('createAt', descending: true)
         .get();

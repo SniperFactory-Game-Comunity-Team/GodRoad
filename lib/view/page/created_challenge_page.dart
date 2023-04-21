@@ -20,11 +20,6 @@ class CreatedChallengePage extends GetView<ProfileController> {
           foregroundColor: Colors.black,
           elevation: 0,
           title: const Text('내가 올린 게시물'),
-          leading: IconButton(
-              onPressed: () {
-                Get.offAndToNamed(AppRoute.my);
-              },
-              icon: const Icon(Icons.arrow_back)),
         ),
         body: FutureBuilder<RxList<QueryDocumentSnapshot<Challenge>>?>(
             future: controller.readCreatedChallenge(),

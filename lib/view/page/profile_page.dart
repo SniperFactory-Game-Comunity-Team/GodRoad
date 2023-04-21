@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/profile_controller.dart';
@@ -18,16 +19,14 @@ class ProfilePage extends GetView<ProfileController> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 15,
-          ),
-        ),
+        leading: Container(
+            margin: const EdgeInsets.only(left: 20),
+            child: SvgPicture.asset(
+              'assets/logo.svg',
+              width: 100,
+              height: 100,
+            ),
+          ), //,
         title: const Text(
           '닉네임 설정',
           style: TextStyle(color: Colors.black),
@@ -134,7 +133,7 @@ class ProfilePage extends GetView<ProfileController> {
                   child: CustomButton(
                       text: '확인',
                       onPressedFunction: () {
-                        Get.offAndToNamed(AppRoute.keywordSelect);
+                        Get.toNamed(AppRoute.keywordSelect);
                       },
                       isEnabled: controller.isUniqueName.value),
                 ),
