@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:godroad/controller/login_controller.dart';
 import 'package:godroad/util/my_color.dart';
@@ -19,12 +20,14 @@ class LoginDetailPage extends GetView<LoginController> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(Icons.arrow_back, color: Colors.black, size: 15),
-          ),
+          leading:Container(
+            margin: const EdgeInsets.only(left: 20),
+            child: SvgPicture.asset(
+              'assets/logo.svg',
+              width: 100,
+              height: 100,
+            ),
+          ), //로고
           title: const Text(
             '로그인',
             style: TextStyle(

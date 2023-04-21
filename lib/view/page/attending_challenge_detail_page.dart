@@ -22,12 +22,6 @@ class AttendingChallengeDetailPage extends GetView<ChallengeDetailController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Get.toNamed(AppRoute.main);
-          },
-          icon: const Icon(Icons.navigate_before),
-        ),
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,

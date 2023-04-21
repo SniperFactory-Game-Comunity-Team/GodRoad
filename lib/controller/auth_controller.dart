@@ -24,7 +24,7 @@ class AuthController extends GetxController {
     Get.find<LoginController>().formKey = GlobalKey<FormState>();
     Get.find<SignUpController>().formKey = GlobalKey<FormState>();
     await user?.delete();
-    Firebase.getUser.doc(_user.value!.uid).delete();
+    await Firebase.getUser.doc(_user.value!.uid).delete();
     var challenge = await Firebase.getChallenge.get();
     for (var i = 0; i < challenge.docs.length; i++) {
       Firebase.colChall.doc(challenge.docs[i].data().id).update({

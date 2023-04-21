@@ -59,9 +59,7 @@ class ForChallengeListPage extends GetView<MainController> {
                       Obx(
                         () => ListView.builder(
                             shrinkWrap: true,
-                            itemCount: snapshot.data!.length < 3
-                                ? snapshot.data!.length
-                                : 3,
+                            itemCount: snapshot.data!.length,
                             itemBuilder: (context, index) {
                               return ForTile(
                                 challenge: snapshot.data![index].data(),
