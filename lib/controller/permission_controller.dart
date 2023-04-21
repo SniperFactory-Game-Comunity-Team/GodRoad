@@ -22,5 +22,6 @@ class PermissionController extends GetxController {
         await Permission.photos.status == PermissionStatus.granted) {
       Get.offAndToNamed(AppRoute.explanation);
     }
+    Get.offAllNamed(AppRoute.permission);
   }
 }
