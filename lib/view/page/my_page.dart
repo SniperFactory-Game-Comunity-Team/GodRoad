@@ -22,7 +22,7 @@ class MyPage extends GetView<ProfileController> {
         title: const Text('마이페이지'),
         leading: IconButton(
           onPressed: () {
-            Get.toNamed(AppRoute.main);
+            Get.offAndToNamed(AppRoute.main);
           },
           icon: const Icon(Icons.navigate_before),
         ),
@@ -59,10 +59,12 @@ class MyPage extends GetView<ProfileController> {
                     const SizedBox(
                       height: 8,
                     ),
-                    Text(
-                      controller.auth.userProfile!.nickname!,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                    Obx(
+                      () => Text(
+                        controller.auth.userProfile!.nickname!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Text(
