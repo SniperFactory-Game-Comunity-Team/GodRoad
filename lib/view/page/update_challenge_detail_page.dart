@@ -166,9 +166,6 @@ class UpdateChallengeDetailPage
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 60,
-                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [

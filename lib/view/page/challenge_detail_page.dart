@@ -74,9 +74,6 @@ class ChallengeDetailPage extends GetView<ChallengeDetailController> {
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      width: 60,
-                    ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
