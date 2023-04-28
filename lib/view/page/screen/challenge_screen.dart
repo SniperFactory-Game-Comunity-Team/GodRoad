@@ -82,80 +82,82 @@ class ChallengeScreen extends GetView<MainController> {
                   fontSize: 18,
                 ),
               ),
-              const SizedBox(
-                width: 44,
-              ),
-              TextButton(
-                onPressed: () {
-                  Get.bottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        topLeft: Radius.circular(20),
-                      ),
-                    ),
-                    backgroundColor: Colors.white,
-                    clipBehavior: Clip.hardEdge,
-                    SizedBox(
-                      height: 270,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              '키워드 선택',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Get.bottomSheet(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(20),
+                            topLeft: Radius.circular(20),
                           ),
-                          KeywordChip(
-                            keyword: Keyword.keywords,
-                            onTap: controller.selectKeyword,
-                            isSelected: controller.isSelected,
-                            unSelectedBackgroundColor: MyColor.lightgrey,
-                            unSelectedTextColor: Colors.black54,
+                        ),
+                        backgroundColor: Colors.white,
+                        clipBehavior: Clip.hardEdge,
+                        SizedBox(
+                          height: 270,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  '키워드 선택',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              KeywordChip(
+                                keyword: Keyword.keywords,
+                                onTap: controller.selectKeyword,
+                                isSelected: controller.isSelected,
+                                unSelectedBackgroundColor: MyColor.lightgrey,
+                                unSelectedTextColor: Colors.black54,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomSecondButton(
+                                    text: '키워드별 챌린지 검색',
+                                    onPressedFunction: () {
+                                      controller.readKeywordChallenge();
+                                      Get.back();
+                                    },
+                                    backgroundColor: MyColor.primary2,
+                                    borderColor: Colors.transparent,
+                                    textStyle: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                    left: 35,
+                                    right: 35,
+                                    top: 12,
+                                    bottom: 12,
+                                    borderCircular: 20),
+                              )
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomSecondButton(
-                                text: '키워드별 챌린지 검색',
-                                onPressedFunction: () {
-                                  controller.readKeywordChallenge();
-                                  Get.back();
-                                },
-                                backgroundColor: MyColor.primary2,
-                                borderColor: Colors.transparent,
-                                textStyle: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                                left: 35,
-                                right: 35,
-                                top: 12,
-                                bottom: 12,
-                                borderCircular: 20),
-                          )
-                        ],
-                      ),
+                        ),
+                      );
+                    },
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(MyColor.primary2),
                     ),
-                  );
-                },
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(MyColor.primary2),
-                ),
-                child: const Text('키워드 선택'),
+                    child: const Text('키워드 선택'),
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black54),
+                    ),
+                    onPressed: () {
+                      Get.toNamed(AppRoute.realtimechallengelist);
+                    },
+                    child: const Text('모두보기'),
+                  )
+                ],
               ),
-              TextButton(
-                style: ButtonStyle(
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black54),
-                ),
-                onPressed: () {
-                  Get.toNamed(AppRoute.realtimechallengelist);
-                },
-                child: const Text('모두보기'),
-              )
             ],
           ),
         ),
